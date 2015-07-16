@@ -76,7 +76,7 @@ namespace SyncManager
             }
             else if (channel == 5)
             {
-                lowUpSyncChk.Visible = false;
+                lowDownSyncChk.Visible = false;
                 loDnSyncTime.Visible = false;
             }
 

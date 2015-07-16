@@ -112,21 +112,35 @@ namespace SyncManager
             string argStr;
             ProgressVals progVals = new ProgressVals();
             BackgroundWorker worker = (BackgroundWorker)sender;
-            int i = 0;
-            int a = i;
+            int topBound = numComps;
+            int botBound = 0;
             CheckBox shouldSync;
             if (channel == 0)
                 shouldSync = upChk;
             else if (channel == 1)
                 shouldSync = downChk;
             else if (channel == 2)
+            {
                 shouldSync = hiUpChk;
+                topBound = lowTopBound - lowBottomBound;
+            }
             else if (channel == 3)
+            {
                 shouldSync = hiDnChk;
+                topBound = lowTopBound - lowBottomBound;
+            }
             else if (channel == 4)
+            {
                 shouldSync = loUpChk;
+                botBound = highBottomBound - lowBottomBound;
+            }
             else
+            {
                 shouldSync = loDnChk;
+                botBound = highBottomBound - lowBottomBound;
+            }
+            int i = botBound;
+            int a = i;
             while (true)
             {
                 while (shouldSync.Checked)
@@ -148,7 +162,8 @@ namespace SyncManager
                         progVals.curComp = i;
                         worker.ReportProgress(0, progVals);
                     }
-                    i = ++i % numComps;
+                    
+                    i = ++i % topBound;
                 }
                 if(!upChk.Checked)
                     Thread.Sleep(100);
