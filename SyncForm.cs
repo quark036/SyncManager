@@ -74,6 +74,16 @@ namespace SyncManager
                 clientComps[i] = cc;
                 cc.setIP(lowBottomBound + i);
                 compPanel.Controls.Add(cc);
+                if(lowBottomBound+i<highBottomBound)
+                {
+                    cc.hide(2);
+                    cc.hide(3);
+                }
+                else
+                {
+                    cc.hide(4);
+                    cc.hide(5);
+                }
             }
 
             upSyncWorker.RunWorkerAsync(0);

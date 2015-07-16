@@ -57,6 +57,31 @@ namespace SyncManager
                 return loDnSyncTime;
         }
 
+        public void hide(int channel)
+        {
+            if (channel == 2)
+            {
+                highUpSyncChk.Visible = false;
+                hiUpSyncTime.Visible = false;
+            }
+            else if (channel == 3)
+            {
+                highDownSyncChk.Visible = false;
+                hiDnSyncTime.Visible = false;
+            }
+            else if (channel == 4)
+            {
+                lowUpSyncChk.Visible = false;
+                loUpSyncTime.Visible = false;
+            }
+            else if (channel == 5)
+            {
+                lowUpSyncChk.Visible = false;
+                loDnSyncTime.Visible = false;
+            }
+
+        }
+
         public void highlight(int channel)
         {
             if(channel==0)
