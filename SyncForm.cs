@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 
 namespace SyncManager
 {
@@ -93,6 +94,7 @@ namespace SyncManager
             lowUpSyncWorker.RunWorkerAsync(4);
             lowDownSyncWorker.RunWorkerAsync(5);
 
+            connectionWorker.RunWorkerAsync();
             Show();
             
         }
@@ -181,8 +183,55 @@ namespace SyncManager
             clock.Text = DateTime.Now.Hour.ToString() + ":" + minute;
         }
 
+        public class ConnectionProgress
+        {
+            public bool success;
+            public int compNumber;
+        }
 
-        
+        private void connectionWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = (BackgroundWorker)sender;
+            Ping testPing = new Ping();
+            int i = 0;
+            int curIP;
+            PingReply lastReply;
+            Process horridSoundProc;
+            string typeStr = "BO";
+            if (type == 1)
+                typeStr = "SR";
+            while (true)
+            {
+                curIP = clientComps[i].ip;
+                lastReply = testPing.Send(baseIP + curIP);
+                if(lastReply.Status != IPStatus.Success)
+                {
+                    lastReply = testPing.Send(baseIP + curIP);
+                    if (lastReply.Status != IPStatus.Success)
+                    {
+                        lastReply = testPing.Send(baseIP + curIP);
+                        if (lastReply.Status != IPStatus.Success)
+                        {
+                            clientComps[i].BackColor = Color.Red;
+                            worker.ReportProgress(i);
+                            horridSoundProc = Process.Start("C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe", $"--volume=300 --play-and-exit --qt-start-minimized _{typeStr}Sound");
+                            horridSoundProc.WaitForExit();
+                        }
+                    }
+                }
+                i = ++i % numComps;
+                Thread.Sleep(500);
+            }
+        }
+
+        private void connectionWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ConnectionProgress conProg = (ConnectionProgress)e.UserState;
+            if (conProg.success)
+                clientComps[conProg.compNumber].updateLastPing();
+        }
+
+
         //this is stuff underlaying the ui
         private void quitButton_Click(object sender, EventArgs e)
         {
@@ -396,5 +445,7 @@ namespace SyncManager
             highBottomBound = Convert.ToInt16(highIPStart.Text);
             highTopBound = Convert.ToInt16(highIPEnd.Text);
         }
+
+        
     }
 }

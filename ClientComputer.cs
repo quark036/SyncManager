@@ -57,6 +57,14 @@ namespace SyncManager
                 return loDnSyncTime;
         }
 
+        public void updateLastPing()
+        {
+            string minute = DateTime.Now.Minute.ToString();
+            if (minute.Length == 1)
+                minute = "0" + minute;
+            lastPinged.Text = DateTime.Now.Hour.ToString() + ":" + minute;
+        }
+
         public void hide(int channel)
         {
             if (channel == 2)

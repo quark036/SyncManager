@@ -31,7 +31,7 @@
             this.ipAddress = new System.Windows.Forms.Label();
             this.roomName = new System.Windows.Forms.Label();
             this.upSyncChk = new System.Windows.Forms.CheckBox();
-            this.lastUpdated = new System.Windows.Forms.Label();
+            this.lastPinged = new System.Windows.Forms.Label();
             this.downSyncChk = new System.Windows.Forms.CheckBox();
             this.highUpSyncChk = new System.Windows.Forms.CheckBox();
             this.highDownSyncChk = new System.Windows.Forms.CheckBox();
@@ -75,15 +75,15 @@
             this.upSyncChk.UseVisualStyleBackColor = true;
             this.upSyncChk.CheckedChanged += new System.EventHandler(this.upSync_CheckedChanged);
             // 
-            // lastUpdated
+            // lastPinged
             // 
-            this.lastUpdated.AutoSize = true;
-            this.lastUpdated.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.lastUpdated.Location = new System.Drawing.Point(973, 0);
-            this.lastUpdated.Name = "lastUpdated";
-            this.lastUpdated.Size = new System.Drawing.Size(55, 24);
-            this.lastUpdated.TabIndex = 3;
-            this.lastUpdated.Text = "00:00";
+            this.lastPinged.AutoSize = true;
+            this.lastPinged.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.lastPinged.Location = new System.Drawing.Point(973, 0);
+            this.lastPinged.Name = "lastPinged";
+            this.lastPinged.Size = new System.Drawing.Size(55, 24);
+            this.lastPinged.TabIndex = 3;
+            this.lastPinged.Text = "00:00";
             // 
             // downSyncChk
             // 
@@ -210,7 +210,7 @@
             this.Controls.Add(this.highDownSyncChk);
             this.Controls.Add(this.highUpSyncChk);
             this.Controls.Add(this.downSyncChk);
-            this.Controls.Add(this.lastUpdated);
+            this.Controls.Add(this.lastPinged);
             this.Controls.Add(this.upSyncChk);
             this.Controls.Add(this.roomName);
             this.Controls.Add(this.ipAddress);
@@ -227,7 +227,7 @@
         private System.Windows.Forms.Label ipAddress;
         private System.Windows.Forms.Label roomName;
         private System.Windows.Forms.CheckBox upSyncChk;
-        private System.Windows.Forms.Label lastUpdated;
+        private System.Windows.Forms.Label lastPinged;
         private System.Windows.Forms.CheckBox downSyncChk;
         private System.Windows.Forms.CheckBox highUpSyncChk;
         private System.Windows.Forms.CheckBox highDownSyncChk;

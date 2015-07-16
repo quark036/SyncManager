@@ -66,12 +66,13 @@ namespace SyncManager
             this.syncTypeLabel = new System.Windows.Forms.Label();
             this.updateLoHiBtn = new System.Windows.Forms.Button();
             this.upSyncWorker = new System.ComponentModel.BackgroundWorker();
-            this.clientComputer1 = new SyncManager.ClientComputer();
             this.downSyncWorker = new System.ComponentModel.BackgroundWorker();
             this.hiUpSyncWorker = new System.ComponentModel.BackgroundWorker();
             this.hiDownSyncWorker = new System.ComponentModel.BackgroundWorker();
             this.lowUpSyncWorker = new System.ComponentModel.BackgroundWorker();
             this.lowDownSyncWorker = new System.ComponentModel.BackgroundWorker();
+            this.connectionWorker = new System.ComponentModel.BackgroundWorker();
+            this.clientComputer1 = new SyncManager.ClientComputer();
             this.SuspendLayout();
             // 
             // label1
@@ -200,9 +201,9 @@ namespace SyncManager
             this.label26.Location = new System.Drawing.Point(973, 123);
             this.label26.MaximumSize = new System.Drawing.Size(80, 40);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(71, 40);
+            this.label26.Size = new System.Drawing.Size(58, 40);
             this.label26.TabIndex = 61;
-            this.label26.Text = "Last Updated";
+            this.label26.Text = "Last Pinged";
             this.label26.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // compPanel
@@ -424,14 +425,6 @@ namespace SyncManager
             this.upSyncWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.syncWorker_DoWork);
             this.upSyncWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.syncWorker_ProgressChanged);
             // 
-            // clientComputer1
-            // 
-            this.clientComputer1.Location = new System.Drawing.Point(374, 26);
-            this.clientComputer1.Name = "clientComputer1";
-            this.clientComputer1.parentForm = null;
-            this.clientComputer1.Size = new System.Drawing.Size(8, 8);
-            this.clientComputer1.TabIndex = 110;
-            // 
             // downSyncWorker
             // 
             this.downSyncWorker.WorkerReportsProgress = true;
@@ -461,6 +454,20 @@ namespace SyncManager
             this.lowDownSyncWorker.WorkerReportsProgress = true;
             this.lowDownSyncWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.syncWorker_DoWork);
             this.lowDownSyncWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.syncWorker_ProgressChanged);
+            // 
+            // connectionWorker
+            // 
+            this.connectionWorker.WorkerReportsProgress = true;
+            this.connectionWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.connectionWorker_DoWork);
+            this.connectionWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.connectionWorker_ProgressChanged);
+            // 
+            // clientComputer1
+            // 
+            this.clientComputer1.Location = new System.Drawing.Point(374, 26);
+            this.clientComputer1.Name = "clientComputer1";
+            this.clientComputer1.parentForm = null;
+            this.clientComputer1.Size = new System.Drawing.Size(8, 8);
+            this.clientComputer1.TabIndex = 110;
             // 
             // SyncForm
             // 
@@ -555,5 +562,6 @@ namespace SyncManager
         private System.ComponentModel.BackgroundWorker hiDownSyncWorker;
         private System.ComponentModel.BackgroundWorker lowUpSyncWorker;
         private System.ComponentModel.BackgroundWorker lowDownSyncWorker;
+        private System.ComponentModel.BackgroundWorker connectionWorker;
     }
 }
