@@ -99,7 +99,7 @@
             this.speakerReadyIPEnd.Name = "speakerReadyIPEnd";
             this.speakerReadyIPEnd.Size = new System.Drawing.Size(100, 20);
             this.speakerReadyIPEnd.TabIndex = 5;
-            this.speakerReadyIPEnd.Text = "110";
+            this.speakerReadyIPEnd.Text = "105";
             // 
             // breakoutIPEnd
             // 
@@ -107,7 +107,7 @@
             this.breakoutIPEnd.Name = "breakoutIPEnd";
             this.breakoutIPEnd.Size = new System.Drawing.Size(100, 20);
             this.breakoutIPEnd.TabIndex = 9;
-            this.breakoutIPEnd.Text = "230";
+            this.breakoutIPEnd.Text = "205";
             // 
             // label4
             // 

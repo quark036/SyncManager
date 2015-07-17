@@ -63,6 +63,7 @@ namespace SyncManager
             if (minute.Length == 1)
                 minute = "0" + minute;
             lastPinged.Text = DateTime.Now.Hour.ToString() + ":" + minute;
+            BackColor = Color.Empty;
         }
 
         public void hide(int channel)

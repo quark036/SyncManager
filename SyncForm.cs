@@ -28,7 +28,7 @@ namespace SyncManager
         public string[] inclusions { get; set; } //0:up|1:down|2:highup|3:highdown|4:lowup|5:lowdown
         public string[] exclusions { get; set; } //0:up|1:down|2:highup|3:highdown|4:lowup|5:lowdown
         public string baseIP = "192.168.2.";
-
+        public static System.Media.SoundPlayer player = new System.Media.SoundPlayer("c:\\Cshow\\extras\\alertSound.wav");
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
@@ -167,7 +167,7 @@ namespace SyncManager
                     
                     i = ++i % topBound;
                 }
-                if(!upChk.Checked)
+                if(!shouldSync.Checked)
                     Thread.Sleep(100);
             }
         }
@@ -192,36 +192,43 @@ namespace SyncManager
         private void connectionWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = (BackgroundWorker)sender;
-            Ping testPing = new Ping();
             int i = 0;
             int curIP;
-            PingReply lastReply;
-            Process horridSoundProc;
-            string typeStr = "BO";
-            if (type == 1)
-                typeStr = "SR";
+            ConnectionProgress conProg = new ConnectionProgress();
             while (true)
             {
+                
                 curIP = clientComps[i].ip;
-                lastReply = testPing.Send(baseIP + curIP);
-                if(lastReply.Status != IPStatus.Success)
+                conProg.success = checkCon(baseIP + curIP);
+                conProg.compNumber = i;
+                worker.ReportProgress(0, conProg);
+                i = ++i % numComps;
+            }
+        }
+
+        private bool checkCon(string ipToCheck)
+        {
+            Ping testPing = new Ping();
+            PingReply lastReply;
+            lastReply = testPing.Send(ipToCheck);
+            if (lastReply.Status != IPStatus.Success)
+            {
+                lastReply = testPing.Send(ipToCheck);
+                if (lastReply.Status != IPStatus.Success)
                 {
-                    lastReply = testPing.Send(baseIP + curIP);
+                    lastReply = testPing.Send(ipToCheck);
                     if (lastReply.Status != IPStatus.Success)
                     {
-                        lastReply = testPing.Send(baseIP + curIP);
-                        if (lastReply.Status != IPStatus.Success)
-                        {
-                            clientComps[i].BackColor = Color.Red;
-                            worker.ReportProgress(i);
-                            horridSoundProc = Process.Start("C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe", $"--volume=300 --play-and-exit --qt-start-minimized _{typeStr}Sound");
-                            horridSoundProc.WaitForExit();
-                        }
+                        return false;
                     }
+                    else
+                        return true;
                 }
-                i = ++i % numComps;
-                Thread.Sleep(500);
+                else
+                    return true;
             }
+            else
+                return true;
         }
 
         private void connectionWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)

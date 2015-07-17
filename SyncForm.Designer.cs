@@ -198,12 +198,12 @@ namespace SyncManager
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label26.Location = new System.Drawing.Point(973, 123);
-            this.label26.MaximumSize = new System.Drawing.Size(80, 40);
+            this.label26.Location = new System.Drawing.Point(962, 123);
+            this.label26.MaximumSize = new System.Drawing.Size(90, 40);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(58, 40);
+            this.label26.Size = new System.Drawing.Size(75, 40);
             this.label26.TabIndex = 61;
-            this.label26.Text = "Last Pinged";
+            this.label26.Text = "Last Ping Success";
             this.label26.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // compPanel
