@@ -43,7 +43,7 @@ namespace SyncManager
                 exclusions[i] = univFilter;
             if (type == 1)
             {
-                numComps = Math.Abs(ipBounds[1] - ipBounds[0]);
+                numComps = Math.Abs(ipBounds[1] - ipBounds[0])+1;
                 lowBottomBound = ipBounds[0];
                 lowTopBound = (ipBounds[0] + ipBounds[1]) / 2;
                 highBottomBound = lowTopBound + 1;
@@ -51,7 +51,7 @@ namespace SyncManager
             }
             else
             {
-                numComps = Math.Abs(ipBounds[3] - ipBounds[2]);
+                numComps = Math.Abs(ipBounds[3] - ipBounds[2])+1;
                 lowBottomBound = ipBounds[2];
                 lowTopBound = (ipBounds[2] + ipBounds[3]) / 2;
                 highBottomBound = lowTopBound + 1;
@@ -163,6 +163,7 @@ namespace SyncManager
                             curComp.getClockByChannel(channel).BackColor = Color.Green;
                             Process syncProc = Process.Start("C:\\Program Files (x86)\\File-N-Sync\\File-N-SyncPlus.exe", argStr);
                             syncProc.WaitForExit();
+                            curComp.getClockByChannel(channel).BackColor = Color.Empty;
                             progVals.channel = channel;
                             progVals.curComp = i;
                             progVals.success = true;
