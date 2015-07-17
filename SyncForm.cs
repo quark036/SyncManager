@@ -28,7 +28,8 @@ namespace SyncManager
         public string[] inclusions { get; set; } //0:up|1:down|2:highup|3:highdown|4:lowup|5:lowdown
         public string[] exclusions { get; set; } //0:up|1:down|2:highup|3:highdown|4:lowup|5:lowdown
         public string baseIP = "192.168.2.";
-        public static System.Media.SoundPlayer player = new System.Media.SoundPlayer("c:\\Cshow\\extras\\alertSound.wav");
+        public static System.Media.SoundPlayer alertPlayer = new System.Media.SoundPlayer("c:\\Cshow\\extras\\alertSound.wav");
+        public bool[] isAlerting;
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
@@ -39,6 +40,7 @@ namespace SyncManager
             type = myType;
             inclusions = new string[6];
             exclusions = new string[6];
+            isAlerting = new bool[6];
             for (int i = 0; i < 6; i++)
                 exclusions[i] = univFilter;
             if (type == 1)
@@ -103,6 +105,7 @@ namespace SyncManager
         {
             public int channel;
             public int curComp;
+            public bool success;
         }
 
         private void syncWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -153,16 +156,31 @@ namespace SyncManager
                     curComp = clientComps[a];
                     if (curComp.syncingTypesActive[channel])
                     {
-                        if (type == 1)
-                            typeStr = "SR";
                         curIP = curComp.ip;
-                        argStr = $"/1\"C:\\Cshow\" /2\"\\\\" + baseIP + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
-                        curComp.getClockByChannel(channel).BackColor = Color.Cyan;
-                        Process syncProc = Process.Start("C:\\Program Files (x86)\\File-N-Sync\\File-N-SyncPlus.exe", argStr);
-                        syncProc.WaitForExit();
-                        progVals.channel = channel;
-                        progVals.curComp = i;
-                        worker.ReportProgress(0, progVals);
+                        if (checkCon(baseIP + curIP))
+                        {
+                            isAlerting[i] = false;
+                            if (type == 1)
+                                typeStr = "SR";
+                            argStr = $"/1\"C:\\Cshow\" /2\"\\\\" + baseIP + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                            curComp.getClockByChannel(channel).BackColor = Color.Green;
+                            Process syncProc = Process.Start("C:\\Program Files (x86)\\File-N-Sync\\File-N-SyncPlus.exe", argStr);
+                            syncProc.WaitForExit();
+                            progVals.channel = channel;
+                            progVals.curComp = i;
+                            progVals.success = true;
+                            worker.ReportProgress(0, progVals);
+                        }
+                        else
+                        {
+                            isAlerting[i] = true;
+                            curComp.getClockByChannel(channel).BackColor = Color.Red;
+                            progVals.channel = channel;
+                            progVals.curComp = i;
+                            progVals.success = false;
+                            worker.ReportProgress(0, progVals);
+                        }
+                        updateAlert();
                     }
                     
                     i = ++i % topBound;
@@ -172,15 +190,26 @@ namespace SyncManager
             }
         }
 
+        private void updateAlert()
+        {
+            if (isAlerting[0] || isAlerting[1] || isAlerting[2] || isAlerting[3] || isAlerting[4] || isAlerting[5])
+                alertPlayer.PlayLooping();
+            else
+                alertPlayer.Stop();
+        }
+
         private void syncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             ProgressVals progVals = (ProgressVals)e.UserState;
-            Label clock = clientComps[progVals.curComp].getClockByChannel(progVals.channel);
-            clock.BackColor = Color.Empty;
-            string minute = DateTime.Now.Minute.ToString();
-            if (minute.Length == 1)
-                minute = "0" + minute;
-            clock.Text = DateTime.Now.Hour.ToString() + ":" + minute;
+            if (progVals.success)
+            {
+                Label clock = clientComps[progVals.curComp].getClockByChannel(progVals.channel);
+                clock.BackColor = Color.Empty;
+                string minute = DateTime.Now.Minute.ToString();
+                if (minute.Length == 1)
+                    minute = "0" + minute;
+                clock.Text = DateTime.Now.Hour.ToString() + ":" + minute;
+            }
         }
 
         public class ConnectionProgress
@@ -197,12 +226,12 @@ namespace SyncManager
             ConnectionProgress conProg = new ConnectionProgress();
             while (true)
             {
-                
                 curIP = clientComps[i].ip;
                 conProg.success = checkCon(baseIP + curIP);
                 conProg.compNumber = i;
                 worker.ReportProgress(0, conProg);
                 i = ++i % numComps;
+                updateAlert();
             }
         }
 
@@ -236,6 +265,8 @@ namespace SyncManager
             ConnectionProgress conProg = (ConnectionProgress)e.UserState;
             if (conProg.success)
                 clientComps[conProg.compNumber].updateLastPing();
+            else
+                clientComps[conProg.compNumber].BackColor = Color.Orange;
         }
 
 
