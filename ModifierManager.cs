@@ -96,6 +96,11 @@ namespace SyncManager
                 Text += " - Breakout";
         }
 
+        private void easyFltrBtn_Click2(object sender, EventArgs e)
+        {
+            
+        }
+
         private void easyFltrBtn_Click(object sender, EventArgs e)
         {
             Button sentBy = (Button)sender;
