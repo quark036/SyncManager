@@ -29,7 +29,6 @@ namespace SyncManager
         public string[] exclusions { get; set; } //0:up|1:down|2:highup|3:highdown|4:lowup|5:lowdown
         public string baseIP = "192.168.2.";
         public static System.Media.SoundPlayer alertPlayer = new System.Media.SoundPlayer("c:\\Cshow\\extras\\alertSound.wav");
-        public bool[] isAlerting;
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
@@ -40,7 +39,6 @@ namespace SyncManager
             type = myType;
             inclusions = new string[6];
             exclusions = new string[6];
-            isAlerting = new bool[6];
             for (int i = 0; i < 6; i++)
                 exclusions[i] = univFilter;
             if (type == 1)
@@ -159,7 +157,6 @@ namespace SyncManager
                         curIP = curComp.ip;
                         if (checkCon(baseIP + curIP))
                         {
-                            isAlerting[i] = false;
                             if (type == 1)
                                 typeStr = "SR";
                             argStr = $"/1\"C:\\Cshow\" /2\"\\\\" + baseIP + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
@@ -173,14 +170,13 @@ namespace SyncManager
                         }
                         else
                         {
-                            isAlerting[i] = true;
                             curComp.getClockByChannel(channel).BackColor = Color.Red;
+                            alertPlayer.Play();
                             progVals.channel = channel;
                             progVals.curComp = i;
                             progVals.success = false;
                             worker.ReportProgress(0, progVals);
                         }
-                        updateAlert();
                     }
                     
                     i = ++i % topBound;
@@ -188,14 +184,6 @@ namespace SyncManager
                 if(!shouldSync.Checked)
                     Thread.Sleep(100);
             }
-        }
-
-        private void updateAlert()
-        {
-            if (isAlerting[0] || isAlerting[1] || isAlerting[2] || isAlerting[3] || isAlerting[4] || isAlerting[5])
-                alertPlayer.PlayLooping();
-            else
-                alertPlayer.Stop();
         }
 
         private void syncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -231,7 +219,6 @@ namespace SyncManager
                 conProg.compNumber = i;
                 worker.ReportProgress(0, conProg);
                 i = ++i % numComps;
-                updateAlert();
             }
         }
 
