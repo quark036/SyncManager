@@ -14,21 +14,23 @@ namespace SyncManager
 {
     public partial class SyncForm : Form
     {
-        public string univFilter = "~$;.DS_;thumbs.db;slidethumbnail.jpg;";
-        private int[] ipBounds { get; set; } //speaker ready start, end, breakout start, end
-        public int numComps { get; set; }
-        public ClientComputer[] clientComps { get; set; }
-        private SetupForm myParent { get; set; }
-        private bool[] runningSyncs { get; set; }
-        public int type { get; set; }
-        private int lowBottomBound { get; set; }
-        private int lowTopBound { get; set; }
-        private int highBottomBound { get; set; }
-        private int highTopBound { get; set; }
-        public string[] inclusions { get; set; } //0:up|1:down|2:highup|3:highdown|4:lowup|5:lowdown
-        public string[] exclusions { get; set; } //0:up|1:down|2:highup|3:highdown|4:lowup|5:lowdown
+        
+        private int[] ipBounds; //speaker ready start, end, breakout start, end
+        public int numComps;
+        public ClientComputer[] clientComps;
+        private SetupForm myParent;
+        private bool[] runningSyncs;
+        public int type;
+        private int lowBottomBound;
+        private int lowTopBound;
+        private int highBottomBound;
+        private int highTopBound;
+        public string[] inclusions;//0:up|1:down|2:highup|3:highdown|4:lowup|5:lowdown
+        public string[] exclusions;
         public string baseIP = "192.168.2.";
         public static System.Media.SoundPlayer alertPlayer = new System.Media.SoundPlayer("c:\\Cshow\\extras\\alertSound.wav");
+        public string univFilter = "~$;.DS_;thumbs.db;slidethumbnail.jpg;";
+        public bool[] channelIsUsingUnivFilter;
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
@@ -65,6 +67,9 @@ namespace SyncManager
             lowIPEnd.Text = lowTopBound.ToString();
             highIPStart.Text = highBottomBound.ToString();
             highIPEnd.Text = highTopBound.ToString();
+            channelIsUsingUnivFilter = new bool[6];
+            for (int i = 0; i < 6; i++)
+                channelIsUsingUnivFilter[i] = true;
         }
         private void SyncForm_Load(object sender, EventArgs e)
         {

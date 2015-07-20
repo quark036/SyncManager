@@ -14,7 +14,7 @@ namespace SyncManager
     {
 
         public bool[] syncingTypesActive; //0:up|1:down|2:highup|3:highdown|4:lowup|5:lowdown
-        public SyncForm parentForm { get; set; }
+        public SyncForm parentForm;
         public int ip;
 
         public ClientComputer(SyncForm myParent, int myIP)
