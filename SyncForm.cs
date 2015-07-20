@@ -184,7 +184,7 @@ namespace SyncManager
                             worker.ReportProgress(0, progVals);
                         }
                     }
-                    i = i++ % topBound;
+                    i = ++i % topBound;
                 }
                 if(!shouldSync.Checked)
                     Thread.Sleep(100);
