@@ -5,12 +5,12 @@ namespace SyncManager
 {
     public partial class SetupForm : Form
     {
-        private bool isClassC { get; set; } //if its not class c, its class b
+        private bool isClassC; //if its not class c, its class b
         //for right now, just implement class c
-        private int speakerReadyStartIP { get; set; }
-        private int speakerReadyEndIP { get; set; }
-        private int breakoutStartIP { get; set; }
-        private int breakoutEndIP { get; set; }
+        private int speakerReadyStartIP;
+        private int speakerReadyEndIP;
+        private int breakoutStartIP;
+        private int breakoutEndIP;
 
         public SetupForm()
         {

@@ -11,13 +11,16 @@ namespace SyncManager
 {
     public partial class ModifierManager : Form
     {
-        public SyncForm parentForm { get; set; }
+        public SyncForm parentForm;
+        public ModManTab[] tabs;
+        public string newInclusions;
+        public string newExclusions;
 
         public ModifierManager(SyncForm myParent)
         {
             InitializeComponent();
             parentForm = myParent;
-            updateMods();
+            tabs = new ModManTab[6];
         }
 
         private void updateMods()
@@ -57,48 +60,22 @@ namespace SyncManager
             Close();
         }
 
-        private void upSaveBtn_Click(object sender, EventArgs e)
-        {
-            parentForm.inclusions[0] = upInclusionTxt.Text;
-            parentForm.exclusions[0] = upExclusionTxt.Text;
-        }
-        private void downSaveBtn_Click(object sender, EventArgs e)
-        {
-            parentForm.inclusions[1] = downInclusionTxt.Text;
-            parentForm.exclusions[1] = downExclusionTxt.Text;
-        }
-        private void hiUpSaveBtn_Click(object sender, EventArgs e)
-        {
-            parentForm.inclusions[2] = hiUpInclusionTxt.Text;
-            parentForm.exclusions[2] = hiUpExclusionTxt.Text;
-        }
-        private void hiDnSaveBtn_Click(object sender, EventArgs e)
-        {
-            parentForm.inclusions[3] = hiDnInclusionTxt.Text;
-            parentForm.exclusions[3] = hiDnExclusionTxt.Text;
-        }
-        private void loUpSaveBtn_Click(object sender, EventArgs e)
-        {
-            parentForm.inclusions[4] = loUpInclusionTxt.Text;
-            parentForm.exclusions[4] = loUpExclusionTxt.Text;
-        }
-        private void loDnSaveBtn_Click(object sender, EventArgs e)
-        {
-            parentForm.inclusions[5] = loDnInclusionTxt.Text;
-            parentForm.exclusions[5] = loDnExclusionTxt.Text;
-        }
-
         private void ModifierManager_Load(object sender, EventArgs e)
         {
             if (parentForm.type == 1)
                 Text += " - Speaker Ready";
             else
                 Text += " - Breakout";
-        }
 
-        private void easyFltrBtn_Click2(object sender, EventArgs e)
-        {
-            
+            for(int i = 0; i<6; i++)
+                tabs[i] = new ModManTab(parentForm);
+            upTab.Controls.Add(tabs[0]);
+            downTab.Controls.Add(tabs[1]);
+            hiUpTab.Controls.Add(tabs[2]);
+            hiDnTab.Controls.Add(tabs[3]);
+            loUpTab.Controls.Add(tabs[4]);
+            loDnTab.Controls.Add(tabs[5]);
+            updateMods();
         }
 
         private void easyFltrBtn_Click(object sender, EventArgs e)
@@ -144,15 +121,8 @@ namespace SyncManager
             updateMods();
         }
 
-        private void useUniversalFilterChk_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!useUniversalFilterChk.Checked)
-                for (int i = 0; i < 6; i++)
-                    parentForm.exclusions[i] = parentForm.exclusions[i].Substring(parentForm.univFilter.Length);
-            else
-                for (int i = 0; i < 6; i++)
-                    parentForm.exclusions[i].Insert(0, parentForm.univFilter);
-            updateMods();
-        }
+        
+
+        
     }
 }
