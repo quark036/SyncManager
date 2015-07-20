@@ -12,18 +12,21 @@ namespace SyncManager
     public partial class ModManTab : UserControl
     {
         public SyncForm parentForm;
+        public ModifierManager owner;
+        public int channel;
 
-        public ModManTab(SyncForm myParent)
+        public ModManTab(SyncForm myParent, ModifierManager myOwner, int chan)
         {
             InitializeComponent();
             parentForm = myParent;
+            owner = myOwner;
+            channel = chan;
         }
 
         public void setExclusions(string newExclusions)
         {
             exclusionTxt.Text = newExclusions;
         }
-
         public void setInclusions(string newInclusions)
         {
             inclusionTxt.Text = newInclusions;
@@ -66,16 +69,25 @@ namespace SyncManager
             exclusionTxt.Text += "\\SYNC;";
         }
 
-        private void useUniversalFilterChk_CheckedChanged(object sender, EventArgs e)
+        public void updateNew()
         {
-            if (!useUniversalFilterChk.Checked)
-                for (int i = 0; i < 6; i++)
-                    parentForm.exclusions[i] = parentForm.exclusions[i].Substring(parentForm.univFilter.Length);
-            else
-                for (int i = 0; i < 6; i++)
-                    parentForm.exclusions[i].Insert(0, parentForm.univFilter);
-            updateMods();
+            owner.newExclusions[channel] += exclusionTxt.Text;
+            owner.newInclusions[channel] += inclusionTxt.Text;
         }
 
+        public bool isUsingUnivFilter()
+        {
+            return useUniversalFilterChk.Checked;
+        }
+
+        private void clearBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void copyAllBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

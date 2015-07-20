@@ -43,6 +43,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.inclusionTxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.copyAllBtn = new System.Windows.Forms.Button();
+            this.clearBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // useUniversalFilterChk
@@ -192,10 +194,32 @@
             this.label1.TabIndex = 22;
             this.label1.Text = "Inclusions";
             // 
+            // copyAllBtn
+            // 
+            this.copyAllBtn.Location = new System.Drawing.Point(495, 104);
+            this.copyAllBtn.Name = "copyAllBtn";
+            this.copyAllBtn.Size = new System.Drawing.Size(82, 23);
+            this.copyAllBtn.TabIndex = 37;
+            this.copyAllBtn.Text = "Copy To All";
+            this.copyAllBtn.UseVisualStyleBackColor = true;
+            this.copyAllBtn.Click += new System.EventHandler(this.copyAllBtn_Click);
+            // 
+            // clearBtn
+            // 
+            this.clearBtn.Location = new System.Drawing.Point(583, 104);
+            this.clearBtn.Name = "clearBtn";
+            this.clearBtn.Size = new System.Drawing.Size(67, 23);
+            this.clearBtn.TabIndex = 38;
+            this.clearBtn.Text = "Clear";
+            this.clearBtn.UseVisualStyleBackColor = true;
+            this.clearBtn.Click += new System.EventHandler(this.clearBtn_Click);
+            // 
             // ModManTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.clearBtn);
+            this.Controls.Add(this.copyAllBtn);
             this.Controls.Add(this.useUniversalFilterChk);
             this.Controls.Add(this.syncBtn);
             this.Controls.Add(this.extrasBtn);
@@ -235,5 +259,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox inclusionTxt;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button copyAllBtn;
+        private System.Windows.Forms.Button clearBtn;
     }
 }

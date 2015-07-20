@@ -14,7 +14,7 @@ namespace SyncManager
 {
     public partial class SyncForm : Form
     {
-        public string univFilter = "~$;.DS_;thumbs.db;slidethumbnail.jpg;";
+        
         private int[] ipBounds; //speaker ready start, end, breakout start, end
         public int numComps;
         public ClientComputer[] clientComps;
@@ -29,6 +29,7 @@ namespace SyncManager
         public string[] exclusions;
         public string baseIP = "192.168.2.";
         public static System.Media.SoundPlayer alertPlayer = new System.Media.SoundPlayer("c:\\Cshow\\extras\\alertSound.wav");
+        public string univFilter = "~$;.DS_;thumbs.db;slidethumbnail.jpg;";
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout

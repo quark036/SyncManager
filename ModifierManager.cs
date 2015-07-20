@@ -13,51 +13,29 @@ namespace SyncManager
     {
         public SyncForm parentForm;
         public ModManTab[] tabs;
-        public string newInclusions;
-        public string newExclusions;
+        public string[] newInclusions;
+        public string[] newExclusions;
+        
 
         public ModifierManager(SyncForm myParent)
         {
             InitializeComponent();
             parentForm = myParent;
             tabs = new ModManTab[6];
+            newInclusions = new string[6];
+            newExclusions = new string[6];
         }
 
-        private void updateMods()
+        public void updateModsText()
         {
-            upInclusionTxt.Text = parentForm.inclusions[0];
-            downInclusionTxt.Text = parentForm.inclusions[1];
-            hiUpInclusionTxt.Text = parentForm.inclusions[2];
-            hiDnInclusionTxt.Text = parentForm.inclusions[3];
-            loUpInclusionTxt.Text = parentForm.inclusions[4];
-            loDnInclusionTxt.Text = parentForm.inclusions[5];
-
-            if (parentForm.exclusions[0].Length >= parentForm.univFilter.Length)
+            for(int i = 0; i<6; i++)
             {
-                if (parentForm.exclusions[0].Substring(0, parentForm.univFilter.Length).Equals(parentForm.univFilter))
-                {
-                    upExclusionTxt.Text = parentForm.exclusions[0].Substring(parentForm.univFilter.Length);
-                    downExclusionTxt.Text = parentForm.exclusions[1].Substring(parentForm.univFilter.Length);
-                    hiUpExclusionTxt.Text = parentForm.exclusions[2].Substring(parentForm.univFilter.Length);
-                    hiDnExclusionTxt.Text = parentForm.exclusions[3].Substring(parentForm.univFilter.Length);
-                    loUpExclusionTxt.Text = parentForm.exclusions[4].Substring(parentForm.univFilter.Length);
-                    loDnExclusionTxt.Text = parentForm.exclusions[5].Substring(parentForm.univFilter.Length);
-                }
+                tabs[i].setInclusions(parentForm.inclusions[i]);
+                tabs[i].setExclusions(parentForm.inclusions[i]);
+                if (parentForm.exclusions[i].Length >= parentForm.univFilter.Length)
+                    if (parentForm.exclusions[i].Substring(0, parentForm.univFilter.Length).Equals(parentForm.univFilter))
+                        tabs[i].setExclusions(parentForm.exclusions[i].Substring(parentForm.univFilter.Length));
             }
-            else
-            {
-                upExclusionTxt.Text = parentForm.exclusions[0];
-                downExclusionTxt.Text = parentForm.exclusions[1];
-                hiUpExclusionTxt.Text = parentForm.exclusions[2];
-                hiDnExclusionTxt.Text = parentForm.exclusions[3];
-                loUpExclusionTxt.Text = parentForm.exclusions[4];
-                loDnExclusionTxt.Text = parentForm.exclusions[5];
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void ModifierManager_Load(object sender, EventArgs e)
@@ -68,61 +46,32 @@ namespace SyncManager
                 Text += " - Breakout";
 
             for(int i = 0; i<6; i++)
-                tabs[i] = new ModManTab(parentForm);
+                tabs[i] = new ModManTab(parentForm, this, i);
             upTab.Controls.Add(tabs[0]);
             downTab.Controls.Add(tabs[1]);
             hiUpTab.Controls.Add(tabs[2]);
             hiDnTab.Controls.Add(tabs[3]);
             loUpTab.Controls.Add(tabs[4]);
             loDnTab.Controls.Add(tabs[5]);
-            updateMods();
+            updateModsText();
         }
 
-        private void easyFltrBtn_Click(object sender, EventArgs e)
+        private void finishBtn_Click(object sender, EventArgs e)
         {
-            Button sentBy = (Button)sender;
-            string chan = sentBy.Name.Substring(0, 2);
-            int channel; string day;
-            if (chan.Equals("up"))
-                channel = 0;
-            else if (chan.Equals("dn"))
-                channel = 1;
-            else if (chan.Equals("hu"))
-                channel = 2;
-            else if (chan.Equals("hd"))
-                channel = 3;
-            else if (chan.Equals("lu"))
-                channel = 4;
-            else
-                channel = 5;
-
-            if (sentBy.Text.Equals("Sync"))
-                parentForm.exclusions[channel] += "\\SYNC;";
-            else if (sentBy.Text.Equals("Extras"))
-                parentForm.exclusions[channel] += "\\Extras;";
-            else
+            for(int i = 0; i<6; i++)
             {
-                if (sentBy.Text.Equals("Mon"))
-                    day = "\\Monday";
-                else if (sentBy.Text.Equals("Tue"))
-                    day = "\\Tuesday";
-                else if (sentBy.Text.Equals("Wed"))
-                    day = "\\Wednesday";
-                else if (sentBy.Text.Equals("Thu"))
-                    day = "\\Thursday";
-                else if (sentBy.Text.Equals("Fri"))
-                    day = "\\Friday";
-                else if (sentBy.Text.Equals("Sat"))
-                    day = "\\Saturday";
-                else
-                    day = "\\Sunday";
-                parentForm.exclusions[channel] += day + ";";
+                tabs[i].updateNew();
+                if (tabs[i].isUsingUnivFilter())
+                    newExclusions[i] += parentForm.univFilter;
+                parentForm.exclusions[i] = newExclusions[i];
+                parentForm.inclusions[i] = newInclusions[i];
             }
-            updateMods();
+            Close();
         }
 
-        
-
-        
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

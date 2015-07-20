@@ -35,7 +35,7 @@
             this.hiDnTab = new System.Windows.Forms.TabPage();
             this.loUpTab = new System.Windows.Forms.TabPage();
             this.loDnTab = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.finishBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.modifierTabControl.SuspendLayout();
             this.SuspendLayout();
@@ -114,17 +114,17 @@
             this.loDnTab.Text = "LOW DOWN";
             this.loDnTab.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // finishBtn
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button1.Location = new System.Drawing.Point(796, 252);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(79, 25);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Finish";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.finishBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.finishBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.finishBtn.Location = new System.Drawing.Point(796, 252);
+            this.finishBtn.Name = "finishBtn";
+            this.finishBtn.Size = new System.Drawing.Size(79, 25);
+            this.finishBtn.TabIndex = 1;
+            this.finishBtn.Text = "Finish";
+            this.finishBtn.UseVisualStyleBackColor = true;
+            this.finishBtn.Click += new System.EventHandler(this.finishBtn_Click);
             // 
             // cancelBtn
             // 
@@ -136,6 +136,7 @@
             this.cancelBtn.TabIndex = 2;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
             // ModifierManager
             // 
@@ -143,7 +144,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 289);
             this.Controls.Add(this.cancelBtn);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.finishBtn);
             this.Controls.Add(this.modifierTabControl);
             this.Name = "ModifierManager";
             this.Text = "Modifier Manager";
@@ -162,7 +163,7 @@
         private System.Windows.Forms.TabPage hiDnTab;
         private System.Windows.Forms.TabPage loUpTab;
         private System.Windows.Forms.TabPage loDnTab;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button finishBtn;
         private System.Windows.Forms.Button cancelBtn;
     }
 }
