@@ -130,22 +130,22 @@ namespace SyncManager
             else if (channel == 2)
             {
                 shouldSync = hiUpChk;
-                topBound = lowTopBound - lowBottomBound;
+                botBound = highBottomBound - lowBottomBound;
             }
             else if (channel == 3)
             {
                 shouldSync = hiDnChk;
-                topBound = lowTopBound - lowBottomBound;
+                botBound = highBottomBound - lowBottomBound;
             }
             else if (channel == 4)
             {
                 shouldSync = loUpChk;
-                botBound = highBottomBound - lowBottomBound;
+                topBound = highTopBound - lowTopBound;
             }
             else
             {
                 shouldSync = loDnChk;
-                botBound = highBottomBound - lowBottomBound;
+                topBound = highTopBound - lowTopBound;
             }
             int i = botBound;
             int a = i;
@@ -155,7 +155,7 @@ namespace SyncManager
                 {
                     a = i;
                     if (channel % 2 == 1)
-                        a = clientComps.Length - (i+1);
+                        a = topBound - (i+1);
                     curComp = clientComps[a];
                     if (curComp.syncingTypesActive[channel])
                     {
@@ -185,6 +185,8 @@ namespace SyncManager
                         }
                     }
                     i = ++i % topBound;
+                    if(i==0)
+                        i += botBound;
                 }
                 if(!shouldSync.Checked)
                     Thread.Sleep(100);
