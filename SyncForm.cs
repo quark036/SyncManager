@@ -31,6 +31,7 @@ namespace SyncManager
         public static System.Media.SoundPlayer alertPlayer = new System.Media.SoundPlayer("c:\\Cshow\\extras\\alertSound.wav");
         public string univFilter = "~$;.DS_;thumbs.db;slidethumbnail.jpg;";
         public bool[] channelIsUsingUnivFilter;
+        public string fileLocStr;
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
@@ -116,6 +117,8 @@ namespace SyncManager
             ClientComputer curComp;
             int channel = (int)e.Argument;
             string typeStr = "BO";
+            if (type == 1)
+                typeStr = "SR";
             int curIP;
             string argStr;
             ProgressVals progVals = new ProgressVals();
@@ -124,28 +127,38 @@ namespace SyncManager
             int botBound = 0;
             CheckBox shouldSync;
             if (channel == 0)
+            {
                 shouldSync = upChk;
+                fileLocStr = typeStr + "_UP\\";
+            }
             else if (channel == 1)
+            {
                 shouldSync = downChk;
+                fileLocStr = typeStr + "_DN\\";
+            }
             else if (channel == 2)
             {
                 shouldSync = hiUpChk;
                 botBound = highBottomBound - lowBottomBound;
+                fileLocStr = typeStr + "_UP_HI\\";
             }
             else if (channel == 3)
             {
                 shouldSync = hiDnChk;
                 botBound = highBottomBound - lowBottomBound;
+                fileLocStr = typeStr + "_DN_HI\\";
             }
             else if (channel == 4)
             {
                 shouldSync = loUpChk;
                 topBound = highTopBound - lowTopBound;
+                fileLocStr = typeStr + "_UP_LO\\";
             }
             else
             {
                 shouldSync = loDnChk;
                 topBound = highTopBound - lowTopBound;
+                fileLocStr = typeStr + "_DN_LO\\";
             }
             int i = botBound;
             int a = i;
@@ -167,11 +180,9 @@ namespace SyncManager
                         curIP = curComp.ip;
                         if (checkCon(baseIP + curIP))
                         {
-                            if (type == 1)
-                                typeStr = "SR";
                             argStr = $"/1\"C:\\Cshow\" /2\"\\\\" + baseIP + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                             curComp.getClockByChannel(channel).BackColor = Color.Green;
-                            Process syncProc = Process.Start("C:\\Program Files (x86)\\File-N-Sync\\File-N-SyncPlus.exe", argStr);
+                            Process syncProc = Process.Start($"C:\\Program Files (x86)\\File-N-Sync\\{fileLocStr}File-N-SyncPlus.exe", argStr);
                             syncProc.WaitForExit();
                             curComp.getClockByChannel(channel).BackColor = Color.Empty;
                             progVals.channel = channel;
