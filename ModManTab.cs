@@ -69,6 +69,11 @@ namespace SyncManager
             exclusionTxt.Text += "\\SYNC;";
         }
 
+        public void updateUnivFilterChk(bool isChecked)
+        {
+            useUniversalFilterChk.Checked = isChecked;
+        }
+
         public void updateNew()
         {
             owner.newExclusions[channel] += exclusionTxt.Text;
@@ -80,14 +85,30 @@ namespace SyncManager
             return useUniversalFilterChk.Checked;
         }
 
-        private void clearBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void copyAllBtn_Click(object sender, EventArgs e)
         {
+            string newInclusions = inclusionTxt.Text;
+            string newExclusions = exclusionTxt.Text;
+            for (int i = 0; i < 6; i++)
+            {
+                owner.tabs[i].setExclusions(newExclusions);
+                owner.tabs[i].setInclusions(newInclusions);
+            }
+        }
 
+        private void clearExclusionsBtn_Click(object sender, EventArgs e)
+        {
+            exclusionTxt.Text = "";
+        }
+
+        private void clearInclusionsBtn_Click(object sender, EventArgs e)
+        {
+            inclusionTxt.Text = "";
+        }
+
+        private void useUniversalFilterChk_CheckedChanged(object sender, EventArgs e)
+        {
+            parentForm.channelIsUsingUnivFilter[channel] = useUniversalFilterChk.Checked;
         }
     }
 }

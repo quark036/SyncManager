@@ -44,7 +44,8 @@
             this.inclusionTxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.copyAllBtn = new System.Windows.Forms.Button();
-            this.clearBtn = new System.Windows.Forms.Button();
+            this.clearExclusionsBtn = new System.Windows.Forms.Button();
+            this.clearInclusionsBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // useUniversalFilterChk
@@ -58,6 +59,7 @@
             this.useUniversalFilterChk.TabIndex = 21;
             this.useUniversalFilterChk.Text = "Use universal filter";
             this.useUniversalFilterChk.UseVisualStyleBackColor = true;
+            this.useUniversalFilterChk.CheckedChanged += new System.EventHandler(this.useUniversalFilterChk_CheckedChanged);
             // 
             // syncBtn
             // 
@@ -153,7 +155,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label3.Location = new System.Drawing.Point(491, 36);
+            this.label3.Location = new System.Drawing.Point(532, 32);
             this.label3.MaximumSize = new System.Drawing.Size(210, 40);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(210, 40);
@@ -196,29 +198,41 @@
             // 
             // copyAllBtn
             // 
-            this.copyAllBtn.Location = new System.Drawing.Point(495, 104);
+            this.copyAllBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.copyAllBtn.Location = new System.Drawing.Point(650, 163);
             this.copyAllBtn.Name = "copyAllBtn";
-            this.copyAllBtn.Size = new System.Drawing.Size(82, 23);
+            this.copyAllBtn.Size = new System.Drawing.Size(92, 29);
             this.copyAllBtn.TabIndex = 37;
             this.copyAllBtn.Text = "Copy To All";
             this.copyAllBtn.UseVisualStyleBackColor = true;
             this.copyAllBtn.Click += new System.EventHandler(this.copyAllBtn_Click);
             // 
-            // clearBtn
+            // clearExclusionsBtn
             // 
-            this.clearBtn.Location = new System.Drawing.Point(583, 104);
-            this.clearBtn.Name = "clearBtn";
-            this.clearBtn.Size = new System.Drawing.Size(67, 23);
-            this.clearBtn.TabIndex = 38;
-            this.clearBtn.Text = "Clear";
-            this.clearBtn.UseVisualStyleBackColor = true;
-            this.clearBtn.Click += new System.EventHandler(this.clearBtn_Click);
+            this.clearExclusionsBtn.Location = new System.Drawing.Point(465, 75);
+            this.clearExclusionsBtn.Name = "clearExclusionsBtn";
+            this.clearExclusionsBtn.Size = new System.Drawing.Size(67, 23);
+            this.clearExclusionsBtn.TabIndex = 38;
+            this.clearExclusionsBtn.Text = "Clear";
+            this.clearExclusionsBtn.UseVisualStyleBackColor = true;
+            this.clearExclusionsBtn.Click += new System.EventHandler(this.clearExclusionsBtn_Click);
+            // 
+            // clearInclusionsBtn
+            // 
+            this.clearInclusionsBtn.Location = new System.Drawing.Point(465, 11);
+            this.clearInclusionsBtn.Name = "clearInclusionsBtn";
+            this.clearInclusionsBtn.Size = new System.Drawing.Size(67, 23);
+            this.clearInclusionsBtn.TabIndex = 39;
+            this.clearInclusionsBtn.Text = "Clear";
+            this.clearInclusionsBtn.UseVisualStyleBackColor = true;
+            this.clearInclusionsBtn.Click += new System.EventHandler(this.clearInclusionsBtn_Click);
             // 
             // ModManTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.clearBtn);
+            this.Controls.Add(this.clearInclusionsBtn);
+            this.Controls.Add(this.clearExclusionsBtn);
             this.Controls.Add(this.copyAllBtn);
             this.Controls.Add(this.useUniversalFilterChk);
             this.Controls.Add(this.syncBtn);
@@ -260,6 +274,7 @@
         private System.Windows.Forms.TextBox inclusionTxt;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button copyAllBtn;
-        private System.Windows.Forms.Button clearBtn;
+        private System.Windows.Forms.Button clearExclusionsBtn;
+        private System.Windows.Forms.Button clearInclusionsBtn;
     }
 }

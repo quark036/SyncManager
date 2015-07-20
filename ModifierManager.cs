@@ -15,7 +15,6 @@ namespace SyncManager
         public ModManTab[] tabs;
         public string[] newInclusions;
         public string[] newExclusions;
-        
 
         public ModifierManager(SyncForm myParent)
         {
@@ -45,8 +44,11 @@ namespace SyncManager
             else
                 Text += " - Breakout";
 
-            for(int i = 0; i<6; i++)
+            for (int i = 0; i < 6; i++)
+            {
                 tabs[i] = new ModManTab(parentForm, this, i);
+                tabs[i].updateUnivFilterChk(parentForm.channelIsUsingUnivFilter[i]);
+            }
             upTab.Controls.Add(tabs[0]);
             downTab.Controls.Add(tabs[1]);
             hiUpTab.Controls.Add(tabs[2]);
