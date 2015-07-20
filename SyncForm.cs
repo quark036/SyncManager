@@ -122,7 +122,6 @@ namespace SyncManager
             BackgroundWorker worker = (BackgroundWorker)sender;
             int topBound = numComps;
             int botBound = 0;
-            int boundary = highBottomBound - lowBottomBound;
             CheckBox shouldSync;
             if (channel == 0)
                 shouldSync = upChk;
@@ -131,22 +130,22 @@ namespace SyncManager
             else if (channel == 2)
             {
                 shouldSync = hiUpChk;
-                botBound = boundary;
+                topBound = lowTopBound - lowBottomBound;
             }
             else if (channel == 3)
             {
                 shouldSync = hiDnChk;
-                botBound = boundary;
+                topBound = lowTopBound - lowBottomBound;
             }
             else if (channel == 4)
             {
                 shouldSync = loUpChk;
-                topBound = boundary;
+                botBound = highBottomBound - lowBottomBound;
             }
             else
             {
                 shouldSync = loDnChk;
-                topBound = boundary;
+                botBound = highBottomBound - lowBottomBound;
             }
             int i = botBound;
             int a = i;
