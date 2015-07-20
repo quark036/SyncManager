@@ -155,7 +155,12 @@ namespace SyncManager
                 {
                     a = i;
                     if (channel % 2 == 1)
-                        a = topBound - (i+1);
+                    {
+                        if (channel == 3)
+                            a = topBound - (i - 1);
+                        else
+                            a = topBound - (i + 1);
+                    }
                     curComp = clientComps[a];
                     if (curComp.syncingTypesActive[channel])
                     {
