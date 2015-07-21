@@ -126,6 +126,7 @@ namespace SyncManager
             int topBound = numComps;
             int botBound = 0;
             CheckBox shouldSync;
+            string fileName;
             if (channel == 0)
             {
                 shouldSync = upChk;
@@ -182,7 +183,8 @@ namespace SyncManager
                         {
                             argStr = $"/1\"C:\\Cshow\" /2\"\\\\" + baseIP + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                             curComp.getClockByChannel(channel).BackColor = Color.Green;
-                            Process syncProc = Process.Start($"C:\\Program Files (x86)\\File-N-Sync\\{fileLocStr}File-N-SyncPlus.exe", argStr);
+                            fileName = "C:\\FNSYNC\\" + fileLocStr + "File-N-SyncPlus.exe";
+                            Process syncProc = Process.Start(fileName, argStr);
                             syncProc.WaitForExit();
                             curComp.getClockByChannel(channel).BackColor = Color.Empty;
                             progVals.channel = channel;

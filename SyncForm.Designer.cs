@@ -461,14 +461,6 @@ namespace SyncManager
             this.connectionWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.connectionWorker_DoWork);
             this.connectionWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.connectionWorker_ProgressChanged);
             // 
-            // clientComputer1
-            // 
-            this.clientComputer1.Location = new System.Drawing.Point(374, 26);
-            this.clientComputer1.Name = "clientComputer1";
-            this.clientComputer1.parentForm = null;
-            this.clientComputer1.Size = new System.Drawing.Size(8, 8);
-            this.clientComputer1.TabIndex = 110;
-            // 
             // SyncForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -477,7 +469,6 @@ namespace SyncManager
             this.Controls.Add(this.updateLoHiBtn);
             this.Controls.Add(this.syncTypeLabel);
             this.Controls.Add(this.modifierBtn);
-            this.Controls.Add(this.clientComputer1);
             this.Controls.Add(this.lowDownAllSwitch);
             this.Controls.Add(this.loDnChk);
             this.Controls.Add(this.loDnLbl);
