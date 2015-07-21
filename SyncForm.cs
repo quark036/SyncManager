@@ -181,7 +181,7 @@ namespace SyncManager
                         curIP = curComp.ip;
                         if (checkCon(baseIP + curIP))
                         {
-                            argStr = $"/1\"C:\\Cshow\" /2\"\\\\" + baseIP + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                            argStr = "/1\"C:\\Cshow\" /2\"\\\\" + baseIP + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                             curComp.getClockByChannel(channel).BackColor = Color.Green;
                             fileName = "C:\\FNSYNC\\" + fileLocStr + "File-N-SyncPlus.exe";
                             Process syncProc = Process.Start(fileName, argStr);
