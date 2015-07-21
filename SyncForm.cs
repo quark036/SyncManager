@@ -167,6 +167,14 @@ namespace SyncManager
             {
                 while (shouldSync.Checked)
                 {
+                    if(channel == 2)
+                        botBound = highBottomBound - lowBottomBound;
+                    else if (channel == 3)
+                        botBound = highBottomBound - lowBottomBound;
+                    else if (channel == 4)
+                        topBound = highTopBound - lowTopBound;
+                    else if (channel == 5)
+                        topBound = highTopBound - lowTopBound;
                     a = i;
                     if (channel % 2 == 1)
                     {
@@ -281,6 +289,36 @@ namespace SyncManager
                 clientComps[conProg.compNumber].BackColor = Color.Orange;
         }
 
+        private void updateLoHiBtn_Click(object sender, EventArgs e)
+        {
+            lowBottomBound = Convert.ToInt16(lowIPStart.Text);
+            lowTopBound = Convert.ToInt16(lowIPEnd.Text);
+            highBottomBound = Convert.ToInt16(highIPStart.Text);
+            highTopBound = Convert.ToInt16(highIPEnd.Text);
+            ClientComputer cc;
+            for (int i = 0; i < 6; i++)
+            {
+                for (int j = 0; j < numComps; j++)
+                {
+                    cc = clientComps[j];
+                    if (lowBottomBound + j < highBottomBound)
+                    {
+                        cc.hide(2);
+                        cc.hide(3);
+                        cc.show(4);
+                        cc.show(5);
+                    }
+                    else
+                    {
+                        cc.show(2);
+                        cc.show(3);
+                        cc.hide(4);
+                        cc.hide(5);
+                    }
+                }
+            }
+        }
+        
 
         //this is stuff underlaying the ui
         private void quitButton_Click(object sender, EventArgs e)
@@ -488,13 +526,7 @@ namespace SyncManager
             }
         }
 
-        private void updateLoHiBtn_Click(object sender, EventArgs e)
-        {
-            lowBottomBound = Convert.ToInt16(lowIPStart.Text);
-            lowTopBound = Convert.ToInt16(lowIPEnd.Text);
-            highBottomBound = Convert.ToInt16(highIPStart.Text);
-            highTopBound = Convert.ToInt16(highIPEnd.Text);
-        }
+        
 
         
     }

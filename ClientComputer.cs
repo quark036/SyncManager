@@ -66,6 +66,30 @@ namespace SyncManager
             BackColor = Color.Empty;
         }
 
+        public void show(int channel)
+        {
+            if (channel == 2)
+            {
+                highUpSyncChk.Visible = true;
+                hiUpSyncTime.Visible = true;
+            }
+            else if (channel == 3)
+            {
+                highDownSyncChk.Visible = true;
+                hiDnSyncTime.Visible = true;
+            }
+            else if (channel == 4)
+            {
+                lowUpSyncChk.Visible = true;
+                loUpSyncTime.Visible = true;
+            }
+            else if (channel == 5)
+            {
+                lowDownSyncChk.Visible = true;
+                loDnSyncTime.Visible = true;
+            }
+        }
+
         public void hide(int channel)
         {
             if (channel == 2)
