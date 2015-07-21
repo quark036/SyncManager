@@ -188,7 +188,7 @@ namespace SyncManager
                             syncProc.WaitForExit();
                             curComp.getClockByChannel(channel).BackColor = Color.Empty;
                             progVals.channel = channel;
-                            progVals.curComp = i;
+                            progVals.curComp = a;
                             progVals.success = true;
                             worker.ReportProgress(0, progVals);
                         }
@@ -197,7 +197,7 @@ namespace SyncManager
                             curComp.getClockByChannel(channel).BackColor = Color.Red;
                             alertPlayer.Play();
                             progVals.channel = channel;
-                            progVals.curComp = i;
+                            progVals.curComp = a;
                             progVals.success = false;
                             worker.ReportProgress(0, progVals);
                         }
