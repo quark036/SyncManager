@@ -54,6 +54,7 @@
             this.ipAddress.Size = new System.Drawing.Size(45, 25);
             this.ipAddress.TabIndex = 0;
             this.ipAddress.Text = "100";
+            this.ipAddress.Click += new System.EventHandler(this.ipAddress_Click);
             // 
             // roomName
             // 

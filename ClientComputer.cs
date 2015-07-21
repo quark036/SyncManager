@@ -187,6 +187,18 @@ namespace SyncManager
             lowDownSyncChk.Checked = value;
         }
 
-        
+        private void ipAddress_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                syncingTypesActive[i] = false;
+            }
+            upSyncChk.Checked = false;
+            downSyncChk.Checked = false;
+            highUpSyncChk.Checked = false;
+            highDownSyncChk.Checked = false;
+            lowUpSyncChk.Checked = false;
+            lowDownSyncChk.Checked = false;
+        }
     }
 }
