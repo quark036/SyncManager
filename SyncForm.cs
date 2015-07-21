@@ -31,7 +31,6 @@ namespace SyncManager
         public static System.Media.SoundPlayer alertPlayer = new System.Media.SoundPlayer("c:\\Cshow\\extras\\alertSound.wav");
         public string univFilter = "~$;.DS_;thumbs.db;slidethumbnail.jpg;";
         public bool[] channelIsUsingUnivFilter;
-        public string fileLocStr;
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
@@ -125,8 +124,9 @@ namespace SyncManager
             BackgroundWorker worker = (BackgroundWorker)sender;
             int topBound = numComps;
             int botBound = 0;
-            CheckBox shouldSync;
+            CheckBox shouldSync = null;
             string fileName;
+            string fileLocStr = "";
             if (channel == 0)
             {
                 shouldSync = upChk;
@@ -155,7 +155,7 @@ namespace SyncManager
                 topBound = highTopBound - lowTopBound;
                 fileLocStr = typeStr + "_UP_LO\\";
             }
-            else
+            else if(channel == 5)
             {
                 shouldSync = loDnChk;
                 topBound = highTopBound - lowTopBound;
