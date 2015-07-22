@@ -33,12 +33,14 @@ namespace SyncManager
         public bool[] channelIsUsingUnivFilter;
         public int[] numCompsActiveByType;
         public int lowestIP;
+        public bool ipScheme; //true=c, false=b
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
-        public SyncForm( int [] bounds, SetupForm parentForm, int myType )
+        public SyncForm( int [] bounds, SetupForm parentForm, int myType, bool myIpScheme )
         {
             InitializeComponent();
+            ipScheme = myIpScheme;
             ipBounds = bounds;
             type = myType;
             inclusions = new string[6];

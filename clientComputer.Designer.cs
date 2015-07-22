@@ -65,6 +65,7 @@
             this.roomName.Size = new System.Drawing.Size(40, 13);
             this.roomName.TabIndex = 1;
             this.roomName.Text = "BR103";
+            this.roomName.Click += new System.EventHandler(this.ipAddress_Click);
             // 
             // upSyncChk
             // 

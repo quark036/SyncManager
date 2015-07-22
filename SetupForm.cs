@@ -28,10 +28,11 @@ namespace SyncManager
             speakerReadyEndIP = Convert.ToInt16(speakerReadyIPEnd.Text);
             breakoutStartIP = Convert.ToInt16(breakoutIPStart.Text);
             breakoutEndIP = Convert.ToInt16(breakoutIPEnd.Text);
+            isClassC = ipScheme.Text.Equals("Class C");
             int[] bounds = { speakerReadyStartIP, speakerReadyEndIP, breakoutStartIP, breakoutEndIP };
-            SyncForm speakerReadySync = new SyncForm(bounds, this, 1);
+            SyncForm speakerReadySync = new SyncForm(bounds, this, 1, isClassC);
             speakerReadySync.Show();
-            SyncForm breakoutSync = new SyncForm(bounds, this, 2);
+            SyncForm breakoutSync = new SyncForm(bounds, this, 2, isClassC);
             breakoutSync.Show();
             Hide();
         }
