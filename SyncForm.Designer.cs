@@ -153,7 +153,7 @@ namespace SyncManager
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label7.Location = new System.Drawing.Point(39, 120);
+            this.label7.Location = new System.Drawing.Point(12, 120);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 20);
             this.label7.TabIndex = 13;
@@ -173,7 +173,7 @@ namespace SyncManager
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label9.Location = new System.Drawing.Point(39, 143);
+            this.label9.Location = new System.Drawing.Point(12, 143);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(24, 20);
             this.label9.TabIndex = 19;
@@ -183,7 +183,7 @@ namespace SyncManager
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label10.Location = new System.Drawing.Point(69, 143);
+            this.label10.Location = new System.Drawing.Point(55, 143);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(52, 20);
             this.label10.TabIndex = 20;

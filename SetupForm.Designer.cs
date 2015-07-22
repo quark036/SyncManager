@@ -176,7 +176,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "SetupForm";
-            this.Text = "5";
+            this.Text = "Setup";
             this.ResumeLayout(false);
             this.PerformLayout();
 
