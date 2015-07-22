@@ -48,10 +48,10 @@
             // ipAddress
             // 
             this.ipAddress.AutoSize = true;
-            this.ipAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.ipAddress.Location = new System.Drawing.Point(3, -1);
+            this.ipAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.ipAddress.Location = new System.Drawing.Point(3, 0);
             this.ipAddress.Name = "ipAddress";
-            this.ipAddress.Size = new System.Drawing.Size(45, 25);
+            this.ipAddress.Size = new System.Drawing.Size(25, 13);
             this.ipAddress.TabIndex = 0;
             this.ipAddress.Text = "100";
             this.ipAddress.Click += new System.EventHandler(this.ipAddress_Click);
@@ -59,17 +59,17 @@
             // roomName
             // 
             this.roomName.AutoSize = true;
-            this.roomName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.roomName.Location = new System.Drawing.Point(45, -1);
+            this.roomName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.roomName.Location = new System.Drawing.Point(45, 0);
             this.roomName.Name = "roomName";
-            this.roomName.Size = new System.Drawing.Size(71, 25);
+            this.roomName.Size = new System.Drawing.Size(40, 13);
             this.roomName.TabIndex = 1;
             this.roomName.Text = "BR103";
             // 
             // upSyncChk
             // 
             this.upSyncChk.AutoSize = true;
-            this.upSyncChk.Location = new System.Drawing.Point(150, 5);
+            this.upSyncChk.Location = new System.Drawing.Point(150, 1);
             this.upSyncChk.Name = "upSyncChk";
             this.upSyncChk.Size = new System.Drawing.Size(15, 14);
             this.upSyncChk.TabIndex = 2;
@@ -79,17 +79,17 @@
             // lastPinged
             // 
             this.lastPinged.AutoSize = true;
-            this.lastPinged.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.lastPinged.Location = new System.Drawing.Point(973, 0);
+            this.lastPinged.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.lastPinged.Location = new System.Drawing.Point(973, 1);
             this.lastPinged.Name = "lastPinged";
-            this.lastPinged.Size = new System.Drawing.Size(55, 24);
+            this.lastPinged.Size = new System.Drawing.Size(34, 13);
             this.lastPinged.TabIndex = 3;
             this.lastPinged.Text = "00:00";
             // 
             // downSyncChk
             // 
             this.downSyncChk.AutoSize = true;
-            this.downSyncChk.Location = new System.Drawing.Point(290, 5);
+            this.downSyncChk.Location = new System.Drawing.Point(290, 1);
             this.downSyncChk.Name = "downSyncChk";
             this.downSyncChk.Size = new System.Drawing.Size(15, 14);
             this.downSyncChk.TabIndex = 4;
@@ -99,7 +99,7 @@
             // highUpSyncChk
             // 
             this.highUpSyncChk.AutoSize = true;
-            this.highUpSyncChk.Location = new System.Drawing.Point(430, 5);
+            this.highUpSyncChk.Location = new System.Drawing.Point(430, 1);
             this.highUpSyncChk.Name = "highUpSyncChk";
             this.highUpSyncChk.Size = new System.Drawing.Size(15, 14);
             this.highUpSyncChk.TabIndex = 5;
@@ -109,7 +109,7 @@
             // highDownSyncChk
             // 
             this.highDownSyncChk.AutoSize = true;
-            this.highDownSyncChk.Location = new System.Drawing.Point(570, 5);
+            this.highDownSyncChk.Location = new System.Drawing.Point(570, 1);
             this.highDownSyncChk.Name = "highDownSyncChk";
             this.highDownSyncChk.Size = new System.Drawing.Size(15, 14);
             this.highDownSyncChk.TabIndex = 6;
@@ -119,7 +119,7 @@
             // lowUpSyncChk
             // 
             this.lowUpSyncChk.AutoSize = true;
-            this.lowUpSyncChk.Location = new System.Drawing.Point(710, 5);
+            this.lowUpSyncChk.Location = new System.Drawing.Point(710, 1);
             this.lowUpSyncChk.Name = "lowUpSyncChk";
             this.lowUpSyncChk.Size = new System.Drawing.Size(15, 14);
             this.lowUpSyncChk.TabIndex = 7;
@@ -129,7 +129,7 @@
             // lowDownSyncChk
             // 
             this.lowDownSyncChk.AutoSize = true;
-            this.lowDownSyncChk.Location = new System.Drawing.Point(850, 5);
+            this.lowDownSyncChk.Location = new System.Drawing.Point(850, 1);
             this.lowDownSyncChk.Name = "lowDownSyncChk";
             this.lowDownSyncChk.Size = new System.Drawing.Size(15, 14);
             this.lowDownSyncChk.TabIndex = 8;
@@ -139,60 +139,60 @@
             // upSyncTime
             // 
             this.upSyncTime.AutoSize = true;
-            this.upSyncTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.upSyncTime.Location = new System.Drawing.Point(171, 0);
+            this.upSyncTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.upSyncTime.Location = new System.Drawing.Point(171, 1);
             this.upSyncTime.Name = "upSyncTime";
-            this.upSyncTime.Size = new System.Drawing.Size(55, 24);
+            this.upSyncTime.Size = new System.Drawing.Size(34, 13);
             this.upSyncTime.TabIndex = 9;
             this.upSyncTime.Text = "00:00";
             // 
             // downSyncTime
             // 
             this.downSyncTime.AutoSize = true;
-            this.downSyncTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.downSyncTime.Location = new System.Drawing.Point(311, 0);
+            this.downSyncTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.downSyncTime.Location = new System.Drawing.Point(311, 1);
             this.downSyncTime.Name = "downSyncTime";
-            this.downSyncTime.Size = new System.Drawing.Size(55, 24);
+            this.downSyncTime.Size = new System.Drawing.Size(34, 13);
             this.downSyncTime.TabIndex = 10;
             this.downSyncTime.Text = "00:00";
             // 
             // hiUpSyncTime
             // 
             this.hiUpSyncTime.AutoSize = true;
-            this.hiUpSyncTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.hiUpSyncTime.Location = new System.Drawing.Point(451, 0);
+            this.hiUpSyncTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.hiUpSyncTime.Location = new System.Drawing.Point(451, 1);
             this.hiUpSyncTime.Name = "hiUpSyncTime";
-            this.hiUpSyncTime.Size = new System.Drawing.Size(55, 24);
+            this.hiUpSyncTime.Size = new System.Drawing.Size(34, 13);
             this.hiUpSyncTime.TabIndex = 11;
             this.hiUpSyncTime.Text = "00:00";
             // 
             // hiDnSyncTime
             // 
             this.hiDnSyncTime.AutoSize = true;
-            this.hiDnSyncTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.hiDnSyncTime.Location = new System.Drawing.Point(591, 0);
+            this.hiDnSyncTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.hiDnSyncTime.Location = new System.Drawing.Point(591, 1);
             this.hiDnSyncTime.Name = "hiDnSyncTime";
-            this.hiDnSyncTime.Size = new System.Drawing.Size(55, 24);
+            this.hiDnSyncTime.Size = new System.Drawing.Size(34, 13);
             this.hiDnSyncTime.TabIndex = 12;
             this.hiDnSyncTime.Text = "00:00";
             // 
             // loUpSyncTime
             // 
             this.loUpSyncTime.AutoSize = true;
-            this.loUpSyncTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.loUpSyncTime.Location = new System.Drawing.Point(731, 0);
+            this.loUpSyncTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.loUpSyncTime.Location = new System.Drawing.Point(731, 1);
             this.loUpSyncTime.Name = "loUpSyncTime";
-            this.loUpSyncTime.Size = new System.Drawing.Size(55, 24);
+            this.loUpSyncTime.Size = new System.Drawing.Size(34, 13);
             this.loUpSyncTime.TabIndex = 13;
             this.loUpSyncTime.Text = "00:00";
             // 
             // loDnSyncTime
             // 
             this.loDnSyncTime.AutoSize = true;
-            this.loDnSyncTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.loDnSyncTime.Location = new System.Drawing.Point(871, 0);
+            this.loDnSyncTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.loDnSyncTime.Location = new System.Drawing.Point(871, 1);
             this.loDnSyncTime.Name = "loDnSyncTime";
-            this.loDnSyncTime.Size = new System.Drawing.Size(55, 24);
+            this.loDnSyncTime.Size = new System.Drawing.Size(34, 13);
             this.loDnSyncTime.TabIndex = 14;
             this.loDnSyncTime.Text = "00:00";
             // 
@@ -216,7 +216,7 @@
             this.Controls.Add(this.roomName);
             this.Controls.Add(this.ipAddress);
             this.Name = "ClientComputer";
-            this.Size = new System.Drawing.Size(1031, 27);
+            this.Size = new System.Drawing.Size(1031, 14);
             this.Load += new System.EventHandler(this.ClientComputer_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

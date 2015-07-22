@@ -68,7 +68,9 @@ namespace SyncManager
                 parentForm.exclusions[i] = newExclusions[i];
                 parentForm.inclusions[i] = newInclusions[i];
             }
+            parentForm.makeScrollable();
             Close();
+
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)

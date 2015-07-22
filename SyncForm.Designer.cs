@@ -72,6 +72,12 @@ namespace SyncManager
             this.lowUpSyncWorker = new System.ComponentModel.BackgroundWorker();
             this.lowDownSyncWorker = new System.ComponentModel.BackgroundWorker();
             this.connectionWorker = new System.ComponentModel.BackgroundWorker();
+            this.numUpComps = new System.Windows.Forms.Label();
+            this.numDownComps = new System.Windows.Forms.Label();
+            this.numHiUpComps = new System.Windows.Forms.Label();
+            this.numHiDnComps = new System.Windows.Forms.Label();
+            this.numLoUpComps = new System.Windows.Forms.Label();
+            this.numLoDnComps = new System.Windows.Forms.Label();
             this.clientComputer1 = new SyncManager.ClientComputer();
             this.SuspendLayout();
             // 
@@ -157,7 +163,7 @@ namespace SyncManager
             // 
             this.upLbl.AutoSize = true;
             this.upLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.upLbl.Location = new System.Drawing.Point(172, 120);
+            this.upLbl.Location = new System.Drawing.Point(151, 120);
             this.upLbl.Name = "upLbl";
             this.upLbl.Size = new System.Drawing.Size(31, 20);
             this.upLbl.TabIndex = 18;
@@ -186,7 +192,7 @@ namespace SyncManager
             // quitButton
             // 
             this.quitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.quitButton.Location = new System.Drawing.Point(957, 793);
+            this.quitButton.Location = new System.Drawing.Point(957, 12);
             this.quitButton.Name = "quitButton";
             this.quitButton.Size = new System.Drawing.Size(87, 24);
             this.quitButton.TabIndex = 60;
@@ -261,7 +267,7 @@ namespace SyncManager
             // 
             this.downLbl.AutoSize = true;
             this.downLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.downLbl.Location = new System.Drawing.Point(291, 120);
+            this.downLbl.Location = new System.Drawing.Point(284, 120);
             this.downLbl.Name = "downLbl";
             this.downLbl.Size = new System.Drawing.Size(59, 20);
             this.downLbl.TabIndex = 72;
@@ -293,9 +299,9 @@ namespace SyncManager
             this.hiUpLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.hiUpLbl.Location = new System.Drawing.Point(428, 120);
             this.hiUpLbl.Name = "hiUpLbl";
-            this.hiUpLbl.Size = new System.Drawing.Size(77, 20);
+            this.hiUpLbl.Size = new System.Drawing.Size(52, 20);
             this.hiUpLbl.TabIndex = 75;
-            this.hiUpLbl.Text = "HIGH UP";
+            this.hiUpLbl.Text = "HI UP";
             // 
             // highDownAllSwitch
             // 
@@ -323,9 +329,9 @@ namespace SyncManager
             this.hiDnLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.hiDnLbl.Location = new System.Drawing.Point(570, 120);
             this.hiDnLbl.Name = "hiDnLbl";
-            this.hiDnLbl.Size = new System.Drawing.Size(105, 20);
+            this.hiDnLbl.Size = new System.Drawing.Size(53, 20);
             this.hiDnLbl.TabIndex = 78;
-            this.hiDnLbl.Text = "HIGH DOWN";
+            this.hiDnLbl.Text = "HI DN";
             // 
             // lowUpAllSwitch
             // 
@@ -353,9 +359,9 @@ namespace SyncManager
             this.loUpLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.loUpLbl.Location = new System.Drawing.Point(712, 120);
             this.loUpLbl.Name = "loUpLbl";
-            this.loUpLbl.Size = new System.Drawing.Size(71, 20);
+            this.loUpLbl.Size = new System.Drawing.Size(56, 20);
             this.loUpLbl.TabIndex = 81;
-            this.loUpLbl.Text = "LOW UP";
+            this.loUpLbl.Text = "LO UP";
             // 
             // lowDownAllSwitch
             // 
@@ -383,9 +389,9 @@ namespace SyncManager
             this.loDnLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.loDnLbl.Location = new System.Drawing.Point(857, 120);
             this.loDnLbl.Name = "loDnLbl";
-            this.loDnLbl.Size = new System.Drawing.Size(99, 20);
+            this.loDnLbl.Size = new System.Drawing.Size(57, 20);
             this.loDnLbl.TabIndex = 84;
-            this.loDnLbl.Text = "LOW DOWN";
+            this.loDnLbl.Text = "LO DN";
             // 
             // modifierBtn
             // 
@@ -461,11 +467,91 @@ namespace SyncManager
             this.connectionWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.connectionWorker_DoWork);
             this.connectionWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.connectionWorker_ProgressChanged);
             // 
+            // numUpComps
+            // 
+            this.numUpComps.AutoSize = true;
+            this.numUpComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.numUpComps.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.numUpComps.Location = new System.Drawing.Point(190, 120);
+            this.numUpComps.Name = "numUpComps";
+            this.numUpComps.Size = new System.Drawing.Size(28, 20);
+            this.numUpComps.TabIndex = 114;
+            this.numUpComps.Text = "(0)";
+            // 
+            // numDownComps
+            // 
+            this.numDownComps.AutoSize = true;
+            this.numDownComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.numDownComps.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.numDownComps.Location = new System.Drawing.Point(347, 120);
+            this.numDownComps.Name = "numDownComps";
+            this.numDownComps.Size = new System.Drawing.Size(28, 20);
+            this.numDownComps.TabIndex = 115;
+            this.numDownComps.Text = "(0)";
+            // 
+            // numHiUpComps
+            // 
+            this.numHiUpComps.AutoSize = true;
+            this.numHiUpComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.numHiUpComps.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.numHiUpComps.Location = new System.Drawing.Point(486, 120);
+            this.numHiUpComps.Name = "numHiUpComps";
+            this.numHiUpComps.Size = new System.Drawing.Size(28, 20);
+            this.numHiUpComps.TabIndex = 116;
+            this.numHiUpComps.Text = "(0)";
+            // 
+            // numHiDnComps
+            // 
+            this.numHiDnComps.AutoSize = true;
+            this.numHiDnComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.numHiDnComps.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.numHiDnComps.Location = new System.Drawing.Point(629, 120);
+            this.numHiDnComps.Name = "numHiDnComps";
+            this.numHiDnComps.Size = new System.Drawing.Size(28, 20);
+            this.numHiDnComps.TabIndex = 117;
+            this.numHiDnComps.Text = "(0)";
+            // 
+            // numLoUpComps
+            // 
+            this.numLoUpComps.AutoSize = true;
+            this.numLoUpComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.numLoUpComps.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.numLoUpComps.Location = new System.Drawing.Point(774, 120);
+            this.numLoUpComps.Name = "numLoUpComps";
+            this.numLoUpComps.Size = new System.Drawing.Size(28, 20);
+            this.numLoUpComps.TabIndex = 118;
+            this.numLoUpComps.Text = "(0)";
+            // 
+            // numLoDnComps
+            // 
+            this.numLoDnComps.AutoSize = true;
+            this.numLoDnComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.numLoDnComps.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.numLoDnComps.Location = new System.Drawing.Point(920, 120);
+            this.numLoDnComps.Name = "numLoDnComps";
+            this.numLoDnComps.Size = new System.Drawing.Size(28, 20);
+            this.numLoDnComps.TabIndex = 119;
+            this.numLoDnComps.Text = "(0)";
+            // 
+            // clientComputer1
+            // 
+            this.clientComputer1.Location = new System.Drawing.Point(0, 0);
+            this.clientComputer1.Name = "clientComputer1";
+            this.clientComputer1.Size = new System.Drawing.Size(1031, 27);
+            this.clientComputer1.TabIndex = 0;
+            // 
             // SyncForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 829);
+            this.Controls.Add(this.numLoDnComps);
+            this.Controls.Add(this.numLoUpComps);
+            this.Controls.Add(this.numHiDnComps);
+            this.Controls.Add(this.numHiUpComps);
+            this.Controls.Add(this.numDownComps);
+            this.Controls.Add(this.numUpComps);
+            this.Controls.Add(this.quitButton);
             this.Controls.Add(this.updateLoHiBtn);
             this.Controls.Add(this.syncTypeLabel);
             this.Controls.Add(this.modifierBtn);
@@ -488,7 +574,6 @@ namespace SyncManager
             this.Controls.Add(this.upChk);
             this.Controls.Add(this.compPanel);
             this.Controls.Add(this.label26);
-            this.Controls.Add(this.quitButton);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.upLbl);
@@ -554,5 +639,11 @@ namespace SyncManager
         private System.ComponentModel.BackgroundWorker lowUpSyncWorker;
         private System.ComponentModel.BackgroundWorker lowDownSyncWorker;
         private System.ComponentModel.BackgroundWorker connectionWorker;
+        private System.Windows.Forms.Label numUpComps;
+        private System.Windows.Forms.Label numDownComps;
+        private System.Windows.Forms.Label numHiUpComps;
+        private System.Windows.Forms.Label numHiDnComps;
+        private System.Windows.Forms.Label numLoUpComps;
+        private System.Windows.Forms.Label numLoDnComps;
     }
 }

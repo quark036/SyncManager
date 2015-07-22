@@ -101,7 +101,7 @@ namespace SyncManager
 
             connectionWorker.RunWorkerAsync();
             Show();
-            
+            compPanel.Focus();
         }
 
         public class ProgressVals
@@ -324,6 +324,7 @@ namespace SyncManager
                     }
                 }
             }
+            compPanel.Focus();
         }
         
 
@@ -331,6 +332,11 @@ namespace SyncManager
         private void quitButton_Click(object sender, EventArgs e)
         {
             myParent.Close();
+        }
+
+        public void makeScrollable()
+        {
+            compPanel.Focus();
         }
 
         private void upChk_CheckedChanged(object sender, EventArgs e)
@@ -343,6 +349,7 @@ namespace SyncManager
             {
                 upLbl.BackColor = Color.Empty;
             }
+            compPanel.Focus();
         }
         private void downChk_CheckedChanged(object sender, EventArgs e)
         {
@@ -354,6 +361,7 @@ namespace SyncManager
             {
                 downLbl.BackColor = Color.Empty;
             }
+            compPanel.Focus();
         }
         private void hiUpChk_CheckedChanged(object sender, EventArgs e)
         {
@@ -365,6 +373,7 @@ namespace SyncManager
             {
                 hiUpLbl.BackColor = Color.Empty;
             }
+            compPanel.Focus();
         }
         private void hiDnChk_CheckedChanged(object sender, EventArgs e)
         {
@@ -376,6 +385,7 @@ namespace SyncManager
             {
                 hiDnLbl.BackColor = Color.Empty;
             }
+            compPanel.Focus();
         }
         private void loUpChk_CheckedChanged(object sender, EventArgs e)
         {
@@ -387,6 +397,7 @@ namespace SyncManager
             {
                 loUpLbl.BackColor = Color.Empty;
             }
+            compPanel.Focus();
         }
         private void loDnChk_CheckedChanged(object sender, EventArgs e)
         {
@@ -398,6 +409,7 @@ namespace SyncManager
             {
                 loDnLbl.BackColor = Color.Empty;
             }
+            compPanel.Focus();
         }
 
         private void modifierBtn_Click(object sender, EventArgs e)
@@ -426,6 +438,7 @@ namespace SyncManager
                 }
                 upAllSwitch.Text = "All On";
             }
+            compPanel.Focus();
         }
         private void downAllSwitch_Click(object sender, EventArgs e)
         {
@@ -447,6 +460,7 @@ namespace SyncManager
                 }
                 downAllSwitch.Text = "All On";
             }
+            compPanel.Focus();
         }
         private void highUpAllSwitch_Click(object sender, EventArgs e)
         {
@@ -468,6 +482,7 @@ namespace SyncManager
                 }
                 highUpAllSwitch.Text = "All On";
             }
+            compPanel.Focus();
         }
         private void highDownAllSwitch_Click(object sender, EventArgs e)
         {
@@ -489,6 +504,7 @@ namespace SyncManager
                 }
                 highDownAllSwitch.Text = "All On";
             }
+            compPanel.Focus();
         }
         private void lowUpAllSwitch_Click(object sender, EventArgs e)
         {
@@ -510,6 +526,7 @@ namespace SyncManager
                 }
                 lowUpAllSwitch.Text = "All On";
             }
+            compPanel.Focus();
         }
         private void lowDownAllSwitch_Click(object sender, EventArgs e)
         {
@@ -531,6 +548,7 @@ namespace SyncManager
                 }
                 lowDownAllSwitch.Text = "All On";
             }
+            compPanel.Focus();
         }
 
         
