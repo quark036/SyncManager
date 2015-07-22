@@ -30,10 +30,10 @@ namespace SyncManager
             for(int i = 0; i<6; i++)
             {
                 tabs[i].setInclusions(parentForm.inclusions[i]);
-                tabs[i].setExclusions(parentForm.inclusions[i]);
+                tabs[i].setExclusions(parentForm.exclusions[i]);
                 if (parentForm.exclusions[i].Length >= parentForm.univFilter.Length)
-                    if (parentForm.exclusions[i].Substring(0, parentForm.univFilter.Length).Equals(parentForm.univFilter))
-                        tabs[i].setExclusions(parentForm.exclusions[i].Substring(parentForm.univFilter.Length));
+                    if (parentForm.exclusions[i].Substring(parentForm.exclusions[i].Length-parentForm.univFilter.Length).Equals(parentForm.univFilter))
+                        tabs[i].setExclusions(parentForm.exclusions[i].Substring(0, parentForm.exclusions[i].Length - parentForm.univFilter.Length));
             }
         }
 
