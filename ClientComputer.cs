@@ -164,26 +164,56 @@ namespace SyncManager
         private void upSync_CheckedChanged(object sender, EventArgs e)
         {
             syncingTypesActive[0] = upSyncChk.Checked;
+            if (upSyncChk.Checked)
+                parentForm.numCompsActiveByType[0]++;
+            else
+                parentForm.numCompsActiveByType[0]--;
+            parentForm.updateUpNum();
         }
         private void downSync_CheckedChanged(object sender, EventArgs e)
         {
             syncingTypesActive[1] = downSyncChk.Checked;
+            if (downSyncChk.Checked)
+                parentForm.numCompsActiveByType[1]++;
+            else
+                parentForm.numCompsActiveByType[1]--;
+            parentForm.updateDownNum();
         }
         private void highUpSync_CheckedChanged(object sender, EventArgs e)
         {
             syncingTypesActive[2] = highUpSyncChk.Checked;
+            if (highUpSyncChk.Checked)
+                parentForm.numCompsActiveByType[2]++;
+            else
+                parentForm.numCompsActiveByType[2]--;
+            parentForm.updateHiUpNum();
         }
         private void highDownSync_CheckedChanged(object sender, EventArgs e)
         {
             syncingTypesActive[3] = highDownSyncChk.Checked;
+            if (highDownSyncChk.Checked)
+                parentForm.numCompsActiveByType[3]++;
+            else
+                parentForm.numCompsActiveByType[3]--;
+            parentForm.updateHiDnNum();
         }
         private void lowUpSync_CheckedChanged(object sender, EventArgs e)
         {
             syncingTypesActive[4] = lowUpSyncChk.Checked;
+            if (lowUpSyncChk.Checked)
+                parentForm.numCompsActiveByType[4]++;
+            else
+                parentForm.numCompsActiveByType[4]--;
+            parentForm.updateLoUpNum();
         }
         private void lowDownSync_CheckedChanged(object sender, EventArgs e)
         {
             syncingTypesActive[5] = lowDownSyncChk.Checked;
+            if (lowDownSyncChk.Checked)
+                parentForm.numCompsActiveByType[5]++;
+            else
+                parentForm.numCompsActiveByType[5]--;
+            parentForm.updateLoDnNum();
         }
 
         public void setUpSyncChk(bool value)

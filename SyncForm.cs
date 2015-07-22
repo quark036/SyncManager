@@ -31,6 +31,8 @@ namespace SyncManager
         public static System.Media.SoundPlayer alertPlayer = new System.Media.SoundPlayer("c:\\Cshow\\extras\\alertSound.wav");
         public string univFilter = "~$;.DS_;thumbs.db;slidethumbnail.jpg;";
         public bool[] channelIsUsingUnivFilter;
+        public int[] numCompsActiveByType;
+        public int lowestIP;
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
@@ -41,6 +43,7 @@ namespace SyncManager
             type = myType;
             inclusions = new string[6];
             exclusions = new string[6];
+            numCompsActiveByType = new int[6];
             for (int i = 0; i < 6; i++)
                 exclusions[i] = univFilter;
             if (type == 1)
@@ -69,7 +72,11 @@ namespace SyncManager
             highIPEnd.Text = highTopBound.ToString();
             channelIsUsingUnivFilter = new bool[6];
             for (int i = 0; i < 6; i++)
+            {
                 channelIsUsingUnivFilter[i] = true;
+                numCompsActiveByType[i] = 0;
+            }
+            lowestIP = lowBottomBound;
         }
         private void SyncForm_Load(object sender, EventArgs e)
         {
@@ -466,19 +473,19 @@ namespace SyncManager
         {
             if (highUpAllSwitch.Text.Equals("All On"))
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = highBottomBound; i < highTopBound+1; i++)
                 {
-                    clientComps[i].syncingTypesActive[2] = true;
-                    clientComps[i].setHiUpSyncChk(true);
+                    clientComps[i-lowestIP].syncingTypesActive[2] = true;
+                    clientComps[i- lowestIP].setHiUpSyncChk(true);
                 }
                 highUpAllSwitch.Text = "All Off";
             }
             else
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = highBottomBound; i < highTopBound+1; i++)
                 {
-                    clientComps[i].syncingTypesActive[2] = false;
-                    clientComps[i].setHiUpSyncChk(false);
+                    clientComps[i- lowestIP].syncingTypesActive[2] = false;
+                    clientComps[i- lowestIP].setHiUpSyncChk(false);
                 }
                 highUpAllSwitch.Text = "All On";
             }
@@ -488,19 +495,19 @@ namespace SyncManager
         {
             if (highDownAllSwitch.Text.Equals("All On"))
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = highBottomBound; i < highTopBound+1; i++)
                 {
-                    clientComps[i].syncingTypesActive[3] = true;
-                    clientComps[i].setHiDownSyncChk(true);
+                    clientComps[i- lowestIP].syncingTypesActive[3] = true;
+                    clientComps[i- lowestIP].setHiDownSyncChk(true);
                 }
                 highDownAllSwitch.Text = "All Off";
             }
             else
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = highBottomBound; i < highTopBound+1; i++)
                 {
-                    clientComps[i].syncingTypesActive[3] = false;
-                    clientComps[i].setHiDownSyncChk(false);
+                    clientComps[i- lowestIP].syncingTypesActive[3] = false;
+                    clientComps[i- lowestIP].setHiDownSyncChk(false);
                 }
                 highDownAllSwitch.Text = "All On";
             }
@@ -510,19 +517,19 @@ namespace SyncManager
         {
             if (lowUpAllSwitch.Text.Equals("All On"))
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = lowBottomBound; i < lowTopBound+1; i++)
                 {
-                    clientComps[i].syncingTypesActive[4] = true;
-                    clientComps[i].setLoUpSyncChk(true);
+                    clientComps[i- lowestIP].syncingTypesActive[4] = true;
+                    clientComps[i- lowestIP].setLoUpSyncChk(true);
                 }
                 lowUpAllSwitch.Text = "All Off";
             }
             else
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = lowBottomBound; i < lowTopBound+1; i++)
                 {
-                    clientComps[i].syncingTypesActive[4] = false;
-                    clientComps[i].setLoUpSyncChk(false);
+                    clientComps[i- lowestIP].syncingTypesActive[4] = false;
+                    clientComps[i- lowestIP].setLoUpSyncChk(false);
                 }
                 lowUpAllSwitch.Text = "All On";
             }
@@ -532,27 +539,52 @@ namespace SyncManager
         {
             if (lowDownAllSwitch.Text.Equals("All On"))
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = lowBottomBound; i < lowTopBound+1; i++)
                 {
-                    clientComps[i].syncingTypesActive[5] = true;
-                    clientComps[i].setLoDownSyncChk(true);
+                    clientComps[i- lowestIP].syncingTypesActive[5] = true;
+                    clientComps[i- lowestIP].setLoDownSyncChk(true);
                 }
                 lowDownAllSwitch.Text = "All Off";
             }
             else
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = lowBottomBound; i < lowTopBound+1; i++)
                 {
-                    clientComps[i].syncingTypesActive[5] = false;
-                    clientComps[i].setLoDownSyncChk(false);
+                    clientComps[i- lowestIP].syncingTypesActive[5] = false;
+                    clientComps[i- lowestIP].setLoDownSyncChk(false);
                 }
                 lowDownAllSwitch.Text = "All On";
             }
             compPanel.Focus();
         }
 
-        
+        public void updateUpNum()
+        {
+            numUpComps.Text = "(" + numCompsActiveByType[0] + ")";
+        }
+        public void updateDownNum()
+        {
+            numDownComps.Text = "(" + numCompsActiveByType[1] + ")";
+        }
+        public void updateHiUpNum()
+        {
+            numHiUpComps.Text = "(" + numCompsActiveByType[2] + ")";
+        }
+        public void updateHiDnNum()
+        {
+            numHiDnComps.Text = "(" + numCompsActiveByType[3] + ")";
+        }
+        public void updateLoUpNum()
+        {
+            numLoUpComps.Text = "(" + numCompsActiveByType[4] + ")";
+        }
+        public void updateLoDnNum()
+        {
+            numLoDnComps.Text = "(" + numCompsActiveByType[5] + ")";
+        }
 
-        
+
+
+
     }
 }
