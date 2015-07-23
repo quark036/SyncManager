@@ -55,6 +55,7 @@ namespace SyncManager
                 lowTopBound = (ipBounds[0] + ipBounds[1]) / 2;
                 highBottomBound = lowTopBound + 1;
                 highTopBound = ipBounds[1];
+                Text = "Speaker Ready";
             }
             else
             {
@@ -63,15 +64,11 @@ namespace SyncManager
                 lowTopBound = (ipBounds[2] + ipBounds[3]) / 2;
                 highBottomBound = lowTopBound + 1;
                 highTopBound = ipBounds[3];
-                syncTypeLabel.Text = "Breakout";
+                Text = "Breakout";
             }
             clientComps = new ClientComputer[numComps];
             myParent = parentForm;
             runningSyncs = new bool[6];
-            lowIPStart.Text = lowBottomBound.ToString();
-            lowIPEnd.Text = lowTopBound.ToString();
-            highIPStart.Text = highBottomBound.ToString();
-            highIPEnd.Text = highTopBound.ToString();
             channelIsUsingUnivFilter = new bool[6];
             for (int i = 0; i < 6; i++)
             {
@@ -91,13 +88,13 @@ namespace SyncManager
                 compPanel.Controls.Add(cc);
                 if(lowBottomBound+i<highBottomBound)
                 {
-                    cc.hide(2);
-                    cc.hide(3);
+                    //cc.hide(2);
+                    //cc.hide(3);
                 }
                 else
                 {
-                    cc.hide(4);
-                    cc.hide(5);
+                    //cc.hide(4);
+                    //cc.hide(5);
                 }
             }
 
@@ -233,7 +230,7 @@ namespace SyncManager
             ProgressVals progVals = (ProgressVals)e.UserState;
             if (progVals.success)
             {
-                Label clock = clientComps[progVals.curComp].getClockByChannel(progVals.channel);
+                CheckBox clock = clientComps[progVals.curComp].getClockByChannel(progVals.channel);
                 clock.BackColor = Color.Empty;
                 string minute = DateTime.Now.Minute.ToString();
                 if (minute.Length == 1)
@@ -298,12 +295,23 @@ namespace SyncManager
                 clientComps[conProg.compNumber].BackColor = Color.Orange;
         }
 
-        private void updateLoHiBtn_Click(object sender, EventArgs e)
+        public int[] getHiLoBounds()
         {
-            lowBottomBound = Convert.ToInt16(lowIPStart.Text);
-            lowTopBound = Convert.ToInt16(lowIPEnd.Text);
-            highBottomBound = Convert.ToInt16(highIPStart.Text);
-            highTopBound = Convert.ToInt16(highIPEnd.Text);
+            int[] temp = new int[4];
+            temp[0] = lowBottomBound;
+            temp[1] = lowTopBound;
+            temp[2] = highBottomBound;
+            temp[3] = highTopBound;
+            return temp;
+        }
+
+        //this needs to be fixed for the collapsing left
+        public void adjustHiLoBounds(int lowIPStart, int lowIPEnd, int highIPStart, int highIPEnd)
+        {
+            lowBottomBound = lowIPStart;
+            lowTopBound = lowIPEnd;
+            highBottomBound = highIPStart;
+            highTopBound = highIPEnd;
             ClientComputer cc;
             for (int i = 0; i < 6; i++)
             {
@@ -317,7 +325,7 @@ namespace SyncManager
                         cc.show(4);
                         cc.show(5);
                     }
-                    else if(j>=highBottomBound)
+                    else if (j >= highBottomBound)
                     {
                         cc.show(2);
                         cc.show(3);
@@ -334,6 +342,13 @@ namespace SyncManager
                 }
             }
             compPanel.Focus();
+
+        }
+
+        private void updateLoHiBtn_Click(object sender, EventArgs e)
+        {
+            LoHiForm updateForm = new LoHiForm(this);
+            updateForm.Show();
         }
         
 
@@ -429,133 +444,55 @@ namespace SyncManager
 
         private void upAllSwitch_Click(object sender, EventArgs e)
         {
-            if(upAllSwitch.Text.Equals("All On"))
+            for (int i = 0; i < numComps; i++)
             {
-                for (int i = 0; i < numComps; i++)
-                {
-                    clientComps[i].syncingTypesActive[0] = true;
-                    clientComps[i].setUpSyncChk(true);
-                }
-                upAllSwitch.Text = "All Off";
-            }
-            else
-            {
-                for (int i = 0; i < numComps; i++)
-                {
-                    clientComps[i].syncingTypesActive[0] = false;
-                    clientComps[i].setUpSyncChk(false);
-                }
-                upAllSwitch.Text = "All On";
+                clientComps[i].syncingTypesActive[0] = true;
+                clientComps[i].setUpSyncChk(true);
             }
             compPanel.Focus();
         }
         private void downAllSwitch_Click(object sender, EventArgs e)
         {
-            if (downAllSwitch.Text.Equals("All On"))
+            for (int i = 0; i < numComps; i++)
             {
-                for (int i = 0; i < numComps; i++)
-                {
-                    clientComps[i].syncingTypesActive[1] = true;
-                    clientComps[i].setDownSyncChk(true);
-                }
-                downAllSwitch.Text = "All Off";
-            }
-            else
-            {
-                for (int i = 0; i < numComps; i++)
-                {
-                    clientComps[i].syncingTypesActive[1] = false;
-                    clientComps[i].setDownSyncChk(false);
-                }
-                downAllSwitch.Text = "All On";
+                clientComps[i].syncingTypesActive[1] = true;
+                clientComps[i].setDownSyncChk(true);
             }
             compPanel.Focus();
         }
         private void highUpAllSwitch_Click(object sender, EventArgs e)
         {
-            if (highUpAllSwitch.Text.Equals("All On"))
+            for (int i = highBottomBound; i < highTopBound+1; i++)
             {
-                for (int i = highBottomBound; i < highTopBound+1; i++)
-                {
-                    clientComps[i-lowestIP].syncingTypesActive[2] = true;
-                    clientComps[i- lowestIP].setHiUpSyncChk(true);
-                }
-                highUpAllSwitch.Text = "All Off";
-            }
-            else
-            {
-                for (int i = highBottomBound; i < highTopBound+1; i++)
-                {
-                    clientComps[i- lowestIP].syncingTypesActive[2] = false;
-                    clientComps[i- lowestIP].setHiUpSyncChk(false);
-                }
-                highUpAllSwitch.Text = "All On";
+                clientComps[i-lowestIP].syncingTypesActive[2] = true;
+                clientComps[i- lowestIP].setHiUpSyncChk(true);
             }
             compPanel.Focus();
         }
         private void highDownAllSwitch_Click(object sender, EventArgs e)
         {
-            if (highDownAllSwitch.Text.Equals("All On"))
+            for (int i = highBottomBound; i < highTopBound+1; i++)
             {
-                for (int i = highBottomBound; i < highTopBound+1; i++)
-                {
-                    clientComps[i- lowestIP].syncingTypesActive[3] = true;
-                    clientComps[i- lowestIP].setHiDownSyncChk(true);
-                }
-                highDownAllSwitch.Text = "All Off";
-            }
-            else
-            {
-                for (int i = highBottomBound; i < highTopBound+1; i++)
-                {
-                    clientComps[i- lowestIP].syncingTypesActive[3] = false;
-                    clientComps[i- lowestIP].setHiDownSyncChk(false);
-                }
-                highDownAllSwitch.Text = "All On";
+                clientComps[i- lowestIP].syncingTypesActive[3] = true;
+                clientComps[i- lowestIP].setHiDownSyncChk(true);
             }
             compPanel.Focus();
         }
         private void lowUpAllSwitch_Click(object sender, EventArgs e)
         {
-            if (lowUpAllSwitch.Text.Equals("All On"))
+            for (int i = lowBottomBound; i < lowTopBound+1; i++)
             {
-                for (int i = lowBottomBound; i < lowTopBound+1; i++)
-                {
-                    clientComps[i- lowestIP].syncingTypesActive[4] = true;
-                    clientComps[i- lowestIP].setLoUpSyncChk(true);
-                }
-                lowUpAllSwitch.Text = "All Off";
-            }
-            else
-            {
-                for (int i = lowBottomBound; i < lowTopBound+1; i++)
-                {
-                    clientComps[i- lowestIP].syncingTypesActive[4] = false;
-                    clientComps[i- lowestIP].setLoUpSyncChk(false);
-                }
-                lowUpAllSwitch.Text = "All On";
+                clientComps[i- lowestIP].syncingTypesActive[4] = true;
+                clientComps[i- lowestIP].setLoUpSyncChk(true);
             }
             compPanel.Focus();
         }
         private void lowDownAllSwitch_Click(object sender, EventArgs e)
         {
-            if (lowDownAllSwitch.Text.Equals("All On"))
+            for (int i = lowBottomBound; i < lowTopBound+1; i++)
             {
-                for (int i = lowBottomBound; i < lowTopBound+1; i++)
-                {
-                    clientComps[i- lowestIP].syncingTypesActive[5] = true;
-                    clientComps[i- lowestIP].setLoDownSyncChk(true);
-                }
-                lowDownAllSwitch.Text = "All Off";
-            }
-            else
-            {
-                for (int i = lowBottomBound; i < lowTopBound+1; i++)
-                {
-                    clientComps[i- lowestIP].syncingTypesActive[5] = false;
-                    clientComps[i- lowestIP].setLoDownSyncChk(false);
-                }
-                lowDownAllSwitch.Text = "All On";
+                clientComps[i- lowestIP].syncingTypesActive[5] = true;
+                clientComps[i- lowestIP].setLoDownSyncChk(true);
             }
             compPanel.Focus();
         }
@@ -585,8 +522,9 @@ namespace SyncManager
             numLoDnComps.Text = "(" + numCompsActiveByType[5] + ")";
         }
 
+        private void numLoUpComps_Click(object sender, EventArgs e)
+        {
 
-
-
+        }
     }
 }

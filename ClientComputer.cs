@@ -41,20 +41,20 @@ namespace SyncManager
             ip = _ip;
         }
 
-        public Label getClockByChannel(int channel)
+        public CheckBox getClockByChannel(int channel)
         {
             if (channel == 0)
-                return upSyncTime;
+                return upSyncChk;
             else if (channel == 1)
-                return downSyncTime;
+                return downSyncChk;
             else if (channel == 2)
-                return hiUpSyncTime;
+                return highUpSyncChk;
             else if (channel == 3)
-                return hiDnSyncTime;
+                return highDownSyncChk;
             else if (channel == 4)
-                return loUpSyncTime;
+                return lowUpSyncChk;
             else
-                return loDnSyncTime;
+                return lowDownSyncChk;
         }
 
         public void updateLastPing()
@@ -62,55 +62,63 @@ namespace SyncManager
             string minute = DateTime.Now.Minute.ToString();
             if (minute.Length == 1)
                 minute = "0" + minute;
-            lastPinged.Text = DateTime.Now.Hour.ToString() + ":" + minute;
+            //lastPinged.Text = DateTime.Now.Hour.ToString() + ":" + minute;
             BackColor = Color.Empty;
         }
 
         public void show(int channel)
         {
-            if (channel == 2)
+            if(channel==0)
+            {
+                upSyncChk.Visible = true;
+            }
+            else if(channel==1)
+            {
+                downSyncChk.Visible = true;
+            }
+            else if (channel == 2)
             {
                 highUpSyncChk.Visible = true;
-                hiUpSyncTime.Visible = true;
             }
             else if (channel == 3)
             {
                 highDownSyncChk.Visible = true;
-                hiDnSyncTime.Visible = true;
             }
             else if (channel == 4)
             {
                 lowUpSyncChk.Visible = true;
-                loUpSyncTime.Visible = true;
             }
             else if (channel == 5)
             {
                 lowDownSyncChk.Visible = true;
-                loDnSyncTime.Visible = true;
             }
         }
 
         public void hide(int channel)
         {
-            if (channel == 2)
+            if( channel==0)
+            {
+                upSyncChk.Visible = false;
+            }
+            else if( channel==1)
+            {
+                downSyncChk.Visible = false;
+            }
+            else if (channel == 2)
             {
                 highUpSyncChk.Visible = false;
-                hiUpSyncTime.Visible = false;
             }
             else if (channel == 3)
             {
                 highDownSyncChk.Visible = false;
-                hiDnSyncTime.Visible = false;
             }
             else if (channel == 4)
             {
                 lowUpSyncChk.Visible = false;
-                loUpSyncTime.Visible = false;
             }
             else if (channel == 5)
             {
                 lowDownSyncChk.Visible = false;
-                loDnSyncTime.Visible = false;
             }
 
         }
@@ -120,44 +128,44 @@ namespace SyncManager
             if(channel==0)
             {
                 if (upSyncChk.Checked)
-                    upSyncTime.BackColor = Color.Cyan;
+                    upSyncChk.BackColor = Color.Cyan;
                 else
-                    upSyncTime.BackColor = Color.Empty;
+                    upSyncChk.BackColor = Color.Empty;
             }
             if (channel == 1)
             {
                 if (downSyncChk.Checked)
-                    downSyncTime.BackColor = Color.Cyan;
+                    downSyncChk.BackColor = Color.Cyan;
                 else
-                    downSyncTime.BackColor = Color.Empty;
+                    downSyncChk.BackColor = Color.Empty;
             }
             if (channel == 2)
             {
                 if (highUpSyncChk.Checked)
-                    hiUpSyncTime.BackColor = Color.Cyan;
+                    highUpSyncChk.BackColor = Color.Cyan;
                 else
-                    hiUpSyncTime.BackColor = Color.Empty;
+                    highUpSyncChk.BackColor = Color.Empty;
             }
             if (channel == 3)
             {
                 if (highDownSyncChk.Checked)
-                    hiDnSyncTime.BackColor = Color.Cyan;
+                    highDownSyncChk.BackColor = Color.Cyan;
                 else
-                    hiDnSyncTime.BackColor = Color.Empty;
+                    highDownSyncChk.BackColor = Color.Empty;
             }
             if (channel == 4)
             {
                 if (lowUpSyncChk.Checked)
-                    loUpSyncTime.BackColor = Color.Cyan;
+                    lowUpSyncChk.BackColor = Color.Cyan;
                 else
-                    loUpSyncTime.BackColor = Color.Empty;
+                    lowUpSyncChk.BackColor = Color.Empty;
             }
             if (channel == 5)
             {
                 if (lowDownSyncChk.Checked)
-                    loDnSyncTime.BackColor = Color.Cyan;
+                    lowDownSyncChk.BackColor = Color.Cyan;
                 else
-                    loDnSyncTime.BackColor = Color.Empty;
+                    lowDownSyncChk.BackColor = Color.Empty;
             }
         }
 
