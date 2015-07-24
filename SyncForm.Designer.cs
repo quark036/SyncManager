@@ -344,6 +344,7 @@ namespace SyncManager
             this.label5.Size = new System.Drawing.Size(26, 17);
             this.label5.TabIndex = 120;
             this.label5.Text = "Up";
+            this.label5.Click += new System.EventHandler(this.upAllSwitch_Click);
             // 
             // label6
             // 
@@ -354,6 +355,7 @@ namespace SyncManager
             this.label6.Size = new System.Drawing.Size(52, 17);
             this.label6.TabIndex = 121;
             this.label6.Text = "DOWN";
+            this.label6.Click += new System.EventHandler(this.downAllSwitch_Click);
             // 
             // label8
             // 
@@ -364,6 +366,7 @@ namespace SyncManager
             this.label8.Size = new System.Drawing.Size(44, 17);
             this.label8.TabIndex = 122;
             this.label8.Text = "HI UP";
+            this.label8.Click += new System.EventHandler(this.highUpAllSwitch_Click);
             // 
             // label11
             // 
@@ -374,6 +377,7 @@ namespace SyncManager
             this.label11.Size = new System.Drawing.Size(45, 17);
             this.label11.TabIndex = 123;
             this.label11.Text = "HI DN";
+            this.label11.Click += new System.EventHandler(this.highDownAllSwitch_Click);
             // 
             // label12
             // 
@@ -384,6 +388,7 @@ namespace SyncManager
             this.label12.Size = new System.Drawing.Size(50, 17);
             this.label12.TabIndex = 124;
             this.label12.Text = "LO UP";
+            this.label12.Click += new System.EventHandler(this.lowUpAllSwitch_Click);
             // 
             // label13
             // 
@@ -394,6 +399,7 @@ namespace SyncManager
             this.label13.Size = new System.Drawing.Size(51, 17);
             this.label13.TabIndex = 125;
             this.label13.Text = "LO DN";
+            this.label13.Click += new System.EventHandler(this.lowDownAllSwitch_Click);
             // 
             // numLoDnComps
             // 

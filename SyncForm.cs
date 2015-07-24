@@ -34,6 +34,7 @@ namespace SyncManager
         public int[] numCompsActiveByType;
         public int lowestIP;
         public bool ipScheme; //true=c, false=b
+        public bool[] switchType;
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
@@ -69,11 +70,13 @@ namespace SyncManager
             clientComps = new ClientComputer[numComps];
             myParent = parentForm;
             runningSyncs = new bool[6];
+            switchType = new bool[6];
             channelIsUsingUnivFilter = new bool[6];
             for (int i = 0; i < 6; i++)
             {
                 channelIsUsingUnivFilter[i] = true;
                 numCompsActiveByType[i] = 0;
+                switchType[i] = false;
             }
             lowestIP = lowBottomBound;
         }
@@ -485,55 +488,133 @@ namespace SyncManager
 
         private void upAllSwitch_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < numComps; i++)
+            if (!switchType[0])
             {
-                clientComps[i].syncingTypesActive[0] = true;
-                clientComps[i].setUpSyncChk(true);
+                for (int i = 0; i < numComps; i++)
+                {
+                    clientComps[i].syncingTypesActive[0] = true;
+                    clientComps[i].setUpSyncChk(true);
+                }
+                switchType[0] = true;
+            }
+            else
+            {
+                for (int i = 0; i < numComps; i++)
+                {
+                    clientComps[i].syncingTypesActive[0] = false;
+                    clientComps[i].setUpSyncChk(false);
+                }
+                switchType[0] = false;
             }
             compPanel.Focus();
         }
         private void downAllSwitch_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < numComps; i++)
+            if (!switchType[1])
             {
-                clientComps[i].syncingTypesActive[1] = true;
-                clientComps[i].setDownSyncChk(true);
+                for (int i = 0; i < numComps; i++)
+                {
+                    clientComps[i].syncingTypesActive[1] = true;
+                    clientComps[i].setDownSyncChk(true);
+                }
+                switchType[1] = true;
+            }
+            else
+            {
+                for (int i = 0; i < numComps; i++)
+                {
+                    clientComps[i].syncingTypesActive[1] = false;
+                    clientComps[i].setDownSyncChk(false);
+                }
+                switchType[1] = false;
             }
             compPanel.Focus();
         }
         private void highUpAllSwitch_Click(object sender, EventArgs e)
         {
-            for (int i = highBottomBound; i < highTopBound+1; i++)
+            if (!switchType[2])
             {
-                clientComps[i-lowestIP].syncingTypesActive[2] = true;
-                clientComps[i- lowestIP].setHiUpSyncChk(true);
+                for (int i = 0; i < numComps; i++)
+                {
+                    clientComps[i].syncingTypesActive[2] = true;
+                    clientComps[i].setHiUpSyncChk(true);
+                }
+                switchType[2] = true;
+            }
+            else
+            {
+                for (int i = 0; i < numComps; i++)
+                {
+                    clientComps[i].syncingTypesActive[2] = false;
+                    clientComps[i].setHiUpSyncChk(false);
+                }
+                switchType[2] = false;
             }
             compPanel.Focus();
         }
         private void highDownAllSwitch_Click(object sender, EventArgs e)
         {
-            for (int i = highBottomBound; i < highTopBound+1; i++)
+            if (!switchType[3])
             {
-                clientComps[i- lowestIP].syncingTypesActive[3] = true;
-                clientComps[i- lowestIP].setHiDownSyncChk(true);
+                for (int i = 0; i < numComps; i++)
+                {
+                    clientComps[i].syncingTypesActive[3] = true;
+                    clientComps[i].setHiDownSyncChk(true);
+                }
+                switchType[3] = true;
+            }
+            else
+            {
+                for (int i = 0; i < numComps; i++)
+                {
+                    clientComps[i].syncingTypesActive[3] = false;
+                    clientComps[i].setHiDownSyncChk(false);
+                }
+                switchType[3] = false;
             }
             compPanel.Focus();
         }
         private void lowUpAllSwitch_Click(object sender, EventArgs e)
         {
-            for (int i = lowBottomBound; i < lowTopBound+1; i++)
+            if (!switchType[4])
             {
-                clientComps[i- lowestIP].syncingTypesActive[4] = true;
-                clientComps[i- lowestIP].setLoUpSyncChk(true);
+                for (int i = 0; i < numComps; i++)
+                {
+                    clientComps[i].syncingTypesActive[4] = true;
+                    clientComps[i].setLoUpSyncChk(true);
+                }
+                switchType[4] = true;
+            }
+            else
+            {
+                for (int i = 0; i < numComps; i++)
+                {
+                    clientComps[i].syncingTypesActive[4] = false;
+                    clientComps[i].setLoUpSyncChk(false);
+                }
+                switchType[4] = false;
             }
             compPanel.Focus();
         }
         private void lowDownAllSwitch_Click(object sender, EventArgs e)
         {
-            for (int i = lowBottomBound; i < lowTopBound+1; i++)
+            if (!switchType[5])
             {
-                clientComps[i- lowestIP].syncingTypesActive[5] = true;
-                clientComps[i- lowestIP].setLoDownSyncChk(true);
+                for (int i = 0; i < numComps; i++)
+                {
+                    clientComps[i].syncingTypesActive[5] = true;
+                    clientComps[i].setLoDownSyncChk(true);
+                }
+                switchType[5] = true;
+            }
+            else
+            {
+                for (int i = 0; i < numComps; i++)
+                {
+                    clientComps[i].syncingTypesActive[5] = false;
+                    clientComps[i].setLoDownSyncChk(false);
+                }
+                switchType[5] = false;
             }
             compPanel.Focus();
         }
