@@ -41,16 +41,36 @@ namespace SyncManager
             ip = _ip;
         }
 
-        //don't think i need this anymore, chose a different implementation
-        public void updateCollapsed()
+        public void conceal(int channel)
         {
-            for (int i = 0; i < 6; i++)
-            {
-                if (!syncingTypesActive[i])
-                    syncTable.ColumnStyles[i + 2].Width = 0;
-                else
-                    syncTable.ColumnStyles[i + 2].Width = 60;
-            }
+            if (channel == 0)
+                upSyncChk.Visible = false;
+            else if (channel == 1)
+                downSyncChk.Visible = false;
+            else if (channel == 2)
+                highUpSyncChk.Visible = false;
+            else if (channel == 3)
+                highDownSyncChk.Visible = false;
+            else if (channel == 4)
+                lowUpSyncChk.Visible = false;
+            else if (channel == 5)
+                lowDownSyncChk.Visible = false;
+        }
+
+        public void reveal(int channel)
+        {
+            if (channel == 0)
+                upSyncChk.Visible = true;
+            else if (channel == 1)
+                downSyncChk.Visible = true;
+            else if (channel == 2)
+                highUpSyncChk.Visible = true;
+            else if (channel == 3)
+                highDownSyncChk.Visible = true;
+            else if (channel == 4)
+                lowUpSyncChk.Visible = true;
+            else if (channel == 5)
+                lowDownSyncChk.Visible = true;
         }
 
         public CheckBox getClockByChannel(int channel)

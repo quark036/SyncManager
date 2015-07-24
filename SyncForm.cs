@@ -347,24 +347,24 @@ namespace SyncManager
                 cc = clientComps[j];
                 if (lowBottomBound + j <= lowTopBound)
                 {
-                    cc.hide(2);
-                    cc.hide(3);
-                    cc.show(4);
-                    cc.show(5);
+                    cc.conceal(2);
+                    cc.conceal(3);
+                    cc.reveal(4);
+                    cc.reveal(5);
                 }
                 else if (j >= highBottomBound)
                 {
-                    cc.show(2);
-                    cc.show(3);
-                    cc.hide(4);
-                    cc.hide(5);
+                    cc.reveal(2);
+                    cc.reveal(3);
+                    cc.conceal(4);
+                    cc.conceal(5);
                 }
                 else
                 {
-                    cc.hide(2);
-                    cc.hide(3);
-                    cc.hide(4);
-                    cc.hide(5);
+                    cc.conceal(2);
+                    cc.conceal(3);
+                    cc.conceal(4);
+                    cc.conceal(5);
                 }
             }
             compPanel.Focus();
