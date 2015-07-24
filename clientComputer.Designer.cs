@@ -36,9 +36,9 @@
             this.highDownSyncChk = new System.Windows.Forms.CheckBox();
             this.lowUpSyncChk = new System.Windows.Forms.CheckBox();
             this.lowDownSyncChk = new System.Windows.Forms.CheckBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.syncTable = new System.Windows.Forms.TableLayoutPanel();
             this.lastPinged = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.syncTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // ipAddress
@@ -135,33 +135,33 @@
             this.lowDownSyncChk.UseVisualStyleBackColor = true;
             this.lowDownSyncChk.CheckedChanged += new System.EventHandler(this.lowDownSync_CheckedChanged);
             // 
-            // tableLayoutPanel1
+            // syncTable
             // 
-            this.tableLayoutPanel1.ColumnCount = 9;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Controls.Add(this.ipAddress, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lowUpSyncChk, 7, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lowDownSyncChk, 6, 0);
-            this.tableLayoutPanel1.Controls.Add(this.roomName, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.upSyncChk, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.highDownSyncChk, 5, 0);
-            this.tableLayoutPanel1.Controls.Add(this.downSyncChk, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.highUpSyncChk, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lastPinged, 8, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(483, 21);
-            this.tableLayoutPanel1.TabIndex = 9;
+            this.syncTable.ColumnCount = 9;
+            this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.syncTable.Controls.Add(this.ipAddress, 0, 0);
+            this.syncTable.Controls.Add(this.lowUpSyncChk, 7, 0);
+            this.syncTable.Controls.Add(this.lowDownSyncChk, 6, 0);
+            this.syncTable.Controls.Add(this.roomName, 1, 0);
+            this.syncTable.Controls.Add(this.upSyncChk, 2, 0);
+            this.syncTable.Controls.Add(this.highDownSyncChk, 5, 0);
+            this.syncTable.Controls.Add(this.downSyncChk, 3, 0);
+            this.syncTable.Controls.Add(this.highUpSyncChk, 4, 0);
+            this.syncTable.Controls.Add(this.lastPinged, 8, 0);
+            this.syncTable.Location = new System.Drawing.Point(0, 0);
+            this.syncTable.Name = "syncTable";
+            this.syncTable.RowCount = 1;
+            this.syncTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+            this.syncTable.Size = new System.Drawing.Size(483, 21);
+            this.syncTable.TabIndex = 9;
             // 
             // lastPinged
             // 
@@ -179,12 +179,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.syncTable);
             this.Name = "ClientComputer";
             this.Size = new System.Drawing.Size(482, 19);
             this.Load += new System.EventHandler(this.ClientComputer_Load);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.syncTable.ResumeLayout(false);
+            this.syncTable.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -199,7 +199,7 @@
         private System.Windows.Forms.CheckBox highDownSyncChk;
         private System.Windows.Forms.CheckBox lowUpSyncChk;
         private System.Windows.Forms.CheckBox lowDownSyncChk;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel syncTable;
         private System.Windows.Forms.Label lastPinged;
     }
 }

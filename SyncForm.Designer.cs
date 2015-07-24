@@ -68,10 +68,10 @@ namespace SyncManager
             this.numDownComps = new System.Windows.Forms.Label();
             this.numUpComps = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.clientComputer1 = new SyncManager.ClientComputer();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelTable = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.clientComputer1 = new SyncManager.ClientComputer();
+            this.labelTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // upLbl
@@ -416,7 +416,6 @@ namespace SyncManager
             this.numLoUpComps.Size = new System.Drawing.Size(19, 13);
             this.numLoUpComps.TabIndex = 118;
             this.numLoUpComps.Text = "(0)";
-            this.numLoUpComps.Click += new System.EventHandler(this.numLoUpComps_Click);
             // 
             // numHiDnComps
             // 
@@ -471,40 +470,33 @@ namespace SyncManager
             this.button1.Text = "View Config";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // clientComputer1
+            // labelTable
             // 
-            this.clientComputer1.Location = new System.Drawing.Point(0, 0);
-            this.clientComputer1.Name = "clientComputer1";
-            this.clientComputer1.Size = new System.Drawing.Size(1031, 27);
-            this.clientComputer1.TabIndex = 0;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 9;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Controls.Add(this.loDnLbl, 7, 0);
-            this.tableLayoutPanel1.Controls.Add(this.loUpLbl, 6, 0);
-            this.tableLayoutPanel1.Controls.Add(this.hiDnLbl, 5, 0);
-            this.tableLayoutPanel1.Controls.Add(this.hiUpLbl, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.downLbl, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.upLbl, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label10, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label9, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 8, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 136);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(482, 24);
-            this.tableLayoutPanel1.TabIndex = 128;
+            this.labelTable.ColumnCount = 9;
+            this.labelTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.labelTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.labelTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.labelTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.labelTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.labelTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.labelTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.labelTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.labelTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.labelTable.Controls.Add(this.loDnLbl, 7, 0);
+            this.labelTable.Controls.Add(this.loUpLbl, 6, 0);
+            this.labelTable.Controls.Add(this.hiDnLbl, 5, 0);
+            this.labelTable.Controls.Add(this.hiUpLbl, 4, 0);
+            this.labelTable.Controls.Add(this.downLbl, 3, 0);
+            this.labelTable.Controls.Add(this.upLbl, 2, 0);
+            this.labelTable.Controls.Add(this.label10, 1, 0);
+            this.labelTable.Controls.Add(this.label9, 0, 0);
+            this.labelTable.Controls.Add(this.label1, 8, 0);
+            this.labelTable.Location = new System.Drawing.Point(13, 136);
+            this.labelTable.Name = "labelTable";
+            this.labelTable.RowCount = 1;
+            this.labelTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.labelTable.Size = new System.Drawing.Size(482, 24);
+            this.labelTable.TabIndex = 128;
             // 
             // label1
             // 
@@ -519,12 +511,19 @@ namespace SyncManager
             this.label1.Text = "Pinged";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // clientComputer1
+            // 
+            this.clientComputer1.Location = new System.Drawing.Point(0, 0);
+            this.clientComputer1.Name = "clientComputer1";
+            this.clientComputer1.Size = new System.Drawing.Size(1031, 27);
+            this.clientComputer1.TabIndex = 0;
+            // 
             // SyncForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 829);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.labelTable);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -551,8 +550,8 @@ namespace SyncManager
             this.Name = "SyncForm";
             this.Text = "SyncForm";
             this.Load += new System.EventHandler(this.SyncForm_Load);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.labelTable.ResumeLayout(false);
+            this.labelTable.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -598,7 +597,7 @@ namespace SyncManager
         private System.Windows.Forms.Label numDownComps;
         private System.Windows.Forms.Label numUpComps;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel labelTable;
         private System.Windows.Forms.Label label1;
     }
 }

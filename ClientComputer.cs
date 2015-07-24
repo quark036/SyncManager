@@ -41,6 +41,18 @@ namespace SyncManager
             ip = _ip;
         }
 
+        //don't think i need this anymore, chose a different implementation
+        public void updateCollapsed()
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                if (!syncingTypesActive[i])
+                    syncTable.ColumnStyles[i + 2].Width = 0;
+                else
+                    syncTable.ColumnStyles[i + 2].Width = 60;
+            }
+        }
+
         public CheckBox getClockByChannel(int channel)
         {
             if (channel == 0)
@@ -68,59 +80,12 @@ namespace SyncManager
 
         public void show(int channel)
         {
-            if(channel==0)
-            {
-                upSyncChk.Visible = true;
-            }
-            else if(channel==1)
-            {
-                downSyncChk.Visible = true;
-            }
-            else if (channel == 2)
-            {
-                highUpSyncChk.Visible = true;
-            }
-            else if (channel == 3)
-            {
-                highDownSyncChk.Visible = true;
-            }
-            else if (channel == 4)
-            {
-                lowUpSyncChk.Visible = true;
-            }
-            else if (channel == 5)
-            {
-                lowDownSyncChk.Visible = true;
-            }
+            syncTable.ColumnStyles[channel + 2].Width = 60;
         }
 
         public void hide(int channel)
         {
-            if( channel==0)
-            {
-                upSyncChk.Visible = false;
-            }
-            else if( channel==1)
-            {
-                downSyncChk.Visible = false;
-            }
-            else if (channel == 2)
-            {
-                highUpSyncChk.Visible = false;
-            }
-            else if (channel == 3)
-            {
-                highDownSyncChk.Visible = false;
-            }
-            else if (channel == 4)
-            {
-                lowUpSyncChk.Visible = false;
-            }
-            else if (channel == 5)
-            {
-                lowDownSyncChk.Visible = false;
-            }
-
+            syncTable.ColumnStyles[channel + 2].Width = 0;
         }
 
         public void highlight(int channel)

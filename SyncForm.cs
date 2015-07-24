@@ -77,6 +77,7 @@ namespace SyncManager
             }
             lowestIP = lowBottomBound;
         }
+
         private void SyncForm_Load(object sender, EventArgs e)
         {
             
@@ -96,6 +97,8 @@ namespace SyncManager
                     //cc.hide(4);
                     //cc.hide(5);
                 }
+
+                
             }
 
             upSyncWorker.RunWorkerAsync(0);
@@ -106,6 +109,7 @@ namespace SyncManager
             lowDownSyncWorker.RunWorkerAsync(5);
 
             connectionWorker.RunWorkerAsync();
+            updateLabelCollapse();
             Show();
             compPanel.Focus();
         }
@@ -305,7 +309,29 @@ namespace SyncManager
             return temp;
         }
 
-        //this needs to be fixed for the collapsing left
+        public void updateLabelCollapse()
+        {
+            ClientComputer cc;
+            for (int i = 0; i < numComps; i++)
+            {
+                cc = clientComps[i];
+                for (int j = 0; j < 6; j++)
+                {
+                    if (runningSyncs[j])
+                        cc.show(j);
+                    else
+                        cc.hide(j);
+                }
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                if (runningSyncs[i])
+                    labelTable.ColumnStyles[i+2].Width = 60;
+                else
+                    labelTable.ColumnStyles[i+2].Width = 0;
+            }
+        }
+        
         public void adjustHiLoBounds(int lowIPStart, int lowIPEnd, int highIPStart, int highIPEnd)
         {
             lowBottomBound = lowIPStart;
@@ -365,11 +391,14 @@ namespace SyncManager
             if (upChk.Checked)
             {
                 upLbl.BackColor = Color.Cyan;
+                runningSyncs[0] = true;
             }
             else
             {
                 upLbl.BackColor = Color.Empty;
+                runningSyncs[0] = false;
             }
+            updateLabelCollapse();
             compPanel.Focus();
         }
         private void downChk_CheckedChanged(object sender, EventArgs e)
@@ -377,11 +406,14 @@ namespace SyncManager
             if (downChk.Checked)
             {
                 downLbl.BackColor = Color.Cyan;
+                runningSyncs[1] = true;
             }
             else
             {
                 downLbl.BackColor = Color.Empty;
+                runningSyncs[1] = false;
             }
+            updateLabelCollapse();
             compPanel.Focus();
         }
         private void hiUpChk_CheckedChanged(object sender, EventArgs e)
@@ -389,11 +421,14 @@ namespace SyncManager
             if (hiUpChk.Checked)
             {
                 hiUpLbl.BackColor = Color.Cyan;
+                runningSyncs[2] = true;
             }
             else
             {
                 hiUpLbl.BackColor = Color.Empty;
+                runningSyncs[2] = false;
             }
+            updateLabelCollapse();
             compPanel.Focus();
         }
         private void hiDnChk_CheckedChanged(object sender, EventArgs e)
@@ -401,11 +436,14 @@ namespace SyncManager
             if (hiDnChk.Checked)
             {
                 hiDnLbl.BackColor = Color.Cyan;
+                runningSyncs[3] = true;
             }
             else
             {
                 hiDnLbl.BackColor = Color.Empty;
+                runningSyncs[3] = false;
             }
+            updateLabelCollapse();
             compPanel.Focus();
         }
         private void loUpChk_CheckedChanged(object sender, EventArgs e)
@@ -413,11 +451,14 @@ namespace SyncManager
             if (loUpChk.Checked)
             {
                 loUpLbl.BackColor = Color.Cyan;
+                runningSyncs[4] = true;
             }
             else
             {
                 loUpLbl.BackColor = Color.Empty;
+                runningSyncs[4] = false;
             }
+            updateLabelCollapse();
             compPanel.Focus();
         }
         private void loDnChk_CheckedChanged(object sender, EventArgs e)
@@ -425,11 +466,14 @@ namespace SyncManager
             if (loDnChk.Checked)
             {
                 loDnLbl.BackColor = Color.Cyan;
+                runningSyncs[5] = true;
             }
             else
             {
                 loDnLbl.BackColor = Color.Empty;
+                runningSyncs[5] = false;
             }
+            updateLabelCollapse();
             compPanel.Focus();
         }
 
@@ -517,11 +561,6 @@ namespace SyncManager
         public void updateLoDnNum()
         {
             numLoDnComps.Text = "(" + numCompsActiveByType[5] + ")";
-        }
-
-        private void numLoUpComps_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
