@@ -88,20 +88,31 @@ namespace SyncManager
             {
                 ClientComputer cc = new ClientComputer(this, lowBottomBound+i);
                 clientComps[i] = cc;
-                cc.setIP(lowBottomBound + i);
+                cc.setIP(lowestIP + i);
                 compPanel.Controls.Add(cc);
-                if(lowBottomBound+i<highBottomBound)
+                if (lowBottomBound + i <= lowTopBound)
                 {
-                    //cc.hide(2);
-                    //cc.hide(3);
+                    cc.conceal(2);
+                    cc.conceal(3);
+                    cc.reveal(4);
+                    cc.reveal(5);
+                }
+                else if (lowBottomBound + i >= highBottomBound)
+                {
+                    cc.reveal(2);
+                    cc.reveal(3);
+                    cc.conceal(4);
+                    cc.conceal(5);
                 }
                 else
                 {
-                    //cc.hide(4);
-                    //cc.hide(5);
+                    cc.conceal(2);
+                    cc.conceal(3);
+                    cc.conceal(4);
+                    cc.conceal(5);
                 }
 
-                
+
             }
 
             upSyncWorker.RunWorkerAsync(0);
@@ -191,10 +202,11 @@ namespace SyncManager
                     a = i;
                     if (channel % 2 == 1)
                     {
-                        if (channel == 3)
-                            a = topBound - (i - 1);
-                        else
-                            a = topBound - (i + 1);
+                        a = topBound - (i + 1);
+                        //if (channel == 3)
+                        //    a = topBound - (i - 1);
+                        //else
+                        //    a = topBound - (i + 1);
                     }
                     curComp = clientComps[a];
                     if (curComp.syncingTypesActive[channel])
@@ -352,7 +364,7 @@ namespace SyncManager
                     cc.reveal(4);
                     cc.reveal(5);
                 }
-                else if (j >= highBottomBound)
+                else if (lowBottomBound + j >= highBottomBound)
                 {
                     cc.reveal(2);
                     cc.reveal(3);
