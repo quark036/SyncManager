@@ -15,3 +15,5 @@ windows with the correct formatting and in the correct places.
 C:\FNSYNC, and then you need subfolders for each sync type (if you look at the code itll be obvious what they should be called)
 
 So, that's it for now.
+
+Feel free to contact me with any questions
