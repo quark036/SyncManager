@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SyncManager
@@ -15,6 +16,158 @@ namespace SyncManager
         public SetupForm()
         {
             InitializeComponent();
+
+            string filePath = @"c:\cshow\extras\syncManagerConfig.xml";
+            if (!File.Exists(filePath))
+            {
+                StreamWriter sw = File.CreateText(filePath);
+                sw.WriteLine("<configs>");
+
+                sw.Write("<importFilePath>");
+                sw.WriteLine("</importFilePath>");
+
+                sw.Write("<lowestIP>");
+                sw.WriteLine("</lowestIP>");
+
+                sw.Write("<numSRComps>");
+                sw.WriteLine("</numSRComps>");
+
+                sw.Write("<numBOComps>");
+                sw.WriteLine("</numBOComps>");
+
+                sw.Write("<ipScheme>");
+                sw.WriteLine("</ipScheme>");
+
+
+
+                sw.WriteLine("<divisions>");
+
+                sw.Write("<startSRHigh>");
+                sw.WriteLine("</startSRHigh>");
+
+                sw.Write("<endSRHigh>");
+                sw.WriteLine("</endSRHigh>");
+
+                sw.Write("<startSRLow>");
+                sw.WriteLine("</startSRLow>");
+
+                sw.Write("<endSRLow>");
+                sw.WriteLine("</endSRLow>");
+
+                sw.Write("<startBOHigh>");
+                sw.WriteLine("</startBOHigh>");
+
+                sw.Write("<endBOHigh>");
+                sw.WriteLine("</endBOHigh>");
+
+                sw.Write("<startBOLow>");
+                sw.WriteLine("</startBOLow>");
+
+                sw.Write("<endBOLow>");
+                sw.WriteLine("</endBOLow>");
+
+                sw.WriteLine("</divisions>");
+
+
+
+                sw.WriteLine("<modifiers>");
+
+                sw.WriteLine("<speakerReady");
+
+                sw.WriteLine("<up>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</up>");
+
+                sw.WriteLine("<down>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</down>");
+
+                sw.WriteLine("<highUp>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</highUp>");
+
+                sw.WriteLine("<highDown>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</highDown>");
+
+                sw.WriteLine("<lowUp>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</lowUp>");
+
+                sw.WriteLine("<lowDown>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</lowDown>");
+
+                sw.WriteLine("</speakerReady");
+
+                sw.WriteLine("<breakout");
+
+                sw.WriteLine("<up>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</up>");
+
+                sw.WriteLine("<down>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</down>");
+
+                sw.WriteLine("<highUp>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</highUp>");
+
+                sw.WriteLine("<highDown>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</highDown>");
+
+                sw.WriteLine("<lowUp>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</lowUp>");
+
+                sw.WriteLine("<lowDown>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</lowDown>");
+
+                sw.WriteLine("</breakout");
+
+                sw.WriteLine("</modifiers>");
+
+                sw.WriteLine("</configs>");
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
