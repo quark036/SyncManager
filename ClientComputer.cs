@@ -94,7 +94,7 @@ namespace SyncManager
             string minute = DateTime.Now.Minute.ToString();
             if (minute.Length == 1)
                 minute = "0" + minute;
-            //lastPinged.Text = DateTime.Now.Hour.ToString() + ":" + minute;
+            lastPinged.Text = DateTime.Now.Hour.ToString() + ":" + minute;
             BackColor = Color.Empty;
         }
 
