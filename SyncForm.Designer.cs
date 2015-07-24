@@ -61,25 +61,29 @@ namespace SyncManager
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.numLoDnComps = new System.Windows.Forms.Label();
             this.numLoUpComps = new System.Windows.Forms.Label();
             this.numHiDnComps = new System.Windows.Forms.Label();
             this.numHiUpComps = new System.Windows.Forms.Label();
             this.numDownComps = new System.Windows.Forms.Label();
             this.numUpComps = new System.Windows.Forms.Label();
-            this.clientComputer1 = new SyncManager.ClientComputer();
             this.button1 = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.clientComputer1 = new SyncManager.ClientComputer();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // upLbl
             // 
-            this.upLbl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.upLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.upLbl.AutoSize = true;
             this.upLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.upLbl.Location = new System.Drawing.Point(65, 0);
+            this.upLbl.Location = new System.Drawing.Point(85, 0);
             this.upLbl.Name = "upLbl";
-            this.upLbl.Size = new System.Drawing.Size(53, 18);
+            this.upLbl.Size = new System.Drawing.Size(47, 24);
             this.upLbl.TabIndex = 18;
             this.upLbl.Text = "UP";
             this.upLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -87,22 +91,28 @@ namespace SyncManager
             // 
             // label9
             // 
-            this.label9.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.label9.Location = new System.Drawing.Point(0, 0);
+            this.label9.Location = new System.Drawing.Point(3, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(25, 18);
+            this.label9.Size = new System.Drawing.Size(29, 24);
             this.label9.TabIndex = 19;
             this.label9.Text = "IP";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label10
             // 
-            this.label10.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.label10.Location = new System.Drawing.Point(25, 0);
+            this.label10.Location = new System.Drawing.Point(38, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(40, 18);
+            this.label10.Size = new System.Drawing.Size(41, 24);
             this.label10.TabIndex = 20;
             this.label10.Text = "Room";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -110,9 +120,9 @@ namespace SyncManager
             // quitButton
             // 
             this.quitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.quitButton.Location = new System.Drawing.Point(333, 9);
+            this.quitButton.Location = new System.Drawing.Point(124, 93);
             this.quitButton.Name = "quitButton";
-            this.quitButton.Size = new System.Drawing.Size(87, 24);
+            this.quitButton.Size = new System.Drawing.Size(108, 26);
             this.quitButton.TabIndex = 60;
             this.quitButton.Text = "QUIT";
             this.quitButton.UseVisualStyleBackColor = true;
@@ -123,13 +133,13 @@ namespace SyncManager
             this.compPanel.AutoScroll = true;
             this.compPanel.Location = new System.Drawing.Point(13, 166);
             this.compPanel.Name = "compPanel";
-            this.compPanel.Size = new System.Drawing.Size(407, 651);
+            this.compPanel.Size = new System.Drawing.Size(482, 651);
             this.compPanel.TabIndex = 62;
             // 
             // upChk
             // 
             this.upChk.AutoSize = true;
-            this.upChk.Location = new System.Drawing.Point(75, 14);
+            this.upChk.Location = new System.Drawing.Point(91, 9);
             this.upChk.Name = "upChk";
             this.upChk.Size = new System.Drawing.Size(15, 14);
             this.upChk.TabIndex = 64;
@@ -139,7 +149,7 @@ namespace SyncManager
             // downChk
             // 
             this.downChk.AutoSize = true;
-            this.downChk.Location = new System.Drawing.Point(163, 13);
+            this.downChk.Location = new System.Drawing.Point(208, 9);
             this.downChk.Name = "downChk";
             this.downChk.Size = new System.Drawing.Size(15, 14);
             this.downChk.TabIndex = 73;
@@ -148,11 +158,14 @@ namespace SyncManager
             // 
             // downLbl
             // 
-            this.downLbl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.downLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.downLbl.AutoSize = true;
             this.downLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.downLbl.Location = new System.Drawing.Point(118, 0);
+            this.downLbl.Location = new System.Drawing.Point(138, 0);
             this.downLbl.Name = "downLbl";
-            this.downLbl.Size = new System.Drawing.Size(53, 18);
+            this.downLbl.Size = new System.Drawing.Size(54, 24);
             this.downLbl.TabIndex = 72;
             this.downLbl.Text = "DOWN";
             this.downLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -161,7 +174,7 @@ namespace SyncManager
             // hiUpChk
             // 
             this.hiUpChk.AutoSize = true;
-            this.hiUpChk.Location = new System.Drawing.Point(75, 44);
+            this.hiUpChk.Location = new System.Drawing.Point(91, 27);
             this.hiUpChk.Name = "hiUpChk";
             this.hiUpChk.Size = new System.Drawing.Size(15, 14);
             this.hiUpChk.TabIndex = 76;
@@ -170,11 +183,14 @@ namespace SyncManager
             // 
             // hiUpLbl
             // 
-            this.hiUpLbl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.hiUpLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.hiUpLbl.AutoSize = true;
             this.hiUpLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.hiUpLbl.Location = new System.Drawing.Point(171, 0);
+            this.hiUpLbl.Location = new System.Drawing.Point(198, 0);
             this.hiUpLbl.Name = "hiUpLbl";
-            this.hiUpLbl.Size = new System.Drawing.Size(53, 18);
+            this.hiUpLbl.Size = new System.Drawing.Size(54, 24);
             this.hiUpLbl.TabIndex = 75;
             this.hiUpLbl.Text = "HI UP";
             this.hiUpLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -183,7 +199,7 @@ namespace SyncManager
             // hiDnChk
             // 
             this.hiDnChk.AutoSize = true;
-            this.hiDnChk.Location = new System.Drawing.Point(163, 43);
+            this.hiDnChk.Location = new System.Drawing.Point(208, 27);
             this.hiDnChk.Name = "hiDnChk";
             this.hiDnChk.Size = new System.Drawing.Size(15, 14);
             this.hiDnChk.TabIndex = 79;
@@ -192,11 +208,14 @@ namespace SyncManager
             // 
             // hiDnLbl
             // 
-            this.hiDnLbl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.hiDnLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.hiDnLbl.AutoSize = true;
             this.hiDnLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.hiDnLbl.Location = new System.Drawing.Point(224, 0);
+            this.hiDnLbl.Location = new System.Drawing.Point(258, 0);
             this.hiDnLbl.Name = "hiDnLbl";
-            this.hiDnLbl.Size = new System.Drawing.Size(53, 18);
+            this.hiDnLbl.Size = new System.Drawing.Size(54, 24);
             this.hiDnLbl.TabIndex = 78;
             this.hiDnLbl.Text = "HI DN";
             this.hiDnLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -205,7 +224,7 @@ namespace SyncManager
             // loUpChk
             // 
             this.loUpChk.AutoSize = true;
-            this.loUpChk.Location = new System.Drawing.Point(75, 74);
+            this.loUpChk.Location = new System.Drawing.Point(91, 45);
             this.loUpChk.Name = "loUpChk";
             this.loUpChk.Size = new System.Drawing.Size(15, 14);
             this.loUpChk.TabIndex = 82;
@@ -214,11 +233,14 @@ namespace SyncManager
             // 
             // loUpLbl
             // 
-            this.loUpLbl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.loUpLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.loUpLbl.AutoSize = true;
             this.loUpLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.loUpLbl.Location = new System.Drawing.Point(277, 0);
+            this.loUpLbl.Location = new System.Drawing.Point(318, 0);
             this.loUpLbl.Name = "loUpLbl";
-            this.loUpLbl.Size = new System.Drawing.Size(53, 18);
+            this.loUpLbl.Size = new System.Drawing.Size(54, 24);
             this.loUpLbl.TabIndex = 81;
             this.loUpLbl.Text = "LO UP";
             this.loUpLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -227,7 +249,7 @@ namespace SyncManager
             // loDnChk
             // 
             this.loDnChk.AutoSize = true;
-            this.loDnChk.Location = new System.Drawing.Point(163, 73);
+            this.loDnChk.Location = new System.Drawing.Point(208, 45);
             this.loDnChk.Name = "loDnChk";
             this.loDnChk.Size = new System.Drawing.Size(15, 14);
             this.loDnChk.TabIndex = 85;
@@ -236,11 +258,14 @@ namespace SyncManager
             // 
             // loDnLbl
             // 
-            this.loDnLbl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.loDnLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.loDnLbl.AutoSize = true;
             this.loDnLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.loDnLbl.Location = new System.Drawing.Point(330, 0);
+            this.loDnLbl.Location = new System.Drawing.Point(378, 0);
             this.loDnLbl.Name = "loDnLbl";
-            this.loDnLbl.Size = new System.Drawing.Size(53, 18);
+            this.loDnLbl.Size = new System.Drawing.Size(54, 24);
             this.loDnLbl.TabIndex = 84;
             this.loDnLbl.Text = "LO DN";
             this.loDnLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -249,7 +274,7 @@ namespace SyncManager
             // modifierBtn
             // 
             this.modifierBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.modifierBtn.Location = new System.Drawing.Point(213, 12);
+            this.modifierBtn.Location = new System.Drawing.Point(10, 65);
             this.modifierBtn.Name = "modifierBtn";
             this.modifierBtn.Size = new System.Drawing.Size(108, 22);
             this.modifierBtn.TabIndex = 111;
@@ -260,7 +285,7 @@ namespace SyncManager
             // updateLoHiBtn
             // 
             this.updateLoHiBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.updateLoHiBtn.Location = new System.Drawing.Point(213, 63);
+            this.updateLoHiBtn.Location = new System.Drawing.Point(10, 93);
             this.updateLoHiBtn.Name = "updateLoHiBtn";
             this.updateLoHiBtn.Size = new System.Drawing.Size(110, 26);
             this.updateLoHiBtn.TabIndex = 113;
@@ -313,84 +338,69 @@ namespace SyncManager
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label5.Location = new System.Drawing.Point(26, 9);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label5.Location = new System.Drawing.Point(59, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 20);
+            this.label5.Size = new System.Drawing.Size(26, 17);
             this.label5.TabIndex = 120;
             this.label5.Text = "Up";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label6.Location = new System.Drawing.Point(99, 8);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label6.Location = new System.Drawing.Point(152, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 20);
+            this.label6.Size = new System.Drawing.Size(52, 17);
             this.label6.TabIndex = 121;
             this.label6.Text = "DOWN";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label8.Location = new System.Drawing.Point(15, 39);
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label8.Location = new System.Drawing.Point(46, 26);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 20);
+            this.label8.Size = new System.Drawing.Size(44, 17);
             this.label8.TabIndex = 122;
             this.label8.Text = "HI UP";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label11.Location = new System.Drawing.Point(102, 38);
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label11.Location = new System.Drawing.Point(153, 26);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(53, 20);
+            this.label11.Size = new System.Drawing.Size(45, 17);
             this.label11.TabIndex = 123;
             this.label11.Text = "HI DN";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label12.Location = new System.Drawing.Point(13, 69);
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label12.Location = new System.Drawing.Point(40, 43);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(56, 20);
+            this.label12.Size = new System.Drawing.Size(50, 17);
             this.label12.TabIndex = 124;
             this.label12.Text = "LO UP";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label13.Location = new System.Drawing.Point(100, 68);
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label13.Location = new System.Drawing.Point(154, 43);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(57, 20);
+            this.label13.Size = new System.Drawing.Size(51, 17);
             this.label13.TabIndex = 125;
             this.label13.Text = "LO DN";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.loDnLbl);
-            this.panel1.Controls.Add(this.loUpLbl);
-            this.panel1.Controls.Add(this.hiDnLbl);
-            this.panel1.Controls.Add(this.hiUpLbl);
-            this.panel1.Controls.Add(this.downLbl);
-            this.panel1.Controls.Add(this.upLbl);
-            this.panel1.Controls.Add(this.label10);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Location = new System.Drawing.Point(13, 142);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(407, 18);
-            this.panel1.TabIndex = 126;
             // 
             // numLoDnComps
             // 
             this.numLoDnComps.AutoSize = true;
             this.numLoDnComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.numLoDnComps.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.numLoDnComps.Location = new System.Drawing.Point(356, 126);
+            this.numLoDnComps.Location = new System.Drawing.Point(129, 48);
             this.numLoDnComps.Name = "numLoDnComps";
             this.numLoDnComps.Size = new System.Drawing.Size(19, 13);
             this.numLoDnComps.TabIndex = 119;
@@ -401,7 +411,7 @@ namespace SyncManager
             this.numLoUpComps.AutoSize = true;
             this.numLoUpComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.numLoUpComps.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.numLoUpComps.Location = new System.Drawing.Point(302, 126);
+            this.numLoUpComps.Location = new System.Drawing.Point(16, 45);
             this.numLoUpComps.Name = "numLoUpComps";
             this.numLoUpComps.Size = new System.Drawing.Size(19, 13);
             this.numLoUpComps.TabIndex = 118;
@@ -413,7 +423,7 @@ namespace SyncManager
             this.numHiDnComps.AutoSize = true;
             this.numHiDnComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.numHiDnComps.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.numHiDnComps.Location = new System.Drawing.Point(252, 126);
+            this.numHiDnComps.Location = new System.Drawing.Point(129, 30);
             this.numHiDnComps.Name = "numHiDnComps";
             this.numHiDnComps.Size = new System.Drawing.Size(19, 13);
             this.numHiDnComps.TabIndex = 117;
@@ -424,7 +434,7 @@ namespace SyncManager
             this.numHiUpComps.AutoSize = true;
             this.numHiUpComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.numHiUpComps.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.numHiUpComps.Location = new System.Drawing.Point(202, 126);
+            this.numHiUpComps.Location = new System.Drawing.Point(16, 28);
             this.numHiUpComps.Name = "numHiUpComps";
             this.numHiUpComps.Size = new System.Drawing.Size(19, 13);
             this.numHiUpComps.TabIndex = 116;
@@ -435,7 +445,7 @@ namespace SyncManager
             this.numDownComps.AutoSize = true;
             this.numDownComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.numDownComps.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.numDownComps.Location = new System.Drawing.Point(138, 126);
+            this.numDownComps.Location = new System.Drawing.Point(129, 9);
             this.numDownComps.Name = "numDownComps";
             this.numDownComps.Size = new System.Drawing.Size(19, 13);
             this.numDownComps.TabIndex = 115;
@@ -446,11 +456,20 @@ namespace SyncManager
             this.numUpComps.AutoSize = true;
             this.numUpComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.numUpComps.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.numUpComps.Location = new System.Drawing.Point(91, 126);
+            this.numUpComps.Location = new System.Drawing.Point(16, 9);
             this.numUpComps.Name = "numUpComps";
             this.numUpComps.Size = new System.Drawing.Size(19, 13);
             this.numUpComps.TabIndex = 114;
             this.numUpComps.Text = "(0)";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(124, 64);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 23);
+            this.button1.TabIndex = 127;
+            this.button1.Text = "View Config";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // clientComputer1
             // 
@@ -459,22 +478,54 @@ namespace SyncManager
             this.clientComputer1.Size = new System.Drawing.Size(1031, 27);
             this.clientComputer1.TabIndex = 0;
             // 
-            // button1
+            // tableLayoutPanel1
             // 
-            this.button1.Location = new System.Drawing.Point(213, 38);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 23);
-            this.button1.TabIndex = 127;
-            this.button1.Text = "View Config";
-            this.button1.UseVisualStyleBackColor = true;
+            this.tableLayoutPanel1.ColumnCount = 9;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.Controls.Add(this.loDnLbl, 7, 0);
+            this.tableLayoutPanel1.Controls.Add(this.loUpLbl, 6, 0);
+            this.tableLayoutPanel1.Controls.Add(this.hiDnLbl, 5, 0);
+            this.tableLayoutPanel1.Controls.Add(this.hiUpLbl, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.downLbl, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.upLbl, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label10, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 8, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 136);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(482, 24);
+            this.tableLayoutPanel1.TabIndex = 128;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(438, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 24);
+            this.label1.TabIndex = 85;
+            this.label1.Text = "Pinged";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SyncForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 829);
+            this.ClientSize = new System.Drawing.Size(505, 829);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -500,7 +551,8 @@ namespace SyncManager
             this.Name = "SyncForm";
             this.Text = "SyncForm";
             this.Load += new System.EventHandler(this.SyncForm_Load);
-            this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -539,7 +591,6 @@ namespace SyncManager
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label numLoDnComps;
         private System.Windows.Forms.Label numLoUpComps;
         private System.Windows.Forms.Label numHiDnComps;
@@ -547,5 +598,7 @@ namespace SyncManager
         private System.Windows.Forms.Label numDownComps;
         private System.Windows.Forms.Label numUpComps;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label label1;
     }
 }
