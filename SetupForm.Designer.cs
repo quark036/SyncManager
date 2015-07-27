@@ -42,6 +42,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.importFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.importBtn = new System.Windows.Forms.Button();
+            this.importFilePathTxt = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -174,11 +175,19 @@
             this.importBtn.UseVisualStyleBackColor = true;
             this.importBtn.Click += new System.EventHandler(this.importBtn_Click);
             // 
+            // importFilePathTxt
+            // 
+            this.importFilePathTxt.Location = new System.Drawing.Point(269, 35);
+            this.importFilePathTxt.Name = "importFilePathTxt";
+            this.importFilePathTxt.Size = new System.Drawing.Size(204, 20);
+            this.importFilePathTxt.TabIndex = 13;
+            // 
             // SetupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 234);
+            this.Controls.Add(this.importFilePathTxt);
             this.Controls.Add(this.importBtn);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.continueButton);
@@ -194,6 +203,7 @@
             this.Controls.Add(this.label1);
             this.Name = "SetupForm";
             this.Text = "Setup";
+            this.Load += new System.EventHandler(this.SetupForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,5 +225,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.OpenFileDialog importFileDialog;
         private System.Windows.Forms.Button importBtn;
+        private System.Windows.Forms.TextBox importFilePathTxt;
     }
 }

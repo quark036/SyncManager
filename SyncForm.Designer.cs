@@ -417,7 +417,7 @@ namespace SyncManager
             this.numLoUpComps.AutoSize = true;
             this.numLoUpComps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.numLoUpComps.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.numLoUpComps.Location = new System.Drawing.Point(16, 45);
+            this.numLoUpComps.Location = new System.Drawing.Point(16, 46);
             this.numLoUpComps.Name = "numLoUpComps";
             this.numLoUpComps.Size = new System.Drawing.Size(19, 13);
             this.numLoUpComps.TabIndex = 118;
@@ -527,7 +527,7 @@ namespace SyncManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(505, 829);
+            this.ClientSize = new System.Drawing.Size(334, 829);
             this.Controls.Add(this.labelTable);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label13);

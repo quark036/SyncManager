@@ -116,7 +116,7 @@
             // lowUpSyncChk
             // 
             this.lowUpSyncChk.AutoSize = true;
-            this.lowUpSyncChk.Location = new System.Drawing.Point(384, 3);
+            this.lowUpSyncChk.Location = new System.Drawing.Point(324, 3);
             this.lowUpSyncChk.Name = "lowUpSyncChk";
             this.lowUpSyncChk.Size = new System.Drawing.Size(53, 15);
             this.lowUpSyncChk.TabIndex = 7;
@@ -127,7 +127,7 @@
             // lowDownSyncChk
             // 
             this.lowDownSyncChk.AutoSize = true;
-            this.lowDownSyncChk.Location = new System.Drawing.Point(324, 3);
+            this.lowDownSyncChk.Location = new System.Drawing.Point(384, 3);
             this.lowDownSyncChk.Name = "lowDownSyncChk";
             this.lowDownSyncChk.Size = new System.Drawing.Size(53, 15);
             this.lowDownSyncChk.TabIndex = 8;
@@ -146,20 +146,20 @@
             this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.syncTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 42F));
             this.syncTable.Controls.Add(this.ipAddress, 0, 0);
-            this.syncTable.Controls.Add(this.lowUpSyncChk, 7, 0);
-            this.syncTable.Controls.Add(this.lowDownSyncChk, 6, 0);
             this.syncTable.Controls.Add(this.roomName, 1, 0);
             this.syncTable.Controls.Add(this.upSyncChk, 2, 0);
             this.syncTable.Controls.Add(this.highDownSyncChk, 5, 0);
             this.syncTable.Controls.Add(this.downSyncChk, 3, 0);
             this.syncTable.Controls.Add(this.highUpSyncChk, 4, 0);
             this.syncTable.Controls.Add(this.lastPinged, 8, 0);
+            this.syncTable.Controls.Add(this.lowDownSyncChk, 7, 0);
+            this.syncTable.Controls.Add(this.lowUpSyncChk, 6, 0);
             this.syncTable.Location = new System.Drawing.Point(0, 0);
             this.syncTable.Name = "syncTable";
             this.syncTable.RowCount = 1;
-            this.syncTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+            this.syncTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.syncTable.Size = new System.Drawing.Size(483, 21);
             this.syncTable.TabIndex = 9;
             // 

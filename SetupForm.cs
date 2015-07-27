@@ -14,32 +14,15 @@ namespace SyncManager
         private int speakerReadyEndIP;
         private int breakoutStartIP;
         private int breakoutEndIP;
-        public ArrayList roomNames;
+        public Comp[] compInfo;
 
         public SetupForm()
         {
             InitializeComponent();
         }
 
-        private void importBtn_Click(object sender, EventArgs e)
+        private void SetupForm_Load(object sender, EventArgs e)
         {
-            importFileDialog.Title = "Choose file to read from";
-            if(importFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                roomNames = new ArrayList();
-                FileInfo fileToRead = new FileInfo(importFileDialog.FileName);
-                StreamReader reader = new StreamReader(File.OpenRead(fileToRead.FullName));
-                if(fileToRead.Exists)
-                {
-                    while(!reader.EndOfStream)
-                    {
-                        roomNames.Add(reader.ReadLine());
-                    }
-                }
-            }
-
-
-
             string filePath = @"c:\cshow\extras\syncManagerConfig.xml";
             if (!File.Exists(filePath))
             {
@@ -190,6 +173,43 @@ namespace SyncManager
                 sw.WriteLine("</modifiers>");
 
                 sw.WriteLine("</configs>");
+            }
+        }
+
+        public class Comp
+        {
+            public int ip;
+            public string roomName;
+
+            public Comp(int ip, string roomName)
+            {
+                this.ip = ip;
+                this.roomName = roomName;
+            }
+        }
+
+        private void importBtn_Click(object sender, EventArgs e)
+        {
+            importFileDialog.Title = "Choose file to read from";
+            if(importFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                FileInfo fileToRead = new FileInfo(importFileDialog.FileName);
+                StreamReader reader = new StreamReader(File.OpenRead(fileToRead.FullName));
+                string line;
+                string[] vals;
+                ArrayList comps = new ArrayList();
+                if(fileToRead.Exists)
+                {
+                    while(!reader.EndOfStream)
+                    {
+                        line = reader.ReadLine();
+                        vals = line.Split();
+                        comps.Add(new Comp(Convert.ToInt16(vals[1]), vals[0]));
+                        
+                    }
+                    compInfo = new Comp[comps.Count];
+                    comps.CopyTo(compInfo);
+                }
             }
         }
 

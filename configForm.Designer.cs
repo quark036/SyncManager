@@ -39,7 +39,7 @@
             this.startBOTxt = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ipSchemeTxt = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.lowSREndTxt = new System.Windows.Forms.TextBox();
             this.lowSRStartTxt = new System.Windows.Forms.TextBox();
@@ -58,6 +58,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.updateBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
+            this.screenTxt = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -151,17 +153,17 @@
             this.label6.TabIndex = 16;
             this.label6.Text = "IP Scheme";
             // 
-            // comboBox1
+            // ipSchemeTxt
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.ipSchemeTxt.FormattingEnabled = true;
+            this.ipSchemeTxt.Items.AddRange(new object[] {
             "Class C",
             "Class B"});
-            this.comboBox1.Location = new System.Drawing.Point(92, 116);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(76, 21);
-            this.comboBox1.TabIndex = 17;
-            this.comboBox1.Text = "Class C";
+            this.ipSchemeTxt.Location = new System.Drawing.Point(92, 116);
+            this.ipSchemeTxt.Name = "ipSchemeTxt";
+            this.ipSchemeTxt.Size = new System.Drawing.Size(76, 21);
+            this.ipSchemeTxt.TabIndex = 17;
+            this.ipSchemeTxt.Text = "Class C";
             // 
             // label7
             // 
@@ -304,6 +306,7 @@
             this.updateBtn.TabIndex = 35;
             this.updateBtn.Text = "Finish";
             this.updateBtn.UseVisualStyleBackColor = true;
+            this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
             // 
             // cancelBtn
             // 
@@ -316,11 +319,34 @@
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
+            // screenTxt
+            // 
+            this.screenTxt.FormattingEnabled = true;
+            this.screenTxt.Items.AddRange(new object[] {
+            "Server",
+            "Laptop"});
+            this.screenTxt.Location = new System.Drawing.Point(92, 144);
+            this.screenTxt.Name = "screenTxt";
+            this.screenTxt.Size = new System.Drawing.Size(76, 21);
+            this.screenTxt.TabIndex = 37;
+            this.screenTxt.Text = "Server";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(12, 147);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(64, 13);
+            this.label15.TabIndex = 36;
+            this.label15.Text = "Screen Size";
+            // 
             // configForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(322, 379);
+            this.Controls.Add(this.screenTxt);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.updateBtn);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.label11);
@@ -339,7 +365,7 @@
             this.Controls.Add(this.lowSREndTxt);
             this.Controls.Add(this.lowSRStartTxt);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.ipSchemeTxt);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.endBOTxt);
@@ -353,6 +379,7 @@
             this.Controls.Add(this.label1);
             this.Name = "configForm";
             this.Text = "Configs";
+            this.Load += new System.EventHandler(this.configForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -371,7 +398,7 @@
         private System.Windows.Forms.TextBox startBOTxt;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ipSchemeTxt;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox lowSREndTxt;
         private System.Windows.Forms.TextBox lowSRStartTxt;
@@ -390,5 +417,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button updateBtn;
         private System.Windows.Forms.Button cancelBtn;
+        private System.Windows.Forms.ComboBox screenTxt;
+        private System.Windows.Forms.Label label15;
     }
 }

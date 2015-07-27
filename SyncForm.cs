@@ -83,8 +83,12 @@ namespace SyncManager
 
         private void SyncForm_Load(object sender, EventArgs e)
         {
-            
-            for(int i = 0; i<numComps; i++)
+            if(type==1)
+                Location = new Point(300, 0);
+            else
+                Location = new Point(650, 0);
+
+            for (int i = 0; i<numComps; i++)
             {
                 ClientComputer cc = new ClientComputer(this, lowBottomBound+i);
                 clientComps[i] = cc;
@@ -171,13 +175,13 @@ namespace SyncManager
             {
                 shouldSync = hiDnChk;
                 botBound = highBottomBound - lowBottomBound;
-                fileLocStr = typeStr + "_DN_HI\\";
+                fileLocStr = typeStr + "_UP_LO\\";
             }
             else if (channel == 4)
             {
                 shouldSync = loUpChk;
                 topBound = highTopBound - lowTopBound;
-                fileLocStr = typeStr + "_UP_LO\\";
+                fileLocStr = typeStr + "_DN_HI\\";
             }
             else if(channel == 5)
             {
