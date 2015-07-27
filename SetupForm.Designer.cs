@@ -40,6 +40,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.continueButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.importFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.importBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -158,11 +160,26 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // importFileDialog
+            // 
+            this.importFileDialog.FileName = "Import File";
+            // 
+            // importBtn
+            // 
+            this.importBtn.Location = new System.Drawing.Point(480, 33);
+            this.importBtn.Name = "importBtn";
+            this.importBtn.Size = new System.Drawing.Size(75, 23);
+            this.importBtn.TabIndex = 12;
+            this.importBtn.Text = "Import";
+            this.importBtn.UseVisualStyleBackColor = true;
+            this.importBtn.Click += new System.EventHandler(this.importBtn_Click);
+            // 
             // SetupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 234);
+            this.Controls.Add(this.importBtn);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.breakoutIPEnd);
@@ -196,5 +213,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button continueButton;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.OpenFileDialog importFileDialog;
+        private System.Windows.Forms.Button importBtn;
     }
 }

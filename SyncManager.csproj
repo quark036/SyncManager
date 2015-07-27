@@ -83,6 +83,12 @@
     <Compile Include="ClientComputer.Designer.cs">
       <DependentUpon>ClientComputer.cs</DependentUpon>
     </Compile>
+    <Compile Include="configForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="configForm.Designer.cs">
+      <DependentUpon>configForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoHiForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +127,9 @@
   <ItemGroup>
     <EmbeddedResource Include="ClientComputer.resx">
       <DependentUpon>ClientComputer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="configForm.resx">
+      <DependentUpon>configForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoHiForm.resx">
       <DependentUpon>LoHiForm.cs</DependentUpon>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Collections;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace SyncManager
 {
@@ -12,10 +14,31 @@ namespace SyncManager
         private int speakerReadyEndIP;
         private int breakoutStartIP;
         private int breakoutEndIP;
+        public ArrayList roomNames;
 
         public SetupForm()
         {
             InitializeComponent();
+        }
+
+        private void importBtn_Click(object sender, EventArgs e)
+        {
+            importFileDialog.Title = "Choose file to read from";
+            if(importFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                roomNames = new ArrayList();
+                FileInfo fileToRead = new FileInfo(importFileDialog.FileName);
+                StreamReader reader = new StreamReader(File.OpenRead(fileToRead.FullName));
+                if(fileToRead.Exists)
+                {
+                    while(!reader.EndOfStream)
+                    {
+                        roomNames.Add(reader.ReadLine());
+                    }
+                }
+            }
+
+
 
             string filePath = @"c:\cshow\extras\syncManagerConfig.xml";
             if (!File.Exists(filePath))
@@ -72,7 +95,7 @@ namespace SyncManager
 
                 sw.WriteLine("<modifiers>");
 
-                sw.WriteLine("<speakerReady");
+                sw.WriteLine("<speakerReady>");
 
                 sw.WriteLine("<up>");
                 sw.Write("<inclusions>");
@@ -116,9 +139,9 @@ namespace SyncManager
                 sw.WriteLine("</exclusions>");
                 sw.WriteLine("</lowDown>");
 
-                sw.WriteLine("</speakerReady");
+                sw.WriteLine("</speakerReady>");
 
-                sw.WriteLine("<breakout");
+                sw.WriteLine("<breakout>");
 
                 sw.WriteLine("<up>");
                 sw.Write("<inclusions>");
@@ -162,7 +185,7 @@ namespace SyncManager
                 sw.WriteLine("</exclusions>");
                 sw.WriteLine("</lowDown>");
 
-                sw.WriteLine("</breakout");
+                sw.WriteLine("</breakout>");
 
                 sw.WriteLine("</modifiers>");
 
