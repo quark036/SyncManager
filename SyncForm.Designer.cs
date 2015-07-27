@@ -70,6 +70,7 @@ namespace SyncManager
             this.button1 = new System.Windows.Forms.Button();
             this.labelTable = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.connectionWorker2 = new System.ComponentModel.BackgroundWorker();
             this.clientComputer1 = new SyncManager.ClientComputer();
             this.labelTable.SuspendLayout();
             this.SuspendLayout();
@@ -516,6 +517,12 @@ namespace SyncManager
             this.label1.Text = "Pinged";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // connectionWorker2
+            // 
+            this.connectionWorker2.WorkerReportsProgress = true;
+            this.connectionWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.connectionWorker2_DoWork);
+            this.connectionWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.connectionWorker_ProgressChanged);
+            // 
             // clientComputer1
             // 
             this.clientComputer1.Location = new System.Drawing.Point(0, 0);
@@ -604,5 +611,6 @@ namespace SyncManager
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TableLayoutPanel labelTable;
         private System.Windows.Forms.Label label1;
+        private System.ComponentModel.BackgroundWorker connectionWorker2;
     }
 }

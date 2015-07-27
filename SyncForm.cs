@@ -127,6 +127,7 @@ namespace SyncManager
             lowDownSyncWorker.RunWorkerAsync(5);
 
             connectionWorker.RunWorkerAsync();
+            connectionWorker2.RunWorkerAsync();
             updateLabelCollapse();
             Show();
             compPanel.Focus();
@@ -279,6 +280,24 @@ namespace SyncManager
                 curIP = clientComps[i].ip;
                 conProg.success = checkCon(baseIP + curIP);
                 conProg.compNumber = i;
+                worker.ReportProgress(0, conProg);
+                i = ++i % numComps;
+            }
+        }
+
+        private void connectionWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = (BackgroundWorker)sender;
+            int i = 0;
+            int a = i;
+            int curIP;
+            ConnectionProgress conProg = new ConnectionProgress();
+            while (true)
+            {
+                a = numComps - 1 - i;
+                curIP = clientComps[a].ip;
+                conProg.success = checkCon(baseIP + curIP);
+                conProg.compNumber = a;
                 worker.ReportProgress(0, conProg);
                 i = ++i % numComps;
             }
