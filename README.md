@@ -23,6 +23,10 @@ UPDATE:
 Wow, looks like a few people are actually cloning this. Probably should make this readme a bit better.
 I think the only thing you need to make sure of if you are trying to run it is that you have all the folders you need. Like I said, you need a bunch of filensync folders, and then it also will look for a config file under C:\Cshow\Extras. If there isn't one there, it will create it, but I don't know what will happen if you don't have a cshow\extras folder.
 
+Also, just a few tips on the UI. The check boxes at the top of the sync form are what start that sync type running, and then the check boxes on each client computer determine if those will be synced under that sync type or not. When you tick a checkbox at the top, it will reveal that channel on each of the client comps (this is so you can only have a few types of syncs running and the window will take up less space). Green highlight means that computer is currently syncing under that channel, red highlight means that you are trying to sync it but it isn't connected, and orange highlight means it isn't connected. Teal is if you are running that sync type.
+
+If you see any bugs definitely create an issue for them and I'll try fix them.
+
 That's all for now.
 
 You should fork the repo so I can see who you are!
