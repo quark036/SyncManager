@@ -11,7 +11,7 @@ using System.Xml;
 
 namespace SyncManager
 {
-    public partial class configForm : Form
+    public partial class ConfigForm : Form
     {
         public SetupForm parentForm;
         private int speakerReadyStartIP;
@@ -19,7 +19,7 @@ namespace SyncManager
         private int breakoutStartIP;
         private int breakoutEndIP;
 
-        public configForm(SetupForm myParent)
+        public ConfigForm(SetupForm myParent)
         {
             InitializeComponent();
             parentForm = myParent;
@@ -27,19 +27,14 @@ namespace SyncManager
 
         private void configForm_Load(object sender, EventArgs e)
         {
-            
-
-            
-            
-            
+            Show();
         }
 
-        private void setupFromFile()
+        public void setupFromFile()
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
-
-            importFilePathTxt.Text = doc.SelectSingleNode("/configs/importFilePath").InnerText;
+            
             numSRCompsTxt.Text = doc.SelectSingleNode("/configs/numSRComps").InnerText;
             numBOCompsTxt.Text = doc.SelectSingleNode("/configs/numBOComps").InnerText;
             ipSchemeTxt.Text = doc.SelectSingleNode("/configs/ipScheme").InnerText;
@@ -52,9 +47,10 @@ namespace SyncManager
             lowBOEndTxt.Text = doc.SelectSingleNode("/configs/divisions/endBOLow").InnerText;
             highBOStartTxt.Text = doc.SelectSingleNode("/configs/divisions/startBOHigh").InnerText;
             highBOEndTxt.Text = doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText;
+            doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
         }
 
-        private void firstTimeSetup()
+        public void firstTimeSetup()
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
@@ -70,6 +66,8 @@ namespace SyncManager
             doc.SelectSingleNode("/configs/divisions/startBOHigh").InnerText = (((bounds[2] + bounds[3]) / 2) + 1).ToString();
             doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText = bounds[3].ToString();
             doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
+
+            setupFromFile();
         }
 
         private int[] findBounds()

@@ -15,10 +15,12 @@ namespace SyncManager
         private int breakoutStartIP;
         private int breakoutEndIP;
         public Comp[] compInfo;
+        private bool firstTime;
 
         public SetupForm()
         {
             InitializeComponent();
+            firstTime = false;
         }
 
         private void SetupForm_Load(object sender, EventArgs e)
@@ -26,6 +28,7 @@ namespace SyncManager
             string filePath = @"c:\cshow\extras\syncManagerConfig.xml";
             if (!File.Exists(filePath))
             {
+                firstTime = true;
                 StreamWriter sw = File.CreateText(filePath);
                 sw.WriteLine("<configs>");
 
@@ -175,6 +178,8 @@ namespace SyncManager
                 sw.WriteLine("</modifiers>");
 
                 sw.WriteLine("</configs>");
+
+                sw.Close();
             }
         }
 
@@ -213,6 +218,12 @@ namespace SyncManager
                     comps.CopyTo(compInfo);
                 }
             }
+            ConfigForm cfg = new ConfigForm(this);
+            if (firstTime)
+                cfg.firstTimeSetup();
+            else
+                cfg.setupFromFile();
+            cfg.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
