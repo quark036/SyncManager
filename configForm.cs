@@ -27,12 +27,49 @@ namespace SyncManager
 
         private void configForm_Load(object sender, EventArgs e)
         {
+            
+
+            
+            
+            
+        }
+
+        private void setupFromFile()
+        {
             XmlDocument doc = new XmlDocument();
             doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
 
             importFilePathTxt.Text = doc.SelectSingleNode("/configs/importFilePath").InnerText;
+            numSRCompsTxt.Text = doc.SelectSingleNode("/configs/numSRComps").InnerText;
+            numBOCompsTxt.Text = doc.SelectSingleNode("/configs/numBOComps").InnerText;
+            ipSchemeTxt.Text = doc.SelectSingleNode("/configs/ipScheme").InnerText;
+            screenTxt.Text = doc.SelectSingleNode("/configs/screenSize").InnerText;
+            lowSRStartTxt.Text = doc.SelectSingleNode("/configs/divisions/startSRLow").InnerText;
+            lowSREndTxt.Text = doc.SelectSingleNode("/configs/divisions/endSRLow").InnerText;
+            highSRStartTxt.Text = doc.SelectSingleNode("/configs/divisions/startSRHigh").InnerText;
+            highSREndTxt.Text = doc.SelectSingleNode("/configs/divisions/endSRHigh").InnerText;
+            lowBOStartTxt.Text = doc.SelectSingleNode("/configs/divisions/startBOLow").InnerText;
+            lowBOEndTxt.Text = doc.SelectSingleNode("/configs/divisions/endBOLow").InnerText;
+            highBOStartTxt.Text = doc.SelectSingleNode("/configs/divisions/startBOHigh").InnerText;
+            highBOEndTxt.Text = doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText;
+        }
+
+        private void firstTimeSetup()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
             int[] bounds = findBounds();
-            
+            doc.SelectSingleNode("/configs/numSRComps").InnerText = (bounds[1] - bounds[0] + 1).ToString();
+            doc.SelectSingleNode("/configs/numBOComps").InnerText = (bounds[3] - bounds[2] + 1).ToString();
+            doc.SelectSingleNode("/configs/divisions/startSRLow").InnerText = bounds[0].ToString();
+            doc.SelectSingleNode("/configs/divisions/endSRLow").InnerText = ((bounds[0] + bounds[1])/2).ToString();
+            doc.SelectSingleNode("/configs/divisions/startSRHigh").InnerText = (((bounds[0] + bounds[1]) / 2) + 1).ToString();
+            doc.SelectSingleNode("/configs/divisions/endSRHigh").InnerText = bounds[1].ToString();
+            doc.SelectSingleNode("/configs/divisions/startBOLow").InnerText = bounds[2].ToString();
+            doc.SelectSingleNode("/configs/divisions/endBOLow").InnerText = ((bounds[2] + bounds[3]) / 2).ToString();
+            doc.SelectSingleNode("/configs/divisions/startBOHigh").InnerText = (((bounds[2] + bounds[3]) / 2) + 1).ToString();
+            doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText = bounds[3].ToString();
+            doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
         }
 
         private int[] findBounds()

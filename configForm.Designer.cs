@@ -30,13 +30,9 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.importFilePathTxt = new System.Windows.Forms.TextBox();
-            this.startSRTxt = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.endSRTxt = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.endBOTxt = new System.Windows.Forms.TextBox();
-            this.startBOTxt = new System.Windows.Forms.TextBox();
+            this.numSRCompsTxt = new System.Windows.Forms.TextBox();
+            this.numBOCompsTxt = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.ipSchemeTxt = new System.Windows.Forms.ComboBox();
@@ -78,71 +74,37 @@
             this.importFilePathTxt.Size = new System.Drawing.Size(186, 20);
             this.importFilePathTxt.TabIndex = 1;
             // 
-            // startSRTxt
-            // 
-            this.startSRTxt.Location = new System.Drawing.Point(152, 42);
-            this.startSRTxt.Name = "startSRTxt";
-            this.startSRTxt.Size = new System.Drawing.Size(42, 20);
-            this.startSRTxt.TabIndex = 3;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 45);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(134, 13);
+            this.label2.Size = new System.Drawing.Size(174, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Speaker Ready Computers";
+            this.label2.Text = "Number Speaker Ready Computers";
             // 
-            // endSRTxt
+            // numSRCompsTxt
             // 
-            this.endSRTxt.Location = new System.Drawing.Point(229, 42);
-            this.endSRTxt.Name = "endSRTxt";
-            this.endSRTxt.Size = new System.Drawing.Size(42, 20);
-            this.endSRTxt.TabIndex = 4;
+            this.numSRCompsTxt.Location = new System.Drawing.Point(192, 42);
+            this.numSRCompsTxt.Name = "numSRCompsTxt";
+            this.numSRCompsTxt.Size = new System.Drawing.Size(42, 20);
+            this.numSRCompsTxt.TabIndex = 4;
             // 
-            // label3
+            // numBOCompsTxt
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label3.Location = new System.Drawing.Point(200, 31);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(23, 31);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "-";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label4.Location = new System.Drawing.Point(200, 68);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(23, 31);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "-";
-            // 
-            // endBOTxt
-            // 
-            this.endBOTxt.Location = new System.Drawing.Point(229, 79);
-            this.endBOTxt.Name = "endBOTxt";
-            this.endBOTxt.Size = new System.Drawing.Size(42, 20);
-            this.endBOTxt.TabIndex = 14;
-            // 
-            // startBOTxt
-            // 
-            this.startBOTxt.Location = new System.Drawing.Point(152, 79);
-            this.startBOTxt.Name = "startBOTxt";
-            this.startBOTxt.Size = new System.Drawing.Size(42, 20);
-            this.startBOTxt.TabIndex = 13;
+            this.numBOCompsTxt.Location = new System.Drawing.Point(192, 79);
+            this.numBOCompsTxt.Name = "numBOCompsTxt";
+            this.numBOCompsTxt.Size = new System.Drawing.Size(42, 20);
+            this.numBOCompsTxt.TabIndex = 14;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 82);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(103, 13);
+            this.label5.Size = new System.Drawing.Size(143, 13);
             this.label5.TabIndex = 12;
-            this.label5.Text = "Breakout Computers";
+            this.label5.Text = "Number Breakout Computers";
             // 
             // label6
             // 
@@ -367,13 +329,9 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.ipSchemeTxt);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.endBOTxt);
-            this.Controls.Add(this.startBOTxt);
+            this.Controls.Add(this.numBOCompsTxt);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.endSRTxt);
-            this.Controls.Add(this.startSRTxt);
+            this.Controls.Add(this.numSRCompsTxt);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.importFilePathTxt);
             this.Controls.Add(this.label1);
@@ -389,13 +347,9 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox importFilePathTxt;
-        private System.Windows.Forms.TextBox startSRTxt;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox endSRTxt;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox endBOTxt;
-        private System.Windows.Forms.TextBox startBOTxt;
+        private System.Windows.Forms.TextBox numSRCompsTxt;
+        private System.Windows.Forms.TextBox numBOCompsTxt;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox ipSchemeTxt;

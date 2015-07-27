@@ -44,6 +44,8 @@ namespace SyncManager
                 sw.Write("<ipScheme>");
                 sw.WriteLine("</ipScheme>");
 
+                sw.Write("<screenSize>");
+                sw.WriteLine("</screenSize>");
 
 
                 sw.WriteLine("<divisions>");
@@ -203,7 +205,7 @@ namespace SyncManager
                     while(!reader.EndOfStream)
                     {
                         line = reader.ReadLine();
-                        vals = line.Split();
+                        vals = line.Split(',');
                         comps.Add(new Comp(Convert.ToInt16(vals[1]), vals[0]));
                         
                     }
