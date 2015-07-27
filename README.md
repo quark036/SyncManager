@@ -17,3 +17,13 @@ C:\FNSYNC, and then you need subfolders for each sync type (if you look at the c
 So, that's it for now.
 
 Feel free to contact me with any questions
+
+UPDATE:
+
+Wow, looks like a few people are actually cloning this. Probably should make this readme a bit better.
+I think the only thing you need to make sure of if you are trying to run it is that you have all the folders you need. Like I said, you need a bunch of filensync folders, and then it also will look for a config file under C:\Cshow\Extras. If there isn't one there, it will create it, but I don't know what will happen if you don't have a cshow\extras folder.
+
+That's all for now.
+
+You should fork the repo so I can see who you are!
+Feel free to contact me with any questions
