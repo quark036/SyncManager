@@ -57,6 +57,11 @@ namespace SyncManager
             syncTable.ColumnStyles[1].Width = width;
         }
 
+        public string getRoomName()
+        {
+            return roomName.Text;
+        }
+
         public void conceal(int channel)
         {
             if (channel == 0)
