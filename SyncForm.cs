@@ -177,9 +177,9 @@ namespace SyncManager
             if (type == 1)
                 Location = new Point(300, 0);
             else if (type == 2)
-                Location = new Point(650, 0);
+                Location = new Point(600, 0);
             else
-                Location = new Point(1000, 0);
+                Location = new Point(900, 0);
 
             for (int i = 0; i<numComps; i++)
             {
