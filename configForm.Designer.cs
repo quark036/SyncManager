@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.numSRCompsTxt = new System.Windows.Forms.TextBox();
-            this.numBOCompsTxt = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.ipSchemeTxt = new System.Windows.Forms.ComboBox();
@@ -54,35 +52,24 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.screenTxt = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numBOCompsTxt = new System.Windows.Forms.TextBox();
+            this.numSRCompsTxt = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(12, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(174, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Number Speaker Ready Computers";
             // 
-            // numSRCompsTxt
-            // 
-            this.numSRCompsTxt.Location = new System.Drawing.Point(192, 6);
-            this.numSRCompsTxt.Name = "numSRCompsTxt";
-            this.numSRCompsTxt.Size = new System.Drawing.Size(42, 20);
-            this.numSRCompsTxt.TabIndex = 4;
-            // 
-            // numBOCompsTxt
-            // 
-            this.numBOCompsTxt.Location = new System.Drawing.Point(192, 43);
-            this.numBOCompsTxt.Name = "numBOCompsTxt";
-            this.numBOCompsTxt.Size = new System.Drawing.Size(42, 20);
-            this.numBOCompsTxt.TabIndex = 14;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 46);
+            this.label5.Location = new System.Drawing.Point(12, 67);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(143, 13);
             this.label5.TabIndex = 12;
@@ -91,7 +78,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 83);
+            this.label6.Location = new System.Drawing.Point(12, 128);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 13);
             this.label6.TabIndex = 16;
@@ -99,11 +86,12 @@
             // 
             // ipSchemeTxt
             // 
+            this.ipSchemeTxt.Enabled = false;
             this.ipSchemeTxt.FormattingEnabled = true;
             this.ipSchemeTxt.Items.AddRange(new object[] {
             "Class C",
             "Class B"});
-            this.ipSchemeTxt.Location = new System.Drawing.Point(92, 80);
+            this.ipSchemeTxt.Location = new System.Drawing.Point(92, 125);
             this.ipSchemeTxt.Name = "ipSchemeTxt";
             this.ipSchemeTxt.Size = new System.Drawing.Size(76, 21);
             this.ipSchemeTxt.TabIndex = 17;
@@ -113,7 +101,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label7.Location = new System.Drawing.Point(174, 133);
+            this.label7.Location = new System.Drawing.Point(174, 172);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(23, 31);
             this.label7.TabIndex = 21;
@@ -121,14 +109,14 @@
             // 
             // lowSREndTxt
             // 
-            this.lowSREndTxt.Location = new System.Drawing.Point(203, 144);
+            this.lowSREndTxt.Location = new System.Drawing.Point(203, 183);
             this.lowSREndTxt.Name = "lowSREndTxt";
             this.lowSREndTxt.Size = new System.Drawing.Size(42, 20);
             this.lowSREndTxt.TabIndex = 20;
             // 
             // lowSRStartTxt
             // 
-            this.lowSRStartTxt.Location = new System.Drawing.Point(126, 144);
+            this.lowSRStartTxt.Location = new System.Drawing.Point(126, 183);
             this.lowSRStartTxt.Name = "lowSRStartTxt";
             this.lowSRStartTxt.Size = new System.Drawing.Size(42, 20);
             this.lowSRStartTxt.TabIndex = 19;
@@ -136,7 +124,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 147);
+            this.label8.Location = new System.Drawing.Point(12, 186);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(104, 13);
             this.label8.TabIndex = 18;
@@ -146,7 +134,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label9.Location = new System.Drawing.Point(174, 170);
+            this.label9.Location = new System.Drawing.Point(174, 195);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(23, 31);
             this.label9.TabIndex = 25;
@@ -154,14 +142,14 @@
             // 
             // highSREndTxt
             // 
-            this.highSREndTxt.Location = new System.Drawing.Point(203, 181);
+            this.highSREndTxt.Location = new System.Drawing.Point(203, 206);
             this.highSREndTxt.Name = "highSREndTxt";
             this.highSREndTxt.Size = new System.Drawing.Size(42, 20);
             this.highSREndTxt.TabIndex = 24;
             // 
             // highSRStartTxt
             // 
-            this.highSRStartTxt.Location = new System.Drawing.Point(126, 181);
+            this.highSRStartTxt.Location = new System.Drawing.Point(126, 206);
             this.highSRStartTxt.Name = "highSRStartTxt";
             this.highSRStartTxt.Size = new System.Drawing.Size(42, 20);
             this.highSRStartTxt.TabIndex = 23;
@@ -169,7 +157,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 184);
+            this.label10.Location = new System.Drawing.Point(12, 209);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(106, 13);
             this.label10.TabIndex = 22;
@@ -212,7 +200,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label13.Location = new System.Drawing.Point(174, 217);
+            this.label13.Location = new System.Drawing.Point(174, 226);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(23, 31);
             this.label13.TabIndex = 29;
@@ -220,14 +208,14 @@
             // 
             // lowBOEndTxt
             // 
-            this.lowBOEndTxt.Location = new System.Drawing.Point(203, 228);
+            this.lowBOEndTxt.Location = new System.Drawing.Point(203, 237);
             this.lowBOEndTxt.Name = "lowBOEndTxt";
             this.lowBOEndTxt.Size = new System.Drawing.Size(42, 20);
             this.lowBOEndTxt.TabIndex = 28;
             // 
             // lowBOStartTxt
             // 
-            this.lowBOStartTxt.Location = new System.Drawing.Point(126, 228);
+            this.lowBOStartTxt.Location = new System.Drawing.Point(126, 237);
             this.lowBOStartTxt.Name = "lowBOStartTxt";
             this.lowBOStartTxt.Size = new System.Drawing.Size(42, 20);
             this.lowBOStartTxt.TabIndex = 27;
@@ -235,7 +223,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 231);
+            this.label14.Location = new System.Drawing.Point(12, 240);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(73, 13);
             this.label14.TabIndex = 26;
@@ -265,11 +253,12 @@
             // 
             // screenTxt
             // 
+            this.screenTxt.Enabled = false;
             this.screenTxt.FormattingEnabled = true;
             this.screenTxt.Items.AddRange(new object[] {
             "Server",
             "Laptop"});
-            this.screenTxt.Location = new System.Drawing.Point(92, 108);
+            this.screenTxt.Location = new System.Drawing.Point(92, 153);
             this.screenTxt.Name = "screenTxt";
             this.screenTxt.Size = new System.Drawing.Size(76, 21);
             this.screenTxt.TabIndex = 37;
@@ -278,17 +267,43 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(12, 111);
+            this.label15.Location = new System.Drawing.Point(12, 156);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(64, 13);
             this.label15.TabIndex = 36;
             this.label15.Text = "Screen Size";
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(220, 28);
+            this.label1.TabIndex = 38;
+            this.label1.Text = "If you want to change the number of computers, do so in the import file, not here" +
+    "";
+            // 
+            // numBOCompsTxt
+            // 
+            this.numBOCompsTxt.Enabled = false;
+            this.numBOCompsTxt.Location = new System.Drawing.Point(192, 64);
+            this.numBOCompsTxt.Name = "numBOCompsTxt";
+            this.numBOCompsTxt.Size = new System.Drawing.Size(42, 20);
+            this.numBOCompsTxt.TabIndex = 14;
+            // 
+            // numSRCompsTxt
+            // 
+            this.numSRCompsTxt.Enabled = false;
+            this.numSRCompsTxt.Location = new System.Drawing.Point(192, 42);
+            this.numSRCompsTxt.Name = "numSRCompsTxt";
+            this.numSRCompsTxt.Size = new System.Drawing.Size(42, 20);
+            this.numSRCompsTxt.TabIndex = 4;
             // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(273, 320);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.screenTxt);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.updateBtn);
@@ -325,8 +340,6 @@
 
         #endregion
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox numSRCompsTxt;
-        private System.Windows.Forms.TextBox numBOCompsTxt;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox ipSchemeTxt;
@@ -350,5 +363,8 @@
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.ComboBox screenTxt;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox numBOCompsTxt;
+        private System.Windows.Forms.TextBox numSRCompsTxt;
     }
 }

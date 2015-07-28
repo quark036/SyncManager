@@ -568,7 +568,7 @@ namespace SyncManager
             this.PerformLayout();
 
         }
-
+        
         #endregion
         private System.Windows.Forms.Label upLbl;
         private System.Windows.Forms.Label label9;

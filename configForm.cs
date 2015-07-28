@@ -14,10 +14,6 @@ namespace SyncManager
     public partial class ConfigForm : Form
     {
         public SetupForm parentForm;
-        private int speakerReadyStartIP;
-        private int speakerReadyEndIP;
-        private int breakoutStartIP;
-        private int breakoutEndIP;
 
         public ConfigForm(SetupForm myParent)
         {
@@ -84,15 +80,31 @@ namespace SyncManager
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
+            parentForm.Close();
             Close();
         }
 
         private void updateBtn_Click(object sender, EventArgs e)
         {
-
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
+            int[] bounds = findBounds();
+            doc.SelectSingleNode("/configs/numSRComps").InnerText = numSRCompsTxt.Text;
+            doc.SelectSingleNode("/configs/numBOComps").InnerText = numBOCompsTxt.Text;
+            doc.SelectSingleNode("/configs/divisions/startSRLow").InnerText = lowSRStartTxt.Text;
+            doc.SelectSingleNode("/configs/divisions/endSRLow").InnerText = lowSREndTxt.Text;
+            doc.SelectSingleNode("/configs/divisions/startSRHigh").InnerText = highSRStartTxt.Text;
+            doc.SelectSingleNode("/configs/divisions/endSRHigh").InnerText = highSREndTxt.Text;
+            doc.SelectSingleNode("/configs/divisions/startBOLow").InnerText = lowBOStartTxt.Text;
+            doc.SelectSingleNode("/configs/divisions/endBOLow").InnerText = lowBOEndTxt.Text;
+            doc.SelectSingleNode("/configs/divisions/startBOHigh").InnerText = highBOStartTxt.Text;
+            doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText = highBOEndTxt.Text;
+            doc.SelectSingleNode("/configs/ipScheme").InnerText = ipSchemeTxt.Text;
+            doc.SelectSingleNode("/configs/screenSize").InnerText = screenTxt.Text;
+            doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
+            parentForm.launch();
             Close();
         }
-
         
     }
 }

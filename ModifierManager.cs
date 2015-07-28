@@ -67,6 +67,7 @@ namespace SyncManager
                     newExclusions[i] += parentForm.univFilter;
                 parentForm.exclusions[i] = newExclusions[i];
                 parentForm.inclusions[i] = newInclusions[i];
+                parentForm.saveModsToConfig();
             }
             parentForm.makeScrollable();
             Close();

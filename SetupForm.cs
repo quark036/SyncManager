@@ -53,23 +53,17 @@ namespace SyncManager
 
                 sw.WriteLine("<divisions>");
 
-                sw.Write("<startSRHigh>");
-                sw.WriteLine("</startSRHigh>");
-
-                sw.Write("<endSRHigh>");
-                sw.WriteLine("</endSRHigh>");
-
                 sw.Write("<startSRLow>");
                 sw.WriteLine("</startSRLow>");
 
                 sw.Write("<endSRLow>");
                 sw.WriteLine("</endSRLow>");
 
-                sw.Write("<startBOHigh>");
-                sw.WriteLine("</startBOHigh>");
+                sw.Write("<startSRHigh>");
+                sw.WriteLine("</startSRHigh>");
 
-                sw.Write("<endBOHigh>");
-                sw.WriteLine("</endBOHigh>");
+                sw.Write("<endSRHigh>");
+                sw.WriteLine("</endSRHigh>");
 
                 sw.Write("<startBOLow>");
                 sw.WriteLine("</startBOLow>");
@@ -77,9 +71,14 @@ namespace SyncManager
                 sw.Write("<endBOLow>");
                 sw.WriteLine("</endBOLow>");
 
+                sw.Write("<startBOHigh>");
+                sw.WriteLine("</startBOHigh>");
+
+                sw.Write("<endBOHigh>");
+                sw.WriteLine("</endBOHigh>");
+                
                 sw.WriteLine("</divisions>");
-
-
+                
 
                 sw.WriteLine("<modifiers>");
 
@@ -231,17 +230,11 @@ namespace SyncManager
             Close();
         }
 
-        private void continueButton_Click(object sender, EventArgs e)
+        public void launch()
         {
-            speakerReadyStartIP = Convert.ToInt16(speakerReadyIPStart.Text);
-            speakerReadyEndIP = Convert.ToInt16(speakerReadyIPEnd.Text);
-            breakoutStartIP = Convert.ToInt16(breakoutIPStart.Text);
-            breakoutEndIP = Convert.ToInt16(breakoutIPEnd.Text);
-            isClassC = ipScheme.Text.Equals("Class C");
-            int[] bounds = { speakerReadyStartIP, speakerReadyEndIP, breakoutStartIP, breakoutEndIP };
-            SyncForm speakerReadySync = new SyncForm(bounds, this, 1, isClassC);
+            SyncForm speakerReadySync = new SyncForm(this, 1, isClassC);
             speakerReadySync.Show();
-            SyncForm breakoutSync = new SyncForm(bounds, this, 2, isClassC);
+            SyncForm breakoutSync = new SyncForm(this, 2, isClassC);
             breakoutSync.Show();
             Hide();
         }
