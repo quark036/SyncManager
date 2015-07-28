@@ -218,7 +218,7 @@ namespace SyncManager
 
 
             }
-
+            resizeCompNames();
             upSyncWorker.RunWorkerAsync(0);
             downSyncWorker.RunWorkerAsync(1);
             hiUpSyncWorker.RunWorkerAsync(2);
@@ -231,6 +231,22 @@ namespace SyncManager
             updateLabelCollapse();
             Show();
             compPanel.Focus();
+        }
+
+        public void resizeCompNames()
+        {
+            int widest = 0;
+            for (int i = 0; i < numComps; i++)
+            {
+                if (clientComps[i].getRoomWidth() > widest)
+                    widest = clientComps[i].getRoomWidth();
+            }
+            for (int i = 0; i < numComps; i++)
+            {
+                clientComps[i].resizeRoom(widest+10);
+            }
+            labelTable.ColumnStyles[1].SizeType = SizeType.Absolute;
+            labelTable.ColumnStyles[1].Width = widest + 10;
         }
 
         public class ProgressVals

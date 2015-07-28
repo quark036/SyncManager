@@ -46,6 +46,17 @@ namespace SyncManager
             roomName.Text = room;
         }
 
+        public int getRoomWidth()
+        {
+            return roomName.Width;
+        }
+
+        public void resizeRoom(int width)
+        {
+            syncTable.ColumnStyles[1].SizeType = SizeType.Absolute;
+            syncTable.ColumnStyles[1].Width = width;
+        }
+
         public void conceal(int channel)
         {
             if (channel == 0)
