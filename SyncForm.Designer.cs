@@ -70,8 +70,8 @@ namespace SyncManager
             this.labelTable = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.connectionWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.clientComputer1 = new SyncManager.ClientComputer();
             this.openWindowsBtn = new System.Windows.Forms.Button();
+            this.clientComputer1 = new SyncManager.ClientComputer();
             this.labelTable.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -514,13 +514,6 @@ namespace SyncManager
             this.connectionWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.connectionWorker2_DoWork);
             this.connectionWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.connectionWorker_ProgressChanged);
             // 
-            // clientComputer1
-            // 
-            this.clientComputer1.Location = new System.Drawing.Point(0, 0);
-            this.clientComputer1.Name = "clientComputer1";
-            this.clientComputer1.Size = new System.Drawing.Size(1031, 27);
-            this.clientComputer1.TabIndex = 0;
-            // 
             // openWindowsBtn
             // 
             this.openWindowsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
@@ -531,6 +524,13 @@ namespace SyncManager
             this.openWindowsBtn.Text = "Open Windows";
             this.openWindowsBtn.UseVisualStyleBackColor = true;
             this.openWindowsBtn.Click += new System.EventHandler(this.openWindowsBtn_Click);
+            // 
+            // clientComputer1
+            // 
+            this.clientComputer1.Location = new System.Drawing.Point(0, 0);
+            this.clientComputer1.Name = "clientComputer1";
+            this.clientComputer1.Size = new System.Drawing.Size(1031, 27);
+            this.clientComputer1.TabIndex = 0;
             // 
             // SyncForm
             // 
@@ -563,6 +563,7 @@ namespace SyncManager
             this.Controls.Add(this.compPanel);
             this.Name = "SyncForm";
             this.Text = "SyncForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SyncForm_FormClosed);
             this.Load += new System.EventHandler(this.SyncForm_Load);
             this.labelTable.ResumeLayout(false);
             this.labelTable.PerformLayout();

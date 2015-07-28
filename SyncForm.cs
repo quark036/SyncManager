@@ -14,8 +14,7 @@ using System.Xml;
 namespace SyncManager
 {
     public partial class SyncForm : Form
-    {
-        
+    {        
         private int[] ipBounds; //speaker ready start, end, breakout start, end
         public int numComps;
         public ClientComputer[] clientComps;
@@ -832,7 +831,33 @@ namespace SyncManager
 
         private void openWindowsBtn_Click(object sender, EventArgs e)
         {
+            if(!parentForm.speakerReadyWindowOpen)
+            {
+                parentForm.speakerReadySync = new SyncForm(parentForm, 1);
+                parentForm.speakerReadySync.Show();
+            }
+            if(!parentForm.breakoutWindowOpen)
+            {
+                parentForm.breakoutSync = new SyncForm(parentForm, 2);
+                parentForm.breakoutSync.Show();
+            }
+            if(!parentForm.zoneWindowOpen)
+            {
+                parentForm.zoneSync = new SyncForm(parentForm, 3);
+                parentForm.zoneSync.Show();
+            }
+        }
 
+        private void SyncForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (type == 1)
+                parentForm.speakerReadyWindowOpen = false;
+            else if (type == 2)
+                parentForm.breakoutWindowOpen = false;
+            else if (type == 3)
+                parentForm.zoneWindowOpen = false;
+            if (!parentForm.speakerReadyWindowOpen && !parentForm.breakoutWindowOpen && !parentForm.zoneWindowOpen)
+                parentForm.Close();
         }
     }
 }

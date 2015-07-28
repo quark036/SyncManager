@@ -253,7 +253,6 @@
             // 
             // screenTxt
             // 
-            this.screenTxt.Enabled = false;
             this.screenTxt.FormattingEnabled = true;
             this.screenTxt.Items.AddRange(new object[] {
             "Server",

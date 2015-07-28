@@ -11,6 +11,12 @@ namespace SyncManager
         public Comp[] compInfo;
         public Comp[] breakoutCompInfo;
         private bool firstTime;
+        public bool speakerReadyWindowOpen;
+        public bool breakoutWindowOpen;
+        public bool zoneWindowOpen;
+        public SyncForm speakerReadySync;
+        public SyncForm breakoutSync;
+        public SyncForm zoneSync;
 
         public SetupForm()
         {
@@ -278,11 +284,14 @@ namespace SyncManager
 
         public void launch()
         {
-            SyncForm speakerReadySync = new SyncForm(this, 1);
+            speakerReadySync = new SyncForm(this, 1);
+            speakerReadyWindowOpen = true;
             speakerReadySync.Show();
-            SyncForm breakoutSync = new SyncForm(this, 2);
+            breakoutSync = new SyncForm(this, 2);
+            breakoutWindowOpen = true;
             breakoutSync.Show();
-            SyncForm zoneSync = new SyncForm(this, 3);
+            zoneSync = new SyncForm(this, 3);
+            zoneWindowOpen = true;
             zoneSync.Show();
             Hide();
         }
