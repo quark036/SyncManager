@@ -14,6 +14,9 @@ namespace SyncManager
     public partial class ConfigForm : Form
     {
         public SetupForm parentForm;
+        public SyncForm speakerReadyForm;
+        public SyncForm breakoutForm;
+        public SyncForm zoneForm;
 
         public ConfigForm(SetupForm myParent)
         {

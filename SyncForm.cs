@@ -19,7 +19,7 @@ namespace SyncManager
         private int[] ipBounds; //speaker ready start, end, breakout start, end
         public int numComps;
         public ClientComputer[] clientComps;
-        private SetupForm myParent;
+        private SetupForm parentForm;
         private bool[] runningSyncs;
         public int type;
         private int lowBottomBound;
@@ -39,10 +39,9 @@ namespace SyncManager
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
-        public SyncForm(SetupForm parentForm, int myType, bool myIpScheme )
+        public SyncForm(SetupForm myParent, int myType)
         {
             InitializeComponent();
-            ipScheme = myIpScheme;
             ipBounds = new int[4];
             XmlDocument doc = new XmlDocument();
             doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
@@ -50,6 +49,7 @@ namespace SyncManager
             ipBounds[1] = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/endSRHigh").InnerText);
             ipBounds[2] = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/startBOLow").InnerText);
             ipBounds[3] = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText);
+            ipScheme = doc.SelectSingleNode("/configs/ipScheme").InnerText.Equals("Class C");
             type = myType;
             inclusions = new string[6];
             exclusions = new string[6];
@@ -77,7 +77,7 @@ namespace SyncManager
                 exclusions[4] = doc.SelectSingleNode("/configs/modifiers/speakerReady/lowUp/exclusions").InnerText;
                 exclusions[5] = doc.SelectSingleNode("/configs/modifiers/speakerReady/lowDown/exclusions").InnerText;
             }
-            else
+            else if(type==2)
             {
                 numComps = Math.Abs(ipBounds[3] - ipBounds[2])+1;
                 lowBottomBound = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/startBOLow").InnerText);
@@ -98,9 +98,30 @@ namespace SyncManager
                 exclusions[4] = doc.SelectSingleNode("/configs/modifiers/breakout/lowUp/exclusions").InnerText;
                 exclusions[5] = doc.SelectSingleNode("/configs/modifiers/breakout/lowDown/exclusions").InnerText;
             }
+            else
+            {
+                numComps = Math.Abs(ipBounds[3] - ipBounds[2]) + 1;
+                lowBottomBound = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/startBOLow").InnerText);
+                lowTopBound = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/endBOLow").InnerText);
+                highBottomBound = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/startBOHigh").InnerText);
+                highTopBound = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText);
+                Text = "Zones";
+                inclusions[0] = doc.SelectSingleNode("/configs/modifiers/zone/up/inclusions").InnerText;
+                inclusions[1] = doc.SelectSingleNode("/configs/modifiers/zone/down/inclusions").InnerText;
+                inclusions[2] = doc.SelectSingleNode("/configs/modifiers/zone/highUp/inclusions").InnerText;
+                inclusions[3] = doc.SelectSingleNode("/configs/modifiers/zone/highDown/inclusions").InnerText;
+                inclusions[4] = doc.SelectSingleNode("/configs/modifiers/zone/lowUp/inclusions").InnerText;
+                inclusions[5] = doc.SelectSingleNode("/configs/modifiers/zone/lowDown/inclusions").InnerText;
+                exclusions[0] = doc.SelectSingleNode("/configs/modifiers/zone/up/exclusions").InnerText;
+                exclusions[1] = doc.SelectSingleNode("/configs/modifiers/zone/down/exclusions").InnerText;
+                exclusions[2] = doc.SelectSingleNode("/configs/modifiers/zone/highUp/exclusions").InnerText;
+                exclusions[3] = doc.SelectSingleNode("/configs/modifiers/zone/highDown/exclusions").InnerText;
+                exclusions[4] = doc.SelectSingleNode("/configs/modifiers/zone/lowUp/exclusions").InnerText;
+                exclusions[5] = doc.SelectSingleNode("/configs/modifiers/zone/lowDown/exclusions").InnerText;
+            }
             doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
             clientComps = new ClientComputer[numComps];
-            myParent = parentForm;
+            parentForm = myParent;
             runningSyncs = new bool[6];
             switchType = new bool[6];
             channelIsUsingUnivFilter = new bool[6];
@@ -162,7 +183,16 @@ namespace SyncManager
             {
                 ClientComputer cc = new ClientComputer(this, lowBottomBound+i);
                 clientComps[i] = cc;
-                cc.setIP(lowestIP + i);
+                if (type == 1)
+                {
+                    cc.setRoom(parentForm.compInfo[i].roomName);
+                    cc.setIP(parentForm.compInfo[i].ip);
+                }
+                else
+                {
+                    cc.setRoom(parentForm.breakoutCompInfo[i].roomName);
+                    cc.setIP(parentForm.breakoutCompInfo[i].ip);
+                }
                 compPanel.Controls.Add(cc);
                 if (lowBottomBound + i <= lowTopBound)
                 {
@@ -486,7 +516,7 @@ namespace SyncManager
         //this is stuff underlaying the ui
         private void quitButton_Click(object sender, EventArgs e)
         {
-            myParent.Close();
+            parentForm.Close();
         }
 
         public void makeScrollable()
@@ -747,6 +777,11 @@ namespace SyncManager
         public void updateLoDnNum()
         {
             numLoDnComps.Text = "(" + numCompsActiveByType[5] + ")";
+        }
+
+        private void openWindowsBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

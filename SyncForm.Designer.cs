@@ -67,11 +67,11 @@ namespace SyncManager
             this.numHiUpComps = new System.Windows.Forms.Label();
             this.numDownComps = new System.Windows.Forms.Label();
             this.numUpComps = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.labelTable = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.connectionWorker2 = new System.ComponentModel.BackgroundWorker();
             this.clientComputer1 = new SyncManager.ClientComputer();
+            this.openWindowsBtn = new System.Windows.Forms.Button();
             this.labelTable.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -468,15 +468,6 @@ namespace SyncManager
             this.numUpComps.TabIndex = 114;
             this.numUpComps.Text = "(0)";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(124, 64);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 23);
-            this.button1.TabIndex = 127;
-            this.button1.Text = "View Config";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // labelTable
             // 
             this.labelTable.ColumnCount = 9;
@@ -530,13 +521,24 @@ namespace SyncManager
             this.clientComputer1.Size = new System.Drawing.Size(1031, 27);
             this.clientComputer1.TabIndex = 0;
             // 
+            // openWindowsBtn
+            // 
+            this.openWindowsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.openWindowsBtn.Location = new System.Drawing.Point(124, 64);
+            this.openWindowsBtn.Name = "openWindowsBtn";
+            this.openWindowsBtn.Size = new System.Drawing.Size(108, 22);
+            this.openWindowsBtn.TabIndex = 129;
+            this.openWindowsBtn.Text = "Open Windows";
+            this.openWindowsBtn.UseVisualStyleBackColor = true;
+            this.openWindowsBtn.Click += new System.EventHandler(this.openWindowsBtn_Click);
+            // 
             // SyncForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(334, 829);
+            this.Controls.Add(this.openWindowsBtn);
             this.Controls.Add(this.labelTable);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -608,9 +610,9 @@ namespace SyncManager
         private System.Windows.Forms.Label numHiUpComps;
         private System.Windows.Forms.Label numDownComps;
         private System.Windows.Forms.Label numUpComps;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TableLayoutPanel labelTable;
         private System.Windows.Forms.Label label1;
         private System.ComponentModel.BackgroundWorker connectionWorker2;
+        private System.Windows.Forms.Button openWindowsBtn;
     }
 }

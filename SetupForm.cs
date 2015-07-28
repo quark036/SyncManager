@@ -8,13 +8,8 @@ namespace SyncManager
 {
     public partial class SetupForm : Form
     {
-        private bool isClassC; //if its not class c, its class b
-        //for right now, just implement class c
-        private int speakerReadyStartIP;
-        private int speakerReadyEndIP;
-        private int breakoutStartIP;
-        private int breakoutEndIP;
         public Comp[] compInfo;
+        public Comp[] breakoutCompInfo;
         private bool firstTime;
 
         public SetupForm()
@@ -174,6 +169,52 @@ namespace SyncManager
 
                 sw.WriteLine("</breakout>");
 
+                sw.WriteLine("<zone>");
+
+                sw.WriteLine("<up>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</up>");
+
+                sw.WriteLine("<down>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</down>");
+
+                sw.WriteLine("<highUp>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</highUp>");
+
+                sw.WriteLine("<highDown>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</highDown>");
+
+                sw.WriteLine("<lowUp>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</lowUp>");
+
+                sw.WriteLine("<lowDown>");
+                sw.Write("<inclusions>");
+                sw.WriteLine("</inclusions>");
+                sw.Write("<exclusions>");
+                sw.WriteLine("</exclusions>");
+                sw.WriteLine("</lowDown>");
+
+                sw.WriteLine("</zone>");
+
                 sw.WriteLine("</modifiers>");
 
                 sw.WriteLine("</configs>");
@@ -216,6 +257,11 @@ namespace SyncManager
                     compInfo = new Comp[comps.Count];
                     comps.CopyTo(compInfo);
                 }
+                int i = 0;
+                while (compInfo[i].ip / 100 == 1) i++;
+                breakoutCompInfo = new Comp[compInfo.Length - i];
+                for (int j = i; j < compInfo.Length; j++)
+                    breakoutCompInfo[j - i] = compInfo[j];
             }
             ConfigForm cfg = new ConfigForm(this);
             if (firstTime)
@@ -232,10 +278,12 @@ namespace SyncManager
 
         public void launch()
         {
-            SyncForm speakerReadySync = new SyncForm(this, 1, isClassC);
+            SyncForm speakerReadySync = new SyncForm(this, 1);
             speakerReadySync.Show();
-            SyncForm breakoutSync = new SyncForm(this, 2, isClassC);
+            SyncForm breakoutSync = new SyncForm(this, 2);
             breakoutSync.Show();
+            SyncForm zoneSync = new SyncForm(this, 3);
+            zoneSync.Show();
             Hide();
         }
 

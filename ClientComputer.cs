@@ -41,6 +41,11 @@ namespace SyncManager
             ip = _ip;
         }
 
+        public void setRoom(string room)
+        {
+            roomName.Text = room;
+        }
+
         public void conceal(int channel)
         {
             if (channel == 0)
