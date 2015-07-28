@@ -36,6 +36,7 @@ namespace SyncManager
         public int lowestIP;
         public bool ipScheme; //true=c, false=b
         public bool[] switchType;
+        public bool isServer;
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
@@ -119,6 +120,7 @@ namespace SyncManager
                 exclusions[4] = doc.SelectSingleNode("/configs/modifiers/zone/lowUp/exclusions").InnerText;
                 exclusions[5] = doc.SelectSingleNode("/configs/modifiers/zone/lowDown/exclusions").InnerText;
             }
+            isServer = doc.SelectSingleNode("configs/screenSize").InnerText.Equals("Server");
             doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
             clientComps = new ClientComputer[numComps];
             parentForm = myParent;
@@ -174,12 +176,24 @@ namespace SyncManager
 
         private void SyncForm_Load(object sender, EventArgs e)
         {
-            if (type == 1)
-                Location = new Point(300, 0);
-            else if (type == 2)
-                Location = new Point(600, 0);
+            if (isServer)
+            {
+                if (type == 1)
+                    Location = new Point(2220, 0);
+                else if (type == 2)
+                    Location = new Point(2520, 0);
+                else
+                    Location = new Point(2820, 0);
+            }
             else
-                Location = new Point(900, 0);
+            {
+                if (type == 1)
+                    Location = new Point(300, 0);
+                else if (type == 2)
+                    Location = new Point(600, 0);
+                else
+                    Location = new Point(900, 0);
+            }
 
             for (int i = 0; i<numComps; i++)
             {
