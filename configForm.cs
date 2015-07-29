@@ -36,7 +36,6 @@ namespace SyncManager
             
             numSRCompsTxt.Text = doc.SelectSingleNode("/configs/numSRComps").InnerText;
             numBOCompsTxt.Text = doc.SelectSingleNode("/configs/numBOComps").InnerText;
-            ipSchemeTxt.Text = doc.SelectSingleNode("/configs/ipScheme").InnerText;
             screenTxt.Text = doc.SelectSingleNode("/configs/screenSize").InnerText;
             lowSRStartTxt.Text = doc.SelectSingleNode("/configs/divisions/startSRLow").InnerText;
             lowSREndTxt.Text = doc.SelectSingleNode("/configs/divisions/endSRLow").InnerText;
@@ -72,12 +71,22 @@ namespace SyncManager
         private int[] findBounds()
         {
             int[] retvals = new int[4];
-            int i = 0;
-            while (parentForm.compInfo[i].ip / 100 == 1) i++;
-            retvals[0] = parentForm.compInfo[0].ip;
-            retvals[1] = parentForm.compInfo[i - 1].ip;
-            retvals[2] = parentForm.compInfo[i].ip;
-            retvals[3] = parentForm.compInfo[parentForm.compInfo.Length - 1].ip;
+            if (parentForm.isClassC)
+            {
+                int i = 0;
+                while (parentForm.compInfo[i].ip / 100 == 1) i++;
+                retvals[0] = parentForm.compInfo[0].ip;
+                retvals[1] = parentForm.compInfo[i - 1].ip;
+                retvals[2] = parentForm.compInfo[i].ip;
+                retvals[3] = parentForm.compInfo[parentForm.compInfo.Length - 1].ip;
+            }
+            else
+            {
+                retvals[0] = parentForm.speakerCompInfo[0].ip;
+                retvals[1] = parentForm.speakerCompInfo[parentForm.speakerCompInfo.Length - 1].ip;
+                retvals[2] = parentForm.breakoutCompInfo[0].ip;
+                retvals[3] = parentForm.breakoutCompInfo[parentForm.breakoutCompInfo.Length - 1].ip;
+            }
             return retvals;
         }
 
@@ -102,7 +111,6 @@ namespace SyncManager
             doc.SelectSingleNode("/configs/divisions/endBOLow").InnerText = lowBOEndTxt.Text;
             doc.SelectSingleNode("/configs/divisions/startBOHigh").InnerText = highBOStartTxt.Text;
             doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText = highBOEndTxt.Text;
-            doc.SelectSingleNode("/configs/ipScheme").InnerText = ipSchemeTxt.Text;
             doc.SelectSingleNode("/configs/screenSize").InnerText = screenTxt.Text;
             doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
             parentForm.launch();

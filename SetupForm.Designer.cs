@@ -34,6 +34,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.continueBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
+            this.ipSchemeTxt = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // importFileDialog
@@ -89,11 +91,36 @@
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
+            // ipSchemeTxt
+            // 
+            this.ipSchemeTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ipSchemeTxt.FormattingEnabled = true;
+            this.ipSchemeTxt.Items.AddRange(new object[] {
+            "Class C",
+            "Class B"});
+            this.ipSchemeTxt.Location = new System.Drawing.Point(179, 4);
+            this.ipSchemeTxt.Name = "ipSchemeTxt";
+            this.ipSchemeTxt.Size = new System.Drawing.Size(76, 28);
+            this.ipSchemeTxt.TabIndex = 37;
+            this.ipSchemeTxt.Text = "Class C";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label6.Location = new System.Drawing.Point(86, 7);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(87, 20);
+            this.label6.TabIndex = 36;
+            this.label6.Text = "IP Scheme";
+            // 
             // SetupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 112);
+            this.Controls.Add(this.ipSchemeTxt);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.continueBtn);
             this.Controls.Add(this.importFilePathTxt);
@@ -114,5 +141,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button continueBtn;
         private System.Windows.Forms.Button cancelBtn;
+        private System.Windows.Forms.ComboBox ipSchemeTxt;
+        private System.Windows.Forms.Label label6;
     }
 }

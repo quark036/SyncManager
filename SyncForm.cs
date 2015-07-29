@@ -37,6 +37,7 @@ namespace SyncManager
         public bool[] switchType;
         public bool isServer;
         public int baseLeft;
+        public bool isClassC;
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
@@ -120,11 +121,14 @@ namespace SyncManager
                 exclusions[4] = doc.SelectSingleNode("/configs/modifiers/zone/lowUp/exclusions").InnerText;
                 exclusions[5] = doc.SelectSingleNode("/configs/modifiers/zone/lowDown/exclusions").InnerText;
             }
-            isServer = doc.SelectSingleNode("configs/screenSize").InnerText.Equals("Server");
+            isServer = doc.SelectSingleNode("/configs/screenSize").InnerText.Equals("Server");
             if (isServer)
                 baseLeft = 2220;
             else
                 baseLeft = 300;
+            isClassC = doc.SelectSingleNode("/configs/ipScheme").InnerText.Equals("Class C");
+            if (!isClassC)
+                baseIP = "172.16.";
             doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
             clientComps = new ClientComputer[numComps];
             parentForm = myParent;
@@ -282,6 +286,7 @@ namespace SyncManager
             CheckBox shouldSync = null;
             string fileName;
             string fileLocStr = "";
+            string octet3;
             Process syncProc;
             if (channel == 0)
             {
@@ -344,25 +349,33 @@ namespace SyncManager
                     if (curComp.syncingTypesActive[channel])
                     {
                         curIP = curComp.ip;
-                        if (checkCon(baseIP + curIP))
+                        octet3 = "";
+                        if (!isClassC)
+                        {
+                            if (type == 1)
+                                octet3 = "160.";
+                            else
+                                octet3 = "170.";
+                        }
+                        if (true) //checkCon(baseIP + curIP))
                         {
                             curComp.getClockByChannel(channel).BackColor = Color.Green;
                             if (type==3)
                             {
-                                argStr = "/1\"C:\\Cshow\" /2\"\\\\" + baseIP + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F- /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                                argStr = "/1\"C:\\Cshow\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F- /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                                 fileName = "C:\\FNSYNC\\" + fileLocStr + "File-N-SyncPlus.exe";
                                 syncProc = Process.Start(fileName, argStr);
                                 syncProc.WaitForExit();
-                                argStr = "/1\"C:\\Cshow\\Sync\" /2\"\\\\" + baseIP + $"{curIP}\\Cshow\\Sync\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                                argStr = "/1\"C:\\Cshow\\Sync\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\\Sync\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                                 syncProc = Process.Start(fileName, argStr);
                                 syncProc.WaitForExit();
-                                argStr = "/1\"C:\\Cshow\\" + curComp.getRoomName() + "\\\" /2\"\\\\" + baseIP + $"{curIP}\\Cshow\\" + curComp.getRoomName() + "\\\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                                argStr = "/1\"C:\\Cshow\\" + curComp.getRoomName() + "\\\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\\" + curComp.getRoomName() + "\\\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                                 syncProc = Process.Start(fileName, argStr);
                                 syncProc.WaitForExit();
                             }
                             else
                             {
-                                argStr = "/1\"C:\\Cshow\" /2\"\\\\" + baseIP + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                                argStr = "/1\"C:\\Cshow\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                                 fileName = "C:\\FNSYNC\\" + fileLocStr + "File-N-SyncPlus.exe";
                                 syncProc = Process.Start(fileName, argStr);
                                 syncProc.WaitForExit();
