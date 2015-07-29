@@ -357,7 +357,7 @@ namespace SyncManager
                             else
                                 octet3 = "170.";
                         }
-                        if (true) //checkCon(baseIP + curIP))
+                        if (checkCon(baseIP + curIP))
                         {
                             curComp.getClockByChannel(channel).BackColor = Color.Green;
                             if (type==3)
