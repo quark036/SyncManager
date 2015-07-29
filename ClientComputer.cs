@@ -10,12 +10,13 @@ using System.Windows.Forms;
 
 namespace SyncManager
 {
+    //this represents one of the computers we are going to sync to, whether speaker ready or breakout
     public partial class ClientComputer : UserControl
     {
 
         public bool[] syncingTypesActive; //0:up|1:down|2:highup|3:highdown|4:lowup|5:lowdown
-        public SyncForm parentForm;
-        public int ip;
+        public SyncForm parentForm; //have a reference to the syncform that created it, so you can access those variables
+        public int ip; //ip to sync to-only the last octet is stored (so I can use it in loops as an int not a string)
 
         public ClientComputer(SyncForm myParent, int myIP)
         {
@@ -25,6 +26,7 @@ namespace SyncManager
             ip = myIP;
         }
 
+        //these next ones are pretty self-explanatory
         private void ClientComputer_Load(object sender, EventArgs e)
         {
             ipAddress.Text = ip.ToString();
@@ -61,39 +63,11 @@ namespace SyncManager
         {
             return roomName.Text;
         }
+        
 
-        public void conceal(int channel)
-        {
-            if (channel == 0)
-                upSyncChk.Visible = false;
-            else if (channel == 1)
-                downSyncChk.Visible = false;
-            else if (channel == 2)
-                highUpSyncChk.Visible = false;
-            else if (channel == 3)
-                highDownSyncChk.Visible = false;
-            else if (channel == 4)
-                lowUpSyncChk.Visible = false;
-            else if (channel == 5)
-                lowDownSyncChk.Visible = false;
-        }
-
-        public void reveal(int channel)
-        {
-            if (channel == 0)
-                upSyncChk.Visible = true;
-            else if (channel == 1)
-                downSyncChk.Visible = true;
-            else if (channel == 2)
-                highUpSyncChk.Visible = true;
-            else if (channel == 3)
-                highDownSyncChk.Visible = true;
-            else if (channel == 4)
-                lowUpSyncChk.Visible = true;
-            else if (channel == 5)
-                lowDownSyncChk.Visible = true;
-        }
-
+        //slight misnomer, I ended up combining the clock and the checkbox, because I realized
+        //I could just use the checkbox.text for the clock, instead of a separate label
+        //anyways, it returns the checkbox for that channel
         public CheckBox getClockByChannel(int channel)
         {
             if (channel == 0)
@@ -110,6 +84,8 @@ namespace SyncManager
                 return lowDownSyncChk;
         }
 
+        //updates the clock for the last ping, just minute and hour, if you want seconds too, you could add that easily
+        //also makes sure you are using 2 digits for the minute, so 12:04 doesnt appear as 12:4
         public void updateLastPing()
         {
             string minute = DateTime.Now.Minute.ToString();
@@ -119,62 +95,62 @@ namespace SyncManager
             BackColor = Color.Empty;
         }
 
-        public void show(int channel)
-        {
-            syncTable.ColumnStyles[channel + 2].Width = 60;
-        }
-
+        //use this to hide the channel specified, by making it 0 width
         public void hide(int channel)
         {
             syncTable.ColumnStyles[channel + 2].Width = 0;
         }
 
-        public void highlight(int channel)
+        //just makes the clock/checkbox visible, which will make the table resize to show that column
+        public void show(int channel)
         {
-            if(channel==0)
-            {
-                if (upSyncChk.Checked)
-                    upSyncChk.BackColor = Color.Cyan;
-                else
-                    upSyncChk.BackColor = Color.Empty;
-            }
-            if (channel == 1)
-            {
-                if (downSyncChk.Checked)
-                    downSyncChk.BackColor = Color.Cyan;
-                else
-                    downSyncChk.BackColor = Color.Empty;
-            }
-            if (channel == 2)
-            {
-                if (highUpSyncChk.Checked)
-                    highUpSyncChk.BackColor = Color.Cyan;
-                else
-                    highUpSyncChk.BackColor = Color.Empty;
-            }
-            if (channel == 3)
-            {
-                if (highDownSyncChk.Checked)
-                    highDownSyncChk.BackColor = Color.Cyan;
-                else
-                    highDownSyncChk.BackColor = Color.Empty;
-            }
-            if (channel == 4)
-            {
-                if (lowUpSyncChk.Checked)
-                    lowUpSyncChk.BackColor = Color.Cyan;
-                else
-                    lowUpSyncChk.BackColor = Color.Empty;
-            }
-            if (channel == 5)
-            {
-                if (lowDownSyncChk.Checked)
-                    lowDownSyncChk.BackColor = Color.Cyan;
-                else
-                    lowDownSyncChk.BackColor = Color.Empty;
-            }
+            syncTable.ColumnStyles[channel + 2].Width = 60;
+        }
+        
+        //the reason I have both hide/show and conceal/reveal is for low/high
+        //if I just used hide to hide the high computers in the low channel
+        //then the table would collapse left and it wouldn't show properly
+        //so I conceal the checkbox/clocks, so that you can't see or click on them
+        //but they don't go away
+        //So you have to be careful, with things like the all-switches, because these checkboxes
+        //are still there, just invisible, so you don't want to try do things with them, because
+        //you will still hit them if you iterate through the computer list
+        public void conceal(int channel)
+        {
+            if (channel == 0)
+                upSyncChk.Visible = false;
+            else if (channel == 1)
+                downSyncChk.Visible = false;
+            else if (channel == 2)
+                highUpSyncChk.Visible = false;
+            else if (channel == 3)
+                highDownSyncChk.Visible = false;
+            else if (channel == 4)
+                lowUpSyncChk.Visible = false;
+            else if (channel == 5)
+                lowDownSyncChk.Visible = false;
         }
 
+        //see comment above conceal
+        public void reveal(int channel)
+        {
+            if (channel == 0)
+                upSyncChk.Visible = true;
+            else if (channel == 1)
+                downSyncChk.Visible = true;
+            else if (channel == 2)
+                highUpSyncChk.Visible = true;
+            else if (channel == 3)
+                highDownSyncChk.Visible = true;
+            else if (channel == 4)
+                lowUpSyncChk.Visible = true;
+            else if (channel == 5)
+                lowDownSyncChk.Visible = true;
+        }
+
+        //when you check or uncheck a box, it changes it in this computer's array of sync types
+        //it also tells the parentform to update the number of computers it is displaying for
+        //this sync type
         private void upSync_CheckedChanged(object sender, EventArgs e)
         {
             syncingTypesActive[0] = upSyncChk.Checked;
@@ -230,6 +206,7 @@ namespace SyncManager
             parentForm.updateLoDnNum();
         }
 
+        //setters so that I can access the checkbox controls, because those are inherently private
         public void setUpSyncChk(bool value)
         {
             upSyncChk.Checked = value;
@@ -255,6 +232,9 @@ namespace SyncManager
             lowDownSyncChk.Checked = value;
         }
 
+        //you can click on the ip address or the name of the computer (both call this function)
+        //and it will uncheck all of the sync types
+        //this is so that you can get it out of all the sync channels so you can unplug it
         private void ipAddress_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < 6; i++)
