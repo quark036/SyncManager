@@ -36,6 +36,7 @@ namespace SyncManager
         public bool ipScheme; //true=c, false=b
         public bool[] switchType;
         public bool isServer;
+        public int baseLeft;
 
         //this is all threading stuff
         //type: 1=speaker ready, 2=breakout
@@ -120,6 +121,10 @@ namespace SyncManager
                 exclusions[5] = doc.SelectSingleNode("/configs/modifiers/zone/lowDown/exclusions").InnerText;
             }
             isServer = doc.SelectSingleNode("configs/screenSize").InnerText.Equals("Server");
+            if (isServer)
+                baseLeft = 2220;
+            else
+                baseLeft = 300;
             doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
             clientComps = new ClientComputer[numComps];
             parentForm = myParent;
@@ -175,24 +180,12 @@ namespace SyncManager
 
         private void SyncForm_Load(object sender, EventArgs e)
         {
-            if (isServer)
-            {
-                if (type == 1)
-                    Location = new Point(2220, 0);
-                else if (type == 2)
-                    Location = new Point(2520, 0);
-                else
-                    Location = new Point(2820, 0);
-            }
+            if (type == 1)
+                Location = new Point(baseLeft, 0);
+            else if (type == 2)
+                Location = new Point(baseLeft+300, 0);
             else
-            {
-                if (type == 1)
-                    Location = new Point(300, 0);
-                else if (type == 2)
-                    Location = new Point(600, 0);
-                else
-                    Location = new Point(900, 0);
-            }
+                Location = new Point(baseLeft+600, 0);
 
             for (int i = 0; i<numComps; i++)
             {
@@ -858,6 +851,54 @@ namespace SyncManager
                 parentForm.zoneWindowOpen = false;
             if (!parentForm.speakerReadyWindowOpen && !parentForm.breakoutWindowOpen && !parentForm.zoneWindowOpen)
                 parentForm.Close();
+            resize();
+        }
+
+        private void resize()
+        {
+            int srWidth = 0;
+            int boWidth = 0;
+            Focus();
+            if (parentForm.speakerReadyWindowOpen)
+                srWidth = parentForm.speakerReadySync.Width;
+            if (parentForm.breakoutWindowOpen)
+                boWidth = parentForm.breakoutSync.Width;
+            parentForm.speakerReadySync.Location = new Point(baseLeft, 0);
+            parentForm.breakoutSync.Location = new Point(baseLeft + srWidth, 0);
+            parentForm.zoneSync.Location = new Point(baseLeft + srWidth + boWidth);
+        }
+
+        private void SyncForm_Resize(object sender, EventArgs e)
+        {
+            parentForm.mustResize = true;
+        }
+
+        private void SyncForm_MouseUp(object sender, MouseEventArgs e)
+        {
+            if(parentForm.mustResize)
+                resize();
+            parentForm.mustResize = false;
+        }
+
+        private void SyncForm_MouseLeave(object sender, EventArgs e)
+        {
+            if (parentForm.mustResize)
+                resize();
+            parentForm.mustResize = false;
+        }
+
+        private void SyncForm_MouseEnter(object sender, EventArgs e)
+        {
+            if (parentForm.mustResize)
+                resize();
+            parentForm.mustResize = false;
+        }
+
+        private void SyncForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (parentForm.mustResize)
+                resize();
+            parentForm.mustResize = false;
         }
     }
 }

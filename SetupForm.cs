@@ -17,11 +17,13 @@ namespace SyncManager
         public SyncForm speakerReadySync;
         public SyncForm breakoutSync;
         public SyncForm zoneSync;
+        public bool mustResize;
 
         public SetupForm()
         {
             InitializeComponent();
             firstTime = false;
+            mustResize = false;
         }
 
         private void SetupForm_Load(object sender, EventArgs e)

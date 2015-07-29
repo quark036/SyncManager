@@ -565,6 +565,11 @@ namespace SyncManager
             this.Text = "SyncForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SyncForm_FormClosed);
             this.Load += new System.EventHandler(this.SyncForm_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SyncForm_MouseDown);
+            this.MouseEnter += new System.EventHandler(this.SyncForm_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.SyncForm_MouseLeave);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SyncForm_MouseUp);
+            this.Resize += new System.EventHandler(this.SyncForm_Resize);
             this.labelTable.ResumeLayout(false);
             this.labelTable.PerformLayout();
             this.ResumeLayout(false);
