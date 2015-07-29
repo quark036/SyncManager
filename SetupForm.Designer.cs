@@ -32,6 +32,8 @@
             this.importBtn = new System.Windows.Forms.Button();
             this.importFilePathTxt = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.continueBtn = new System.Windows.Forms.Button();
+            this.cancelBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // importFileDialog
@@ -65,11 +67,35 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Choose File to Import";
             // 
+            // continueBtn
+            // 
+            this.continueBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.continueBtn.Location = new System.Drawing.Point(248, 77);
+            this.continueBtn.Name = "continueBtn";
+            this.continueBtn.Size = new System.Drawing.Size(75, 23);
+            this.continueBtn.TabIndex = 14;
+            this.continueBtn.Text = "Continue";
+            this.continueBtn.UseVisualStyleBackColor = true;
+            this.continueBtn.Click += new System.EventHandler(this.continueBtn_Click);
+            // 
+            // cancelBtn
+            // 
+            this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelBtn.Location = new System.Drawing.Point(167, 77);
+            this.cancelBtn.Name = "cancelBtn";
+            this.cancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.cancelBtn.TabIndex = 35;
+            this.cancelBtn.Text = "Cancel";
+            this.cancelBtn.UseVisualStyleBackColor = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            // 
             // SetupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 112);
+            this.Controls.Add(this.cancelBtn);
+            this.Controls.Add(this.continueBtn);
             this.Controls.Add(this.importFilePathTxt);
             this.Controls.Add(this.importBtn);
             this.Controls.Add(this.label2);
@@ -86,5 +112,7 @@
         private System.Windows.Forms.Button importBtn;
         private System.Windows.Forms.TextBox importFilePathTxt;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button continueBtn;
+        private System.Windows.Forms.Button cancelBtn;
     }
 }
