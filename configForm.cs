@@ -11,12 +11,10 @@ using System.Xml;
 
 namespace SyncManager
 {
+    //this is a form to display the configs and let the user edit them before starting the actual syncmanager
     public partial class ConfigForm : Form
     {
-        public SetupForm parentForm;
-        public SyncForm speakerReadyForm;
-        public SyncForm breakoutForm;
-        public SyncForm zoneForm;
+        public SetupForm parentForm; //for the config form, the parent is the setup form, not the sync form
 
         public ConfigForm(SetupForm myParent)
         {
@@ -29,6 +27,10 @@ namespace SyncManager
             Show();
         }
 
+        //it calls this if syncmanager has already been run and configs have been saved to the file
+        //it takes the info from the configs and displays it, most of it is editable
+        //num breakout comps isn't because breakouts comps need to be read from the import file,
+        //because they need a room name connected to an IP address
         public void setupFromFile()
         {
             XmlDocument doc = new XmlDocument();
@@ -48,6 +50,7 @@ namespace SyncManager
             doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
         }
 
+        //this does some calculations to put some settings up based on the import file
         public void firstTimeSetup()
         {
             XmlDocument doc = new XmlDocument();
@@ -68,6 +71,7 @@ namespace SyncManager
             setupFromFile();
         }
 
+        //retvals is speaker ready start, end, breakout start, end
         private int[] findBounds()
         {
             int[] retvals = new int[4];
@@ -96,6 +100,8 @@ namespace SyncManager
             Close();
         }
 
+        //saves the settings that the user entered to the config file,
+        //then launches the main sync manager
         private void updateBtn_Click(object sender, EventArgs e)
         {
             XmlDocument doc = new XmlDocument();
