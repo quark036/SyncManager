@@ -9,6 +9,10 @@ using System.Windows.Forms;
 
 namespace SyncManager
 {
+
+    //this is a form to let the user modify the modifiers on the syncs
+    //at the heart of it is a container that holds 6 modmantabs,
+    //so that code isn't duplicated and unwieldy
     public partial class ModifierManager : Form
     {
         public SyncForm parentForm;
@@ -25,6 +29,8 @@ namespace SyncManager
             newExclusions = new string[6];
         }
 
+        //takes the exclusions from the parent form and displays them in each modmantab
+        //doesn't display the universal filter
         public void updateModsText()
         {
             for(int i = 0; i<6; i++)
@@ -37,6 +43,7 @@ namespace SyncManager
             }
         }
 
+        //creates the tabs, updates their text
         private void ModifierManager_Load(object sender, EventArgs e)
         {
             if (parentForm.type == 1)
@@ -58,6 +65,7 @@ namespace SyncManager
             updateModsText();
         }
 
+        //saves the changed mods to the parent form and to the config file
         private void finishBtn_Click(object sender, EventArgs e)
         {
             for(int i = 0; i<6; i++)
