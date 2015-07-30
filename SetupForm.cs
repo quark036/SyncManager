@@ -28,6 +28,7 @@ namespace SyncManager
             mustResize = false;
         }
 
+        //if the config file doesn't exist, this will set up the xml nodes for it
         private void SetupForm_Load(object sender, EventArgs e)
         {
             string filePath = @"c:\cshow\extras\syncManagerConfig.xml";
@@ -232,6 +233,8 @@ namespace SyncManager
                 sw.Close();
             }
 
+            //after it knows that the config exists, it checks ipscheme and import file path
+            //to see if they are already set, and if so, displays the current settings
             XmlDocument doc = new XmlDocument();
             doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
             if (!doc.SelectSingleNode("/configs/importFilePath").InnerText.Equals(""))
@@ -241,6 +244,7 @@ namespace SyncManager
             doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
         }
 
+        //just a mini class to store the data from the import file
         public class Comp
         {
             public int ip;
@@ -253,6 +257,7 @@ namespace SyncManager
             }
         }
 
+        //saves the filepath of the import file
         private void importBtn_Click(object sender, EventArgs e)
         {
 
@@ -267,30 +272,8 @@ namespace SyncManager
             }
         }
 
-        public void launch()
-        {
-            speakerReadySync = new SyncForm(this, 1);
-            speakerReadyWindowOpen = true;
-            speakerReadySync.Show();
-            breakoutSync = new SyncForm(this, 2);
-            breakoutWindowOpen = true;
-            breakoutSync.Show();
-            zoneSync = new SyncForm(this, 3);
-            zoneWindowOpen = true;
-            zoneSync.Show();
-            Hide();
-        }
-
-        public void quit()
-        {
-            Close();
-        }
-
-        private void cancelBtn_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
+        //reads in the info in the import file, in a different way depending on class b or c
+        //because the import files are different for class b and c
         private void continueBtn_Click(object sender, EventArgs e)
         {
             if (importFilePathTxt.Text.Equals(""))
@@ -354,6 +337,8 @@ namespace SyncManager
 
                     }
                 }
+                //then it saves some info to the config, if it is first time
+                //then displays the config form so that the user can review and change the settings
                 ConfigForm cfg = new ConfigForm(this);
                 if (firstTime)
                     cfg.firstTimeSetup();
@@ -362,5 +347,35 @@ namespace SyncManager
                 cfg.Show();
             }
         }
+
+        //creates the different syncform windows
+        public void launch()
+        {
+            speakerReadySync = new SyncForm(this, 1);
+            speakerReadyWindowOpen = true;
+            speakerReadySync.Show();
+            breakoutSync = new SyncForm(this, 2);
+            breakoutWindowOpen = true;
+            breakoutSync.Show();
+            zoneSync = new SyncForm(this, 3);
+            zoneWindowOpen = true;
+            zoneSync.Show();
+            Hide();
+        }
+
+        //I'm ashamed of this function
+        //what was I thinking
+        //don't look at me
+        public void quit()
+        {
+            Close();
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        
     }
 }
