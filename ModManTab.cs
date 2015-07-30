@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace SyncManager
 {
+    //this class holds the modifiers for 1 sync channel
+    //so there are 6 of these in a modifier manager
+    //only tricky thing is using the universal filter but not displaying it
     public partial class ModManTab : UserControl
     {
         public SyncForm parentForm;
@@ -23,6 +26,7 @@ namespace SyncManager
             channel = chan;
         }
 
+        //accessors
         public void setExclusions(string newExclusions)
         {
             exclusionTxt.Text = newExclusions;
@@ -32,6 +36,7 @@ namespace SyncManager
             inclusionTxt.Text = newInclusions;
         }
 
+        //easy buttons to add filters
         private void monBtn_Click(object sender, EventArgs e)
         {
             exclusionTxt.Text += "\\Monday;";
@@ -74,6 +79,7 @@ namespace SyncManager
             useUniversalFilterChk.Checked = isChecked;
         }
 
+        //updates the arrays of modifiers that will need to be saved after modman closes
         public void updateNew()
         {
             owner.newExclusions[channel] += exclusionTxt.Text;
@@ -85,6 +91,7 @@ namespace SyncManager
             return useUniversalFilterChk.Checked;
         }
 
+        //copy the settings of the current tab to all of the tabs
         private void copyAllBtn_Click(object sender, EventArgs e)
         {
             string newInclusions = inclusionTxt.Text;
@@ -96,6 +103,7 @@ namespace SyncManager
             }
         }
 
+        //more easy buttons
         private void clearExclusionsBtn_Click(object sender, EventArgs e)
         {
             exclusionTxt.Text = "";
