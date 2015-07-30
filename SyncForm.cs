@@ -13,8 +13,14 @@ using System.Xml;
 
 namespace SyncManager
 {
+    //this is the main class/form to do the syncing
+    
+    //We are sinking!
+    //Vat are you sinking about?
+    //hahahahahaa
     public partial class SyncForm : Form
-    {        
+    {   
+        //lots of global variables
         private int[] ipBounds; //speaker ready start, end, breakout start, end
         public int numComps;
         public ClientComputer[] clientComps;
@@ -38,12 +44,13 @@ namespace SyncManager
         public bool isServer;
         public int baseLeft;
         public bool isClassC;
-
-        //this is all threading stuff
+        
         //type: 1=speaker ready, 2=breakout
         public SyncForm(SetupForm myParent, int myType)
         {
             InitializeComponent();
+            
+            //sets the bounds of high and low based on the config file
             ipBounds = new int[4];
             XmlDocument doc = new XmlDocument();
             doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
@@ -53,6 +60,8 @@ namespace SyncManager
             ipBounds[3] = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText);
             ipScheme = doc.SelectSingleNode("/configs/ipScheme").InnerText.Equals("Class C");
             type = myType;
+
+            //takes the modifiers from the config file and updates them
             inclusions = new string[6];
             exclusions = new string[6];
             numCompsActiveByType = new int[6];
@@ -121,15 +130,23 @@ namespace SyncManager
                 exclusions[4] = doc.SelectSingleNode("/configs/modifiers/zone/lowUp/exclusions").InnerText;
                 exclusions[5] = doc.SelectSingleNode("/configs/modifiers/zone/lowDown/exclusions").InnerText;
             }
+
+            //changes where the windows will appear based on the config screensize
             isServer = doc.SelectSingleNode("/configs/screenSize").InnerText.Equals("Server");
             if (isServer)
                 baseLeft = 2220;
             else
                 baseLeft = 300;
+
+            //sets the ipscheme based on the config file
             isClassC = doc.SelectSingleNode("/configs/ipScheme").InnerText.Equals("Class C");
             if (!isClassC)
                 baseIP = "172.16.";
+            
+            //make sure to save the config file when done (works like closing it)
             doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
+
+            //setting up a bunch of empty arrays to be used
             clientComps = new ClientComputer[numComps];
             parentForm = myParent;
             runningSyncs = new bool[6];
@@ -144,6 +161,7 @@ namespace SyncManager
             lowestIP = lowBottomBound;
         }
 
+        //saves the modifiers to the config file (duh)
         public void saveModsToConfig()
         {
             XmlDocument doc = new XmlDocument();
@@ -164,7 +182,7 @@ namespace SyncManager
                 doc.SelectSingleNode("/configs/modifiers/speakerReady/lowUp/exclusions").InnerText = exclusions[4];
                 doc.SelectSingleNode("/configs/modifiers/speakerReady/lowDown/exclusions").InnerText = exclusions[5];
             }
-            else
+            else if(type==2)
             {
                 doc.SelectSingleNode("/configs/modifiers/breakout/up/inclusions").InnerText = inclusions[0];
                 doc.SelectSingleNode("/configs/modifiers/breakout/down/inclusions").InnerText = inclusions[1];
@@ -179,11 +197,28 @@ namespace SyncManager
                 doc.SelectSingleNode("/configs/modifiers/breakout/lowUp/exclusions").InnerText = exclusions[4];
                 doc.SelectSingleNode("/configs/modifiers/breakout/lowDown/exclusions").InnerText = exclusions[5];
             }
+            else
+            {
+                doc.SelectSingleNode("/configs/modifiers/zone/up/inclusions").InnerText = inclusions[0];
+                doc.SelectSingleNode("/configs/modifiers/zone/down/inclusions").InnerText = inclusions[1];
+                doc.SelectSingleNode("/configs/modifiers/zone/highUp/inclusions").InnerText = inclusions[2];
+                doc.SelectSingleNode("/configs/modifiers/zone/highDown/inclusions").InnerText = inclusions[3];
+                doc.SelectSingleNode("/configs/modifiers/zone/lowUp/inclusions").InnerText = inclusions[4];
+                doc.SelectSingleNode("/configs/modifiers/zone/lowDown/inclusions").InnerText = inclusions[5];
+                doc.SelectSingleNode("/configs/modifiers/zone/up/exclusions").InnerText = exclusions[0];
+                doc.SelectSingleNode("/configs/modifiers/zone/down/exclusions").InnerText = exclusions[1];
+                doc.SelectSingleNode("/configs/modifiers/zone/highUp/exclusions").InnerText = exclusions[2];
+                doc.SelectSingleNode("/configs/modifiers/zone/highDown/exclusions").InnerText = exclusions[3];
+                doc.SelectSingleNode("/configs/modifiers/zone/lowUp/exclusions").InnerText = exclusions[4];
+                doc.SelectSingleNode("/configs/modifiers/zone/lowDown/exclusions").InnerText = exclusions[5];
+            }
             doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
         }
 
+        //setting up a bunch of things
         private void SyncForm_Load(object sender, EventArgs e)
         {
+            //setting the location based on screensize and type
             if (type == 1)
                 Location = new Point(baseLeft, 0);
             else if (type == 2)
@@ -191,6 +226,7 @@ namespace SyncManager
             else
                 Location = new Point(baseLeft+600, 0);
 
+            //building the array of client computers, setting their room names and ips
             for (int i = 0; i<numComps; i++)
             {
                 ClientComputer cc = new ClientComputer(this, lowBottomBound+i);
@@ -206,6 +242,8 @@ namespace SyncManager
                     cc.setIP(parentForm.breakoutCompInfo[i].ip);
                 }
                 compPanel.Controls.Add(cc);
+
+                //hiding low and high checks for high and low computers
                 if (lowBottomBound + i <= lowTopBound)
                 {
                     cc.conceal(2);
@@ -230,7 +268,10 @@ namespace SyncManager
 
 
             }
+            //resize this so that all the columns are even
             resizeCompNames();
+
+            //start the workers for each sync type
             upSyncWorker.RunWorkerAsync(0);
             downSyncWorker.RunWorkerAsync(1);
             hiUpSyncWorker.RunWorkerAsync(2);
@@ -238,13 +279,22 @@ namespace SyncManager
             lowUpSyncWorker.RunWorkerAsync(4);
             lowDownSyncWorker.RunWorkerAsync(5);
 
+            //start 2 connection workers to check the connections of all the client computers
+            //one goes up the list, the other goes down the list
             connectionWorker.RunWorkerAsync();
             connectionWorker2.RunWorkerAsync();
+
+            //more resizing
             updateLabelCollapse();
+
             Show();
+
+            //if you don't focus on the comp panel, the user won't be able to scroll
             compPanel.Focus();
         }
 
+        //resizes all the names so that they match the width of the widest one, 
+        //so that all the columns are actually in straigh columns
         public void resizeCompNames()
         {
             int widest = 0;
@@ -261,6 +311,7 @@ namespace SyncManager
             labelTable.ColumnStyles[1].Width = widest + 10;
         }
 
+        //small class used for the sync workers to report their progress through
         public class ProgressVals
         {
             public int channel;
@@ -268,15 +319,21 @@ namespace SyncManager
             public bool success;
         }
 
+
+        //use this same DoWork function for all of the sync types
         private void syncWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            //lots of variables needed
             ClientComputer curComp;
             int channel = (int)e.Argument;
+
+            //set for the filename
             string typeStr = "SR";
             if (type == 2)
                 typeStr = "BO";
             else if (type == 3)
                 typeStr = "BO_ZN";
+
             int curIP;
             string argStr;
             ProgressVals progVals = new ProgressVals();
@@ -288,6 +345,8 @@ namespace SyncManager
             string fileLocStr = "";
             string octet3;
             Process syncProc;
+
+            //sets which checkbox this is looking at, as well as the file location, for each channel
             if (channel == 0)
             {
                 shouldSync = upChk;
@@ -324,10 +383,14 @@ namespace SyncManager
             }
             int i = botBound;
             int a = i;
+
+            //run the sync workers constantly, but only sync if the box is checked
             while (true)
             {
                 while (shouldSync.Checked)
                 {
+                    //set the bounds of what it is syncing so that it will follow high/low bounds
+                    //you can't do this outside of the while loop so that 
                     if(channel == 2)
                         botBound = highBottomBound - lowBottomBound;
                     else if (channel == 3)
@@ -336,18 +399,19 @@ namespace SyncManager
                         topBound = highTopBound - lowTopBound;
                     else if (channel == 5)
                         topBound = highTopBound - lowTopBound;
+
+                    //basically, for the down channels, a will be the inverse of i, (by inverse I mean mirrored across array)
+                    //so that the down channels will go in the opposite direction
                     a = i;
                     if (channel % 2 == 1)
-                    {
                         a = topBound - (i + 1);
-                        //if (channel == 3)
-                        //    a = topBound - (i - 1);
-                        //else
-                        //    a = topBound - (i + 1);
-                    }
+
+                    //now we iterate through the client computers
                     curComp = clientComps[a];
+                    //and check if that computer is being synced under this sync type
                     if (curComp.syncingTypesActive[channel])
                     {
+                        //sets the IP, based on the ipscheme
                         curIP = curComp.ip;
                         octet3 = "";
                         if (!isClassC)
@@ -357,37 +421,54 @@ namespace SyncManager
                             else
                                 octet3 = "170.";
                         }
-                        if (checkCon(baseIP + curIP))
+                        
+                        //only runs the sync if it is successful in testing if that computer is connected
+                        if (checkCon(baseIP + octet3 + curIP))
                         {
+                            //highligh green because we are running this computer and this sync type
                             curComp.getClockByChannel(channel).BackColor = Color.Green;
+
+                            //look at FileNSync help to see the command line arguments
+
+                            //if it is a zone sync
                             if (type==3)
                             {
+                                //first sync the base cshow folder, with no subfolders (F-)
                                 argStr = "/1\"C:\\Cshow\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F- /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                                 fileName = "C:\\FNSYNC\\" + fileLocStr + "File-N-SyncPlus.exe";
                                 syncProc = Process.Start(fileName, argStr);
                                 syncProc.WaitForExit();
+
+                                //then sync the cshow/sync folder, with subfolders (F+)
                                 argStr = "/1\"C:\\Cshow\\Sync\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\\Sync\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                                 syncProc = Process.Start(fileName, argStr);
                                 syncProc.WaitForExit();
+
+                                //then sync that room, with subfolders (F+)
                                 argStr = "/1\"C:\\Cshow\\" + curComp.getRoomName() + "\\\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\\" + curComp.getRoomName() + "\\\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                                 syncProc = Process.Start(fileName, argStr);
                                 syncProc.WaitForExit();
                             }
-                            else
+                            else //it's not a zone sync
                             {
+                                //sync everything in cshow with the specified IP
                                 argStr = "/1\"C:\\Cshow\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                                 fileName = "C:\\FNSYNC\\" + fileLocStr + "File-N-SyncPlus.exe";
                                 syncProc = Process.Start(fileName, argStr);
                                 syncProc.WaitForExit();
                             }
+                            
+                            //remove highlight and report progress
                             curComp.getClockByChannel(channel).BackColor = Color.Empty;
                             progVals.channel = channel;
                             progVals.curComp = a;
                             progVals.success = true;
                             worker.ReportProgress(0, progVals);
                         }
-                        else
+
+                        else //if the computer is not connected
                         {
+                            //play an alert and report progress
                             curComp.getClockByChannel(channel).BackColor = Color.Red;
                             alertPlayer.Play();
                             progVals.channel = channel;
@@ -396,15 +477,23 @@ namespace SyncManager
                             worker.ReportProgress(0, progVals);
                         }
                     }
+                    //i will loop around between botBound and topBound
                     i = ++i % topBound;
                     if(i==0)
                         i += botBound;
                 }
+                //if we aren't running this sync, sleep for 100ms, so that you don't run the while loop millions of times
                 if(!shouldSync.Checked)
                     Thread.Sleep(100);
             }
         }
 
+        //used to report progress (will update the clock)
+        //you can't update the clock from within the async thread, because it will throw an error
+        //you have to update it within the thread it was created from
+        //I think
+        //something like that
+        //I just know doing it from the sync thread throws an error like that
         private void syncWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             ProgressVals progVals = (ProgressVals)e.UserState;
@@ -419,14 +508,17 @@ namespace SyncManager
             }
         }
 
+        //mini class for the connection workers to report progress
         public class ConnectionProgress
         {
             public bool success;
             public int compNumber;
         }
 
+        //main connection worker function
         private void connectionWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            //runs through all of the computers, checking the connection
             BackgroundWorker worker = (BackgroundWorker)sender;
             int i = 0;
             int curIP;
@@ -441,6 +533,7 @@ namespace SyncManager
             }
         }
 
+        //same as the first connection worker, but in the other direction
         private void connectionWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = (BackgroundWorker)sender;
@@ -459,6 +552,8 @@ namespace SyncManager
             }
         }
 
+        //checks to see if the specified ip is there
+        //ooh, need to update this for class c
         private bool checkCon(string ipToCheck)
         {
             Ping testPing = new Ping();
@@ -484,6 +579,8 @@ namespace SyncManager
                 return true;
         }
 
+        //again can't change appearance from the async threads
+        //used to update the last pinged, when the connection worker says so
         private void connectionWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             ConnectionProgress conProg = (ConnectionProgress)e.UserState;
@@ -493,6 +590,7 @@ namespace SyncManager
                 clientComps[conProg.compNumber].BackColor = Color.Orange;
         }
 
+        //returns the hilo bounds (wut)
         public int[] getHiLoBounds()
         {
             int[] temp = new int[4];
@@ -503,6 +601,7 @@ namespace SyncManager
             return temp;
         }
 
+        //updates which columns are hidden and which are open
         public void updateLabelCollapse()
         {
             ClientComputer cc;
@@ -526,6 +625,7 @@ namespace SyncManager
             }
         }
         
+        //changes the bounds and the display of them
         public void adjustHiLoBounds(int lowIPStart, int lowIPEnd, int highIPStart, int highIPEnd)
         {
             lowBottomBound = lowIPStart;
@@ -559,7 +659,6 @@ namespace SyncManager
                 }
             }
             compPanel.Focus();
-
         }
 
         private void updateLoHiBtn_Click(object sender, EventArgs e)
@@ -854,6 +953,7 @@ namespace SyncManager
             }
         }
 
+        //stuff to do with resizing and the open windows button
         private void SyncForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (type == 1)
@@ -867,6 +967,8 @@ namespace SyncManager
             resize();
         }
 
+        //more of a relocate than a resize
+        //I mean, its called when you resize a form, what it does is relocate the form
         private void resize()
         {
             int srWidth = 0;
@@ -881,6 +983,10 @@ namespace SyncManager
             parentForm.zoneSync.Location = new Point(baseLeft + srWidth + boWidth);
         }
 
+        //bunch of event handlers that lead to it resizing
+        //if you try do it under the resize event handler, it tries to do it
+        //before you are done resizing, and continues many times a second
+        //and it won't even end up in the right position
         private void SyncForm_Resize(object sender, EventArgs e)
         {
             parentForm.mustResize = true;
