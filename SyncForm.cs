@@ -954,18 +954,22 @@ namespace SyncManager
             if(!parentForm.speakerReadyWindowOpen)
             {
                 parentForm.speakerReadySync = new SyncForm(parentForm, 1);
+                parentForm.speakerReadyWindowOpen = true;
                 parentForm.speakerReadySync.Show();
             }
             if(!parentForm.breakoutWindowOpen)
             {
                 parentForm.breakoutSync = new SyncForm(parentForm, 2);
+                parentForm.breakoutWindowOpen = true;
                 parentForm.breakoutSync.Show();
             }
             if(!parentForm.zoneWindowOpen)
             {
                 parentForm.zoneSync = new SyncForm(parentForm, 3);
+                parentForm.zoneWindowOpen = true;
                 parentForm.zoneSync.Show();
             }
+            resize();
         }
 
         //stuff to do with resizing and the open windows button
