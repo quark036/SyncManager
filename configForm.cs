@@ -24,6 +24,7 @@ namespace SyncManager
 
         private void configForm_Load(object sender, EventArgs e)
         {
+            Location = new Point(500, 200);
             Show();
         }
 

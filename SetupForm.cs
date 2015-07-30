@@ -31,6 +31,7 @@ namespace SyncManager
         //if the config file doesn't exist, this will set up the xml nodes for it
         private void SetupForm_Load(object sender, EventArgs e)
         {
+            Location = new System.Drawing.Point(500, 200);
             string filePath = @"c:\cshow\extras\syncManagerConfig.xml";
             if (!File.Exists(filePath))
             {

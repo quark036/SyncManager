@@ -27,6 +27,7 @@ namespace SyncManager
             tabs = new ModManTab[6];
             newInclusions = new string[6];
             newExclusions = new string[6];
+            Location = new Point(parentForm.baseLeft, 100);
         }
 
         //takes the exclusions from the parent form and displays them in each modmantab
