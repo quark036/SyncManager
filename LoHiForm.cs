@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace SyncManager
 {
@@ -18,6 +19,7 @@ namespace SyncManager
         private int highBottomBound;
         private int highTopBound;
 
+        //takes the current hilo bounds and displayes them
         public LoHiForm(SyncForm myParent)
         {
             InitializeComponent();
@@ -34,6 +36,8 @@ namespace SyncManager
             Close();
         }
 
+        //takes the user's inputted hilo bounds and adjusts them
+        //then saves them to the config file
         private void updateBtn_Click(object sender, EventArgs e)
         {
             try
@@ -52,6 +56,23 @@ namespace SyncManager
             if(success)
             {
                 parentForm.adjustHiLoBounds(lowBottomBound, lowTopBound, highBottomBound, highTopBound);
+                XmlDocument doc = new XmlDocument();
+                doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
+                if (parentForm.type == 1)
+                {
+                    doc.SelectSingleNode("/configs/divisions/startSRLow").InnerText = lowBottomBound.ToString();
+                    doc.SelectSingleNode("/configs/divisions/endSRLow").InnerText = lowTopBound.ToString();
+                    doc.SelectSingleNode("/configs/divisions/startSRHigh").InnerText = highBottomBound.ToString();
+                    doc.SelectSingleNode("/configs/divisions/endSRHigh").InnerText = highTopBound.ToString();
+                }
+                else
+                {
+                    doc.SelectSingleNode("/configs/divisions/startBOLow").InnerText = lowBottomBound.ToString();
+                    doc.SelectSingleNode("/configs/divisions/endBOLow").InnerText = lowTopBound.ToString();
+                    doc.SelectSingleNode("/configs/divisions/startBOHigh").InnerText = highBottomBound.ToString();
+                    doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText = highTopBound.ToString();
+                }
+                doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
                 Close();
             }
         }
