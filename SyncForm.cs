@@ -522,11 +522,19 @@ namespace SyncManager
             BackgroundWorker worker = (BackgroundWorker)sender;
             int i = 0;
             int curIP;
-            ConnectionProgress conProg = new ConnectionProgress();
+            string octet3 = "";
+            if (!isClassC)
+            {
+                if (type == 1)
+                    octet3 = "160.";
+                else
+                    octet3 = "170.";
+            }
+                ConnectionProgress conProg = new ConnectionProgress();
             while (true)
             {
                 curIP = clientComps[i].ip;
-                conProg.success = checkCon(baseIP + curIP);
+                conProg.success = checkCon(baseIP + octet3 + curIP);
                 conProg.compNumber = i;
                 worker.ReportProgress(0, conProg);
                 i = ++i % numComps;
@@ -539,13 +547,21 @@ namespace SyncManager
             BackgroundWorker worker = (BackgroundWorker)sender;
             int i = 0;
             int a = i;
+            string octet3 = "";
+            if (!isClassC)
+            {
+                if (type == 1)
+                    octet3 = "160.";
+                else
+                    octet3 = "170.";
+            }
             int curIP;
             ConnectionProgress conProg = new ConnectionProgress();
             while (true)
             {
                 a = numComps - 1 - i;
                 curIP = clientComps[a].ip;
-                conProg.success = checkCon(baseIP + curIP);
+                conProg.success = checkCon(baseIP + octet3 + curIP);
                 conProg.compNumber = a;
                 worker.ReportProgress(0, conProg);
                 i = ++i % numComps;
@@ -553,7 +569,6 @@ namespace SyncManager
         }
 
         //checks to see if the specified ip is there
-        //ooh, need to update this for class c
         private bool checkCon(string ipToCheck)
         {
             Ping testPing = new Ping();
