@@ -53,6 +53,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.numBOCompsTxt = new System.Windows.Forms.TextBox();
             this.numSRCompsTxt = new System.Windows.Forms.TextBox();
+            this.cshowHighLocTxt = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cshowLowLocTxt = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label2
@@ -77,7 +81,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label7.Location = new System.Drawing.Point(174, 114);
+            this.label7.Location = new System.Drawing.Point(173, 201);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(23, 31);
             this.label7.TabIndex = 21;
@@ -85,14 +89,14 @@
             // 
             // lowSREndTxt
             // 
-            this.lowSREndTxt.Location = new System.Drawing.Point(203, 125);
+            this.lowSREndTxt.Location = new System.Drawing.Point(202, 212);
             this.lowSREndTxt.Name = "lowSREndTxt";
             this.lowSREndTxt.Size = new System.Drawing.Size(42, 20);
             this.lowSREndTxt.TabIndex = 20;
             // 
             // lowSRStartTxt
             // 
-            this.lowSRStartTxt.Location = new System.Drawing.Point(126, 125);
+            this.lowSRStartTxt.Location = new System.Drawing.Point(125, 212);
             this.lowSRStartTxt.Name = "lowSRStartTxt";
             this.lowSRStartTxt.Size = new System.Drawing.Size(42, 20);
             this.lowSRStartTxt.TabIndex = 19;
@@ -100,7 +104,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 128);
+            this.label8.Location = new System.Drawing.Point(11, 215);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(104, 13);
             this.label8.TabIndex = 18;
@@ -110,7 +114,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label9.Location = new System.Drawing.Point(174, 137);
+            this.label9.Location = new System.Drawing.Point(173, 224);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(23, 31);
             this.label9.TabIndex = 25;
@@ -118,14 +122,14 @@
             // 
             // highSREndTxt
             // 
-            this.highSREndTxt.Location = new System.Drawing.Point(203, 148);
+            this.highSREndTxt.Location = new System.Drawing.Point(202, 235);
             this.highSREndTxt.Name = "highSREndTxt";
             this.highSREndTxt.Size = new System.Drawing.Size(42, 20);
             this.highSREndTxt.TabIndex = 24;
             // 
             // highSRStartTxt
             // 
-            this.highSRStartTxt.Location = new System.Drawing.Point(126, 148);
+            this.highSRStartTxt.Location = new System.Drawing.Point(125, 235);
             this.highSRStartTxt.Name = "highSRStartTxt";
             this.highSRStartTxt.Size = new System.Drawing.Size(42, 20);
             this.highSRStartTxt.TabIndex = 23;
@@ -133,7 +137,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 151);
+            this.label10.Location = new System.Drawing.Point(11, 238);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(106, 13);
             this.label10.TabIndex = 22;
@@ -143,7 +147,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label11.Location = new System.Drawing.Point(174, 196);
+            this.label11.Location = new System.Drawing.Point(173, 283);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(23, 31);
             this.label11.TabIndex = 33;
@@ -151,14 +155,14 @@
             // 
             // highBOEndTxt
             // 
-            this.highBOEndTxt.Location = new System.Drawing.Point(203, 207);
+            this.highBOEndTxt.Location = new System.Drawing.Point(202, 294);
             this.highBOEndTxt.Name = "highBOEndTxt";
             this.highBOEndTxt.Size = new System.Drawing.Size(42, 20);
             this.highBOEndTxt.TabIndex = 32;
             // 
             // highBOStartTxt
             // 
-            this.highBOStartTxt.Location = new System.Drawing.Point(126, 207);
+            this.highBOStartTxt.Location = new System.Drawing.Point(125, 294);
             this.highBOStartTxt.Name = "highBOStartTxt";
             this.highBOStartTxt.Size = new System.Drawing.Size(42, 20);
             this.highBOStartTxt.TabIndex = 31;
@@ -166,7 +170,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(12, 210);
+            this.label12.Location = new System.Drawing.Point(11, 297);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(75, 13);
             this.label12.TabIndex = 30;
@@ -176,7 +180,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label13.Location = new System.Drawing.Point(174, 168);
+            this.label13.Location = new System.Drawing.Point(173, 255);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(23, 31);
             this.label13.TabIndex = 29;
@@ -184,14 +188,14 @@
             // 
             // lowBOEndTxt
             // 
-            this.lowBOEndTxt.Location = new System.Drawing.Point(203, 179);
+            this.lowBOEndTxt.Location = new System.Drawing.Point(202, 266);
             this.lowBOEndTxt.Name = "lowBOEndTxt";
             this.lowBOEndTxt.Size = new System.Drawing.Size(42, 20);
             this.lowBOEndTxt.TabIndex = 28;
             // 
             // lowBOStartTxt
             // 
-            this.lowBOStartTxt.Location = new System.Drawing.Point(126, 179);
+            this.lowBOStartTxt.Location = new System.Drawing.Point(125, 266);
             this.lowBOStartTxt.Name = "lowBOStartTxt";
             this.lowBOStartTxt.Size = new System.Drawing.Size(42, 20);
             this.lowBOStartTxt.TabIndex = 27;
@@ -199,7 +203,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 182);
+            this.label14.Location = new System.Drawing.Point(11, 269);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(73, 13);
             this.label14.TabIndex = 26;
@@ -208,7 +212,7 @@
             // updateBtn
             // 
             this.updateBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.updateBtn.Location = new System.Drawing.Point(192, 233);
+            this.updateBtn.Location = new System.Drawing.Point(191, 320);
             this.updateBtn.Name = "updateBtn";
             this.updateBtn.Size = new System.Drawing.Size(75, 23);
             this.updateBtn.TabIndex = 35;
@@ -219,7 +223,7 @@
             // cancelBtn
             // 
             this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelBtn.Location = new System.Drawing.Point(111, 233);
+            this.cancelBtn.Location = new System.Drawing.Point(110, 320);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
             this.cancelBtn.TabIndex = 34;
@@ -233,7 +237,7 @@
             this.screenTxt.Items.AddRange(new object[] {
             "Server",
             "Laptop"});
-            this.screenTxt.Location = new System.Drawing.Point(92, 95);
+            this.screenTxt.Location = new System.Drawing.Point(91, 182);
             this.screenTxt.Name = "screenTxt";
             this.screenTxt.Size = new System.Drawing.Size(76, 21);
             this.screenTxt.TabIndex = 37;
@@ -242,7 +246,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(12, 98);
+            this.label15.Location = new System.Drawing.Point(11, 185);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(64, 13);
             this.label15.TabIndex = 36;
@@ -273,11 +277,49 @@
             this.numSRCompsTxt.Size = new System.Drawing.Size(42, 20);
             this.numSRCompsTxt.TabIndex = 4;
             // 
+            // cshowHighLocTxt
+            // 
+            this.cshowHighLocTxt.Enabled = false;
+            this.cshowHighLocTxt.Location = new System.Drawing.Point(125, 142);
+            this.cshowHighLocTxt.Name = "cshowHighLocTxt";
+            this.cshowHighLocTxt.Size = new System.Drawing.Size(108, 20);
+            this.cshowHighLocTxt.TabIndex = 42;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 145);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(108, 13);
+            this.label3.TabIndex = 41;
+            this.label3.Text = "Cshow High Location";
+            // 
+            // cshowLowLocTxt
+            // 
+            this.cshowLowLocTxt.Enabled = false;
+            this.cshowLowLocTxt.Location = new System.Drawing.Point(125, 120);
+            this.cshowLowLocTxt.Name = "cshowLowLocTxt";
+            this.cshowLowLocTxt.Size = new System.Drawing.Size(108, 20);
+            this.cshowLowLocTxt.TabIndex = 40;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(11, 123);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(106, 13);
+            this.label4.TabIndex = 39;
+            this.label4.Text = "Cshow Low Location";
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(273, 270);
+            this.ClientSize = new System.Drawing.Size(273, 346);
+            this.Controls.Add(this.cshowHighLocTxt);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cshowLowLocTxt);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.screenTxt);
             this.Controls.Add(this.label15);
@@ -337,5 +379,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox numBOCompsTxt;
         private System.Windows.Forms.TextBox numSRCompsTxt;
+        private System.Windows.Forms.TextBox cshowHighLocTxt;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox cshowLowLocTxt;
+        private System.Windows.Forms.Label label4;
     }
 }

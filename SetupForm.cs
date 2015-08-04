@@ -20,6 +20,7 @@ namespace SyncManager
         public SyncForm zoneSync;
         public bool mustResize;
         public bool isClassC;
+        public string serverIP;
 
         public SetupForm()
         {
@@ -32,7 +33,7 @@ namespace SyncManager
         private void SetupForm_Load(object sender, EventArgs e)
         {
             Location = new System.Drawing.Point(500, 200);
-            string filePath = @"c:\cshow\extras\syncManagerConfig.xml";
+            string filePath = @"\\127.0.0.1\cshow\extras\syncManagerConfig.xml";
             if (!File.Exists(filePath))
             {
                 firstTime = true;
@@ -57,6 +58,11 @@ namespace SyncManager
                 sw.Write("<screenSize>");
                 sw.WriteLine("</screenSize>");
 
+                sw.Write("<cshowHighLoc>");
+                sw.WriteLine("</cshowHighLoc>");
+
+                sw.Write("<cshowLowLoc>");
+                sw.WriteLine("</cshowLowLoc>");
 
                 sw.WriteLine("<divisions>");
 
@@ -237,12 +243,12 @@ namespace SyncManager
             //after it knows that the config exists, it checks ipscheme and import file path
             //to see if they are already set, and if so, displays the current settings
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
+            doc.Load(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
             if (!doc.SelectSingleNode("/configs/importFilePath").InnerText.Equals(""))
                 importFilePathTxt.Text = doc.SelectSingleNode("/configs/importFilePath").InnerText;
             if (!doc.SelectSingleNode("/configs/ipScheme").InnerText.Equals(""))
                 ipSchemeTxt.Text = doc.SelectSingleNode("/configs/ipScheme").InnerText;
-            doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
+            doc.Save(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
         }
 
         //just a mini class to store the data from the import file
@@ -266,10 +272,10 @@ namespace SyncManager
             if(importFileDialog.ShowDialog() == DialogResult.OK)
             {
                 XmlDocument doc = new XmlDocument();
-                doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
+                doc.Load(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
                 importFilePathTxt.Text = importFileDialog.FileName;
                 doc.SelectSingleNode("/configs/importFilePath").InnerText = importFilePathTxt.Text;
-                doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
+                doc.Save(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
             }
         }
 
@@ -286,10 +292,10 @@ namespace SyncManager
                 else
                     isClassC = false;
                 XmlDocument doc = new XmlDocument();
-                doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
+                doc.Load(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
                 FileInfo fileToRead = new FileInfo(doc.SelectSingleNode("/configs/importFilePath").InnerText);
                 doc.SelectSingleNode("/configs/ipScheme").InnerText = ipSchemeTxt.Text;
-                doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
+                doc.Save(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
                 StreamReader reader = new StreamReader(File.OpenRead(fileToRead.FullName));
                 string line;
                 string[] vals;

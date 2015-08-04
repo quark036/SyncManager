@@ -15,11 +15,16 @@ namespace SyncManager
     public partial class ConfigForm : Form
     {
         public SetupForm parentForm; //for the config form, the parent is the setup form, not the sync form
+        public string serverIP;
 
         public ConfigForm(SetupForm myParent)
         {
             InitializeComponent();
             parentForm = myParent;
+            if (parentForm.isClassC)
+                serverIP = "192.168.2.50";
+            else
+                serverIP = "172.16.150.50";
         }
 
         private void configForm_Load(object sender, EventArgs e)
@@ -35,7 +40,7 @@ namespace SyncManager
         public void setupFromFile()
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
+            doc.Load(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
             
             numSRCompsTxt.Text = doc.SelectSingleNode("/configs/numSRComps").InnerText;
             numBOCompsTxt.Text = doc.SelectSingleNode("/configs/numBOComps").InnerText;
@@ -48,14 +53,16 @@ namespace SyncManager
             lowBOEndTxt.Text = doc.SelectSingleNode("/configs/divisions/endBOLow").InnerText;
             highBOStartTxt.Text = doc.SelectSingleNode("/configs/divisions/startBOHigh").InnerText;
             highBOEndTxt.Text = doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText;
-            doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
+            cshowHighLocTxt.Text = doc.SelectSingleNode("/configs/cshowHighLoc").InnerText;
+            cshowLowLocTxt.Text = doc.SelectSingleNode("/configs/cshowLowLoc").InnerText;
+            doc.Save(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
         }
 
         //this does some calculations to put some settings up based on the import file
         public void firstTimeSetup()
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
+            doc.Load(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
             int[] bounds = findBounds();
             doc.SelectSingleNode("/configs/numSRComps").InnerText = (bounds[1] - bounds[0] + 1).ToString();
             doc.SelectSingleNode("/configs/numBOComps").InnerText = (bounds[3] - bounds[2] + 1).ToString();
@@ -67,7 +74,9 @@ namespace SyncManager
             doc.SelectSingleNode("/configs/divisions/endBOLow").InnerText = ((bounds[2] + bounds[3]) / 2).ToString();
             doc.SelectSingleNode("/configs/divisions/startBOHigh").InnerText = (((bounds[2] + bounds[3]) / 2) + 1).ToString();
             doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText = bounds[3].ToString();
-            doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
+            doc.SelectSingleNode("/configs/cshowHighLoc").InnerText = "E:\\Cshow";
+            doc.SelectSingleNode("/configs/cshowLowLoc").InnerText = "E:\\Cshow";
+            doc.Save(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
 
             setupFromFile();
         }
@@ -106,7 +115,7 @@ namespace SyncManager
         private void updateBtn_Click(object sender, EventArgs e)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
+            doc.Load(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
             int[] bounds = findBounds();
             doc.SelectSingleNode("/configs/numSRComps").InnerText = numSRCompsTxt.Text;
             doc.SelectSingleNode("/configs/numBOComps").InnerText = numBOCompsTxt.Text;
@@ -119,7 +128,9 @@ namespace SyncManager
             doc.SelectSingleNode("/configs/divisions/startBOHigh").InnerText = highBOStartTxt.Text;
             doc.SelectSingleNode("/configs/divisions/endBOHigh").InnerText = highBOEndTxt.Text;
             doc.SelectSingleNode("/configs/screenSize").InnerText = screenTxt.Text;
-            doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
+            doc.SelectSingleNode("/configs/cshowHighLoc").InnerText = cshowHighLocTxt.Text;
+            doc.SelectSingleNode("/configs/cshowLowLoc").InnerText = cshowLowLocTxt.Text;
+            doc.Save(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
             parentForm.launch();
             Close();
         }

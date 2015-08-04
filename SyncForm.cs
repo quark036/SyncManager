@@ -34,7 +34,7 @@ namespace SyncManager
         public string[] inclusions;//0:up|1:down|2:highup|3:highdown|4:lowup|5:lowdown
         public string[] exclusions;
         public string baseIP = "192.168.2.";
-        public static System.Media.SoundPlayer alertPlayer = new System.Media.SoundPlayer("c:\\Cshow\\extras\\alertSound.wav");
+        public static System.Media.SoundPlayer alertPlayer = new System.Media.SoundPlayer(@"\\127.0.0.1\Cshow\\extras\\alertSound.wav");
         public string univFilter = "~$;.DS_;thumbs.db;slidethumbnail.jpg;";
         public bool[] channelIsUsingUnivFilter;
         public int[] numCompsActiveByType;
@@ -43,17 +43,20 @@ namespace SyncManager
         public bool[] switchType;
         public bool isServer;
         public int baseLeft;
-        public bool isClassC;
+        public string serverIP;
+        public string cshowHighLoc;
+        public string cshowLowLoc;
         
         //type: 1=speaker ready, 2=breakout
         public SyncForm(SetupForm myParent, int myType)
         {
             InitializeComponent();
-            
+
+
             //sets the bounds of high and low based on the config file
             ipBounds = new int[4];
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
+            doc.Load(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
             ipBounds[0] = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/startSRLow").InnerText);
             ipBounds[1] = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/endSRHigh").InnerText);
             ipBounds[2] = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/startBOLow").InnerText);
@@ -138,13 +141,20 @@ namespace SyncManager
             else
                 baseLeft = 300;
 
-            //sets the ipscheme based on the config file
-            isClassC = doc.SelectSingleNode("/configs/ipScheme").InnerText.Equals("Class C");
-            if (!isClassC)
+            //sets the IP scheme based on the config file
+            serverIP = baseIP + "50";
+            if (!ipScheme)
+            {
                 baseIP = "172.16.";
+                serverIP = baseIP + "150.50";
+            }
+
+            //set the current show folder location
+            cshowHighLoc = doc.SelectSingleNode("/configs/cshowHighLoc").InnerText;
+            cshowLowLoc = doc.SelectSingleNode("/configs/cshowLowLoc").InnerText;
             
             //make sure to save the config file when done (works like closing it)
-            doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
+            doc.Save(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
 
             //setting up a bunch of empty arrays to be used
             clientComps = new ClientComputer[numComps];
@@ -165,7 +175,7 @@ namespace SyncManager
         public void saveModsToConfig()
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"c:\cshow\extras\syncManagerConfig.xml");
+            doc.Load(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
 
             if (type==1)
             {
@@ -212,7 +222,7 @@ namespace SyncManager
                 doc.SelectSingleNode("/configs/modifiers/zone/lowUp/exclusions").InnerText = exclusions[4];
                 doc.SelectSingleNode("/configs/modifiers/zone/lowDown/exclusions").InnerText = exclusions[5];
             }
-            doc.Save(@"c:\cshow\extras\syncManagerConfig.xml");
+            doc.Save(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
         }
 
         //setting up a bunch of things
@@ -345,6 +355,7 @@ namespace SyncManager
             string fileLocStr = "";
             string octet3;
             Process syncProc;
+            string curCshowLoc = "";
 
             //sets which checkbox this is looking at, as well as the file location, for each channel
             if (channel == 0)
@@ -362,24 +373,28 @@ namespace SyncManager
                 shouldSync = hiUpChk;
                 botBound = highBottomBound - lowBottomBound;
                 fileLocStr = typeStr + "_UP_HI\\";
+                curCshowLoc = cshowHighLoc;
             }
             else if (channel == 3)
             {
                 shouldSync = hiDnChk;
                 botBound = highBottomBound - lowBottomBound;
                 fileLocStr = typeStr + "_UP_LO\\";
+                curCshowLoc = cshowHighLoc;
             }
             else if (channel == 4)
             {
                 shouldSync = loUpChk;
                 topBound = highTopBound - lowTopBound;
                 fileLocStr = typeStr + "_DN_HI\\";
+                curCshowLoc = cshowLowLoc;
             }
             else if(channel == 5)
             {
                 shouldSync = loDnChk;
                 topBound = highTopBound - lowTopBound;
                 fileLocStr = typeStr + "_DN_LO\\";
+                curCshowLoc = cshowLowLoc;
             }
             int i = botBound;
             int a = i;
@@ -390,7 +405,7 @@ namespace SyncManager
                 while (shouldSync.Checked)
                 {
                     //set the bounds of what it is syncing so that it will follow high/low bounds
-                    //you can't do this outside of the while loop so that 
+                    //you can't do this outside of the while loop because it would make it impossible to update the hilo bounds
                     if(channel == 2)
                         botBound = highBottomBound - lowBottomBound;
                     else if (channel == 3)
@@ -406,15 +421,24 @@ namespace SyncManager
                     if (channel % 2 == 1)
                         a = topBound - (i + 1);
 
-                    //now we iterate through the client computers
-                    curComp = clientComps[a];
+                    //for mac shows, splitting the straight up and down channels into using the right cshow address for high and low
+                    if (channel == 0 || channel == 1)
+                    {
+                        if (a < highBottomBound)
+                            curCshowLoc = cshowLowLoc;
+                        else
+                            curCshowLoc = cshowHighLoc;
+                    }
+
+                        //now we iterate through the client computers
+                        curComp = clientComps[a];
                     //and check if that computer is being synced under this sync type
                     if (curComp.syncingTypesActive[channel])
                     {
                         //sets the IP, based on the ipscheme
                         curIP = curComp.ip;
                         octet3 = "";
-                        if (!isClassC)
+                        if (!ipScheme)
                         {
                             if (type == 1)
                                 octet3 = "160.";
@@ -434,25 +458,25 @@ namespace SyncManager
                             if (type==3)
                             {
                                 //first sync the base cshow folder, with no subfolders (F-)
-                                argStr = "/1\"C:\\Cshow\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F- /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                                argStr = "/1\""+ curCshowLoc +"\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F- /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                                 fileName = "C:\\FNSYNC\\" + fileLocStr + "File-N-SyncPlus.exe";
                                 syncProc = Process.Start(fileName, argStr);
                                 syncProc.WaitForExit();
 
                                 //then sync the cshow/sync folder, with subfolders (F+)
-                                argStr = "/1\"C:\\Cshow\\Sync\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\\Sync\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                                argStr = "/1\"" + curCshowLoc + "\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\\Sync\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                                 syncProc = Process.Start(fileName, argStr);
                                 syncProc.WaitForExit();
 
                                 //then sync that room, with subfolders (F+)
-                                argStr = "/1\"C:\\Cshow\\" + curComp.getRoomName() + "\\\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\\" + curComp.getRoomName() + "\\\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                                argStr = "/1\"" + curCshowLoc +"\\" + curComp.getRoomName() + "\\\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\\" + curComp.getRoomName() + "\\\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                                 syncProc = Process.Start(fileName, argStr);
                                 syncProc.WaitForExit();
                             }
                             else //it's not a zone sync
                             {
                                 //sync everything in cshow with the specified IP
-                                argStr = "/1\"C:\\Cshow\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                                argStr = "/1\"" + curCshowLoc + "\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
                                 fileName = "C:\\FNSYNC\\" + fileLocStr + "File-N-SyncPlus.exe";
                                 syncProc = Process.Start(fileName, argStr);
                                 syncProc.WaitForExit();
@@ -523,7 +547,7 @@ namespace SyncManager
             int i = 0;
             int curIP;
             string octet3 = "";
-            if (!isClassC)
+            if (!ipScheme)
             {
                 if (type == 1)
                     octet3 = "160.";
@@ -548,7 +572,7 @@ namespace SyncManager
             int i = 0;
             int a = i;
             string octet3 = "";
-            if (!isClassC)
+            if (!ipScheme)
             {
                 if (type == 1)
                     octet3 = "160.";
