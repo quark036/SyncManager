@@ -279,7 +279,6 @@
             // 
             // cshowHighLocTxt
             // 
-            this.cshowHighLocTxt.Enabled = false;
             this.cshowHighLocTxt.Location = new System.Drawing.Point(125, 142);
             this.cshowHighLocTxt.Name = "cshowHighLocTxt";
             this.cshowHighLocTxt.Size = new System.Drawing.Size(108, 20);
@@ -296,7 +295,6 @@
             // 
             // cshowLowLocTxt
             // 
-            this.cshowLowLocTxt.Enabled = false;
             this.cshowLowLocTxt.Location = new System.Drawing.Point(125, 120);
             this.cshowLowLocTxt.Name = "cshowLowLocTxt";
             this.cshowLowLocTxt.Size = new System.Drawing.Size(108, 20);
