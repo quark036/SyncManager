@@ -419,7 +419,7 @@ namespace SyncManager
                     //so that the down channels will go in the opposite direction
                     a = i;
                     if (channel % 2 == 1)
-                        a = topBound - (i + 1);
+                        a = topBound - (i - botBound);
 
                     //for mac shows, splitting the straight up and down channels into using the right cshow address for high and low
                     if (channel == 0 || channel == 1)
@@ -508,7 +508,7 @@ namespace SyncManager
                 }
                 //if we aren't running this sync, sleep for 100ms, so that you don't run the while loop millions of times
                 if(!shouldSync.Checked)
-                    Thread.Sleep(100);
+                    Thread.Sleep(1000);
             }
         }
 
