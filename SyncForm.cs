@@ -863,7 +863,7 @@ namespace SyncManager
         {
             if (!switchType[2])
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = highBottomBound - 1; i < highTopBound; i++)
                 {
                     clientComps[i].syncingTypesActive[2] = true;
                     clientComps[i].setHiUpSyncChk(true);
@@ -872,7 +872,7 @@ namespace SyncManager
             }
             else
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = highBottomBound - 1; i < highTopBound; i++)
                 {
                     clientComps[i].syncingTypesActive[2] = false;
                     clientComps[i].setHiUpSyncChk(false);
@@ -885,19 +885,19 @@ namespace SyncManager
         {
             if (!switchType[3])
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = 0; i < highTopBound + 1 - highBottomBound; i++)
                 {
-                    clientComps[numComps - (i + 1)].syncingTypesActive[3] = true;
-                    clientComps[numComps - (i + 1)].setHiDownSyncChk(true);
+                    clientComps[highTopBound - (i + 1)].syncingTypesActive[3] = true;
+                    clientComps[highTopBound - (i + 1)].setHiDownSyncChk(true);
                 }
                 switchType[3] = true;
             }
             else
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = 0; i < highTopBound + 1 - highBottomBound; i++)
                 {
-                    clientComps[numComps - (i + 1)].syncingTypesActive[3] = false;
-                    clientComps[numComps - (i + 1)].setHiDownSyncChk(false);
+                    clientComps[highTopBound - (i + 1)].syncingTypesActive[3] = false;
+                    clientComps[highTopBound - (i + 1)].setHiDownSyncChk(false);
                 }
                 switchType[3] = false;
             }
@@ -907,19 +907,19 @@ namespace SyncManager
         {
             if (!switchType[4])
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = lowBottomBound; i < lowTopBound + 1; i++)
                 {
-                    clientComps[i].syncingTypesActive[4] = true;
-                    clientComps[i].setLoUpSyncChk(true);
+                    clientComps[i - lowBottomBound].syncingTypesActive[4] = true;
+                    clientComps[i - lowBottomBound].setLoUpSyncChk(true);
                 }
                 switchType[4] = true;
             }
             else
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = lowBottomBound; i < lowTopBound + 1; i++)
                 {
-                    clientComps[i].syncingTypesActive[4] = false;
-                    clientComps[i].setLoUpSyncChk(false);
+                    clientComps[i - lowBottomBound].syncingTypesActive[4] = false;
+                    clientComps[i - lowBottomBound].setLoUpSyncChk(false);
                 }
                 switchType[4] = false;
             }
@@ -929,19 +929,19 @@ namespace SyncManager
         {
             if (!switchType[5])
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = 0; i < lowTopBound + 1 - lowBottomBound; i++)
                 {
-                    clientComps[numComps - (i + 1)].syncingTypesActive[5] = true;
-                    clientComps[numComps - (i + 1)].setLoDownSyncChk(true);
+                    clientComps[lowTopBound - (i + 1)].syncingTypesActive[5] = true;
+                    clientComps[lowTopBound - (i + 1)].setLoDownSyncChk(true);
                 }
                 switchType[5] = true;
             }
             else
             {
-                for (int i = 0; i < numComps; i++)
+                for (int i = 0; i < lowTopBound + 1 - lowBottomBound; i++)
                 {
-                    clientComps[numComps - (i + 1)].syncingTypesActive[5] = false;
-                    clientComps[numComps - (i + 1)].setLoDownSyncChk(false);
+                    clientComps[lowTopBound - (i + 1)].syncingTypesActive[5] = false;
+                    clientComps[lowTopBound - (i + 1)].setLoDownSyncChk(false);
                 }
                 switchType[5] = false;
             }
