@@ -517,29 +517,29 @@ namespace SyncManager
                                     if (i == 0)
                                         i += botBound;
                                 }
-                                catch (Exception ex)
+                                catch
                                 {
-                                    throw ex;
+                                    throw;
                                 }
                                 //if we aren't running this sync, sleep for 100ms, so that you don't run the while loop millions of times
                                 if (!shouldSync.Checked)
                                     Thread.Sleep(1000);
                             }
                         }
-                        catch (Exception ex)
+                        catch
                         {
-                            throw ex;
+                            throw;
                         }
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    throw ex;
+                    throw;
                 }
             }
-            catch(Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -573,53 +573,67 @@ namespace SyncManager
         //main connection worker function
         private void connectionWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            //runs through all of the computers, checking the connection
-            BackgroundWorker worker = (BackgroundWorker)sender;
-            int i = 0;
-            int curIP;
-            string octet3 = "";
-            if (!ipScheme)
+            try
             {
-                if (type == 1)
-                    octet3 = "160.";
-                else
-                    octet3 = "170.";
-            }
+                //runs through all of the computers, checking the connection
+                BackgroundWorker worker = (BackgroundWorker)sender;
+                int i = 0;
+                int curIP;
+                string octet3 = "";
+                if (!ipScheme)
+                {
+                    if (type == 1)
+                        octet3 = "160.";
+                    else
+                        octet3 = "170.";
+                }
                 ConnectionProgress conProg = new ConnectionProgress();
-            while (true)
+                while (true)
+                {
+                    curIP = clientComps[i].ip;
+                    conProg.success = checkCon(baseIP + octet3 + curIP);
+                    conProg.compNumber = i;
+                    worker.ReportProgress(0, conProg);
+                    i = ++i % numComps;
+                }
+            }
+            catch
             {
-                curIP = clientComps[i].ip;
-                conProg.success = checkCon(baseIP + octet3 + curIP);
-                conProg.compNumber = i;
-                worker.ReportProgress(0, conProg);
-                i = ++i % numComps;
+                throw;
             }
         }
 
         //same as the first connection worker, but in the other direction
         private void connectionWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker worker = (BackgroundWorker)sender;
-            int i = 0;
-            int a = i;
-            string octet3 = "";
-            if (!ipScheme)
+            try
             {
-                if (type == 1)
-                    octet3 = "160.";
-                else
-                    octet3 = "170.";
+                BackgroundWorker worker = (BackgroundWorker)sender;
+                int i = 0;
+                int a = i;
+                string octet3 = "";
+                if (!ipScheme)
+                {
+                    if (type == 1)
+                        octet3 = "160.";
+                    else
+                        octet3 = "170.";
+                }
+                int curIP;
+                ConnectionProgress conProg = new ConnectionProgress();
+                while (true)
+                {
+                    a = numComps - 1 - i;
+                    curIP = clientComps[a].ip;
+                    conProg.success = checkCon(baseIP + octet3 + curIP);
+                    conProg.compNumber = a;
+                    worker.ReportProgress(0, conProg);
+                    i = ++i % numComps;
+                }
             }
-            int curIP;
-            ConnectionProgress conProg = new ConnectionProgress();
-            while (true)
+            catch
             {
-                a = numComps - 1 - i;
-                curIP = clientComps[a].ip;
-                conProg.success = checkCon(baseIP + octet3 + curIP);
-                conProg.compNumber = a;
-                worker.ReportProgress(0, conProg);
-                i = ++i % numComps;
+                throw;
             }
         }
 
