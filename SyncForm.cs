@@ -34,7 +34,7 @@ namespace SyncManager
         public string[] inclusions;//0:up|1:down|2:highup|3:highdown|4:lowup|5:lowdown
         public string[] exclusions;
         public string baseIP = "192.168.2.";
-        public static System.Media.SoundPlayer alertPlayer = new System.Media.SoundPlayer(@"\\127.0.0.1\Cshow\\extras\\alertSound.wav");
+        public static System.Media.SoundPlayer alertPlayer = new System.Media.SoundPlayer(@"\\127.0.0.1\Cshow\extras\alertSound.wav");
         public string univFilter = "~$;.DS_;thumbs.db;slidethumbnail.jpg;";
         public bool[] channelIsUsingUnivFilter;
         public int[] numCompsActiveByType;
@@ -333,182 +333,213 @@ namespace SyncManager
         //use this same DoWork function for all of the sync types
         private void syncWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            //lots of variables needed
-            ClientComputer curComp;
-            int channel = (int)e.Argument;
+            try
+            {
+                //lots of variables needed
+                ClientComputer curComp;
+                int channel = (int)e.Argument;
 
-            //set for the filename
-            string typeStr = "SR";
-            if (type == 2)
-                typeStr = "BO";
-            else if (type == 3)
-                typeStr = "BO_ZN";
+                //set for the filename
+                string typeStr = "SR";
+                if (type == 2)
+                    typeStr = "BO";
+                else if (type == 3)
+                    typeStr = "BO_ZN";
 
-            int curIP;
-            string argStr;
-            ProgressVals progVals = new ProgressVals();
-            BackgroundWorker worker = (BackgroundWorker)sender;
-            int topBound = numComps;
-            int botBound = 0;
-            CheckBox shouldSync = null;
-            string fileName;
-            string fileLocStr = "";
-            string octet3;
-            Process syncProc;
-            string curCshowLoc = "";
+                int curIP;
+                string argStr;
+                ProgressVals progVals = new ProgressVals();
+                BackgroundWorker worker = (BackgroundWorker)sender;
+                int topBound = numComps;
+                int botBound = 0;
+                CheckBox shouldSync = null;
+                string fileName;
+                string fileLocStr = "";
+                string octet3;
+                Process syncProc;
+                string curCshowLoc = "";
 
-            //sets which checkbox this is looking at, as well as the file location, for each channel
-            if (channel == 0)
-            {
-                shouldSync = upChk;
-                fileLocStr = typeStr + "_UP\\";
-            }
-            else if (channel == 1)
-            {
-                shouldSync = downChk;
-                fileLocStr = typeStr + "_DN\\";
-            }
-            else if (channel == 2)
-            {
-                shouldSync = hiUpChk;
-                botBound = highBottomBound - lowBottomBound;
-                fileLocStr = typeStr + "_UP_HI\\";
-                curCshowLoc = cshowHighLoc;
-            }
-            else if (channel == 3)
-            {
-                shouldSync = hiDnChk;
-                botBound = highBottomBound - lowBottomBound;
-                fileLocStr = typeStr + "_UP_LO\\";
-                curCshowLoc = cshowHighLoc;
-            }
-            else if (channel == 4)
-            {
-                shouldSync = loUpChk;
-                topBound = highTopBound - lowTopBound;
-                fileLocStr = typeStr + "_DN_HI\\";
-                curCshowLoc = cshowLowLoc;
-            }
-            else if(channel == 5)
-            {
-                shouldSync = loDnChk;
-                topBound = highTopBound - lowTopBound;
-                fileLocStr = typeStr + "_DN_LO\\";
-                curCshowLoc = cshowLowLoc;
-            }
-            int i = botBound;
-            int a = i;
-
-            //run the sync workers constantly, but only sync if the box is checked
-            while (true)
-            {
-                while (shouldSync.Checked)
+                //sets which checkbox this is looking at, as well as the file location, for each channel
+                if (channel == 0)
                 {
-                    //set the bounds of what it is syncing so that it will follow high/low bounds
-                    //you can't do this outside of the while loop because it would make it impossible to update the hilo bounds
-                    if(channel == 2)
-                        botBound = highBottomBound - lowBottomBound;
-                    else if (channel == 3)
-                        botBound = highBottomBound - lowBottomBound;
-                    else if (channel == 4)
-                        topBound = highTopBound - lowTopBound;
-                    else if (channel == 5)
-                        topBound = highTopBound - lowTopBound;
-
-                    //basically, for the down channels, a will be the inverse of i, (by inverse I mean mirrored across array)
-                    //so that the down channels will go in the opposite direction
-                    a = i;
-                    if (channel % 2 == 1)
-                        a = topBound - (i - botBound);
-
-                    //for mac shows, splitting the straight up and down channels into using the right cshow address for high and low
-                    if (channel == 0 || channel == 1)
-                    {
-                        if (a < highBottomBound)
-                            curCshowLoc = cshowLowLoc;
-                        else
-                            curCshowLoc = cshowHighLoc;
-                    }
-
-                    //now we iterate through the client computers
-                    curComp = clientComps[a];
-                    //and check if that computer is being synced under this sync type
-                    if (curComp.syncingTypesActive[channel])
-                    {
-                        //sets the IP, based on the ipscheme
-                        curIP = curComp.ip;
-                        octet3 = "";
-                        if (!ipScheme)
-                        {
-                            if (type == 1)
-                                octet3 = "160.";
-                            else
-                                octet3 = "170.";
-                        }
-                        
-                        //only runs the sync if it is successful in testing if that computer is connected
-                        if (checkCon(baseIP + octet3 + curIP))
-                        {
-                            //highligh green because we are running this computer and this sync type
-                            curComp.getClockByChannel(channel).BackColor = Color.Green;
-
-                            //look at FileNSync help to see the command line arguments
-
-                            //if it is a zone sync
-                            if (type==3)
-                            {
-                                //first sync the base cshow folder, with no subfolders (F-)
-                                argStr = "/1\""+ curCshowLoc +"\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F- /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
-                                fileName = "C:\\FNSYNC\\" + fileLocStr + "File-N-SyncPlus.exe";
-                                syncProc = Process.Start(fileName, argStr);
-                                syncProc.WaitForExit();
-
-                                //then sync the cshow/sync folder, with subfolders (F+)
-                                argStr = "/1\"" + curCshowLoc + "\\Sync\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\\Sync\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
-                                syncProc = Process.Start(fileName, argStr);
-                                syncProc.WaitForExit();
-
-                                //then sync that room, with subfolders (F+)
-                                argStr = "/1\"" + curCshowLoc +"\\" + curComp.getRoomName() + "\\\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\\" + curComp.getRoomName() + "\\\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
-                                syncProc = Process.Start(fileName, argStr);
-                                syncProc.WaitForExit();
-                            }
-                            else //it's not a zone sync
-                            {
-                                //sync everything in cshow with the specified IP
-                                argStr = "/1\"" + curCshowLoc + "\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
-                                fileName = "C:\\FNSYNC\\" + fileLocStr + "File-N-SyncPlus.exe";
-                                syncProc = Process.Start(fileName, argStr);
-                                syncProc.WaitForExit();
-                            }
-                            
-                            //remove highlight and report progress
-                            curComp.getClockByChannel(channel).BackColor = Color.Empty;
-                            progVals.channel = channel;
-                            progVals.curComp = a;
-                            progVals.success = true;
-                            worker.ReportProgress(0, progVals);
-                        }
-
-                        else //if the computer is not connected
-                        {
-                            //play an alert and report progress
-                            curComp.getClockByChannel(channel).BackColor = Color.Red;
-                            alertPlayer.Play();
-                            progVals.channel = channel;
-                            progVals.curComp = a;
-                            progVals.success = false;
-                            worker.ReportProgress(0, progVals);
-                        }
-                    }
-                    //i will loop around between botBound and topBound
-                    i = ++i % topBound;
-                    if(i==0)
-                        i += botBound;
+                    shouldSync = upChk;
+                    fileLocStr = typeStr + "_UP\\";
                 }
-                //if we aren't running this sync, sleep for 100ms, so that you don't run the while loop millions of times
-                if(!shouldSync.Checked)
-                    Thread.Sleep(1000);
+                else if (channel == 1)
+                {
+                    shouldSync = downChk;
+                    fileLocStr = typeStr + "_DN\\";
+                }
+                else if (channel == 2)
+                {
+                    shouldSync = hiUpChk;
+                    botBound = highBottomBound - lowBottomBound;
+                    fileLocStr = typeStr + "_UP_HI\\";
+                    curCshowLoc = cshowHighLoc;
+                }
+                else if (channel == 3)
+                {
+                    shouldSync = hiDnChk;
+                    botBound = highBottomBound - lowBottomBound;
+                    fileLocStr = typeStr + "_UP_LO\\";
+                    curCshowLoc = cshowHighLoc;
+                }
+                else if (channel == 4)
+                {
+                    shouldSync = loUpChk;
+                    topBound = highTopBound - lowTopBound;
+                    fileLocStr = typeStr + "_DN_HI\\";
+                    curCshowLoc = cshowLowLoc;
+                }
+                else if (channel == 5)
+                {
+                    shouldSync = loDnChk;
+                    topBound = highTopBound - lowTopBound;
+                    fileLocStr = typeStr + "_DN_LO\\";
+                    curCshowLoc = cshowLowLoc;
+                }
+                int i = botBound;
+                int a = i;
+
+                try
+                {
+                    //run the sync workers constantly, but only sync if the box is checked
+                    while (true)
+                    {
+                        try
+                        {
+                            while (shouldSync.Checked)
+                            {
+                                if (type == 1 && channel == 3)
+                                { }
+                                //set the bounds of what it is syncing so that it will follow high/low bounds
+                                //you can't do this outside of the while loop because it would make it impossible to update the hilo bounds
+                                if (channel == 2)
+                                    botBound = highBottomBound - lowBottomBound;
+                                else if (channel == 3)
+                                    botBound = highBottomBound - lowBottomBound;
+                                else if (channel == 4)
+                                    topBound = highTopBound - lowTopBound;
+                                else if (channel == 5)
+                                    topBound = highTopBound - lowTopBound;
+
+                                //basically, for the down channels, a will be the inverse of i, (by inverse I mean mirrored across array)
+                                //so that the down channels will go in the opposite direction
+                                a = i;
+                                if (channel % 2 == 1)
+                                    a = topBound - (i + 1 - botBound);
+
+                                //for mac shows, splitting the straight up and down channels into using the right cshow address for high and low
+                                if (channel == 0 || channel == 1)
+                                {
+                                    if (a < highBottomBound)
+                                        curCshowLoc = cshowLowLoc;
+                                    else
+                                        curCshowLoc = cshowHighLoc;
+                                }
+
+                                //now we iterate through the client computers
+                                curComp = clientComps[a];
+
+                                try
+                                {
+                                    //and check if that computer is being synced under this sync type
+                                    if (curComp.syncingTypesActive[channel])
+                                    {
+                                        //sets the IP, based on the ipscheme
+                                        curIP = curComp.ip;
+                                        octet3 = "";
+                                        if (!ipScheme)
+                                        {
+                                            if (type == 1)
+                                                octet3 = "160.";
+                                            else
+                                                octet3 = "170.";
+                                        }
+
+                                        //only runs the sync if it is successful in testing if that computer is connected
+                                        if (checkCon(baseIP + octet3 + curIP))
+                                        {
+                                            //highligh green because we are running this computer and this sync type
+                                            curComp.getClockByChannel(channel).BackColor = Color.Green;
+
+                                            //look at FileNSync help to see the command line arguments
+
+                                            //if it is a zone sync
+                                            if (type == 3)
+                                            {
+                                                //first sync the base cshow folder, with no subfolders (F-)
+                                                argStr = "/1\"" + curCshowLoc + "\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F- /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                                                fileName = "C:\\FNSYNC\\" + fileLocStr + "File-N-SyncPlus.exe";
+                                                syncProc = Process.Start(fileName, argStr);
+                                                syncProc.WaitForExit();
+
+                                                //then sync the cshow/sync folder, with subfolders (F+)
+                                                argStr = "/1\"" + curCshowLoc + "\\Sync\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\\Sync\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                                                syncProc = Process.Start(fileName, argStr);
+                                                syncProc.WaitForExit();
+
+                                                //then sync that room, with subfolders (F+)
+                                                argStr = "/1\"" + curCshowLoc + "\\" + curComp.getRoomName() + "\\\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\\" + curComp.getRoomName() + "\\\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                                                syncProc = Process.Start(fileName, argStr);
+                                                syncProc.WaitForExit();
+                                            }
+                                            else //it's not a zone sync
+                                            {
+                                                //sync everything in cshow with the specified IP
+                                                argStr = "/1\"" + curCshowLoc + "\" /2\"\\\\" + baseIP + octet3 + $"{curIP}\\Cshow\" /L+\"C:\\FNSYNC\\{curIP}." + typeStr + "\" /O:1 /F+ /U- /E:" + exclusions[channel] + " /I:" + inclusions[channel] + " /AQ /S-30";
+                                                fileName = "C:\\FNSYNC\\" + fileLocStr + "File-N-SyncPlus.exe";
+                                                syncProc = Process.Start(fileName, argStr);
+                                                syncProc.WaitForExit();
+                                            }
+
+                                            //remove highlight and report progress
+                                            curComp.getClockByChannel(channel).BackColor = Color.Empty;
+                                            progVals.channel = channel;
+                                            progVals.curComp = a;
+                                            progVals.success = true;
+                                            worker.ReportProgress(0, progVals);
+                                        }
+
+                                        else //if the computer is not connected
+                                        {
+                                            //play an alert and report progress
+                                            curComp.getClockByChannel(channel).BackColor = Color.Red;
+                                            alertPlayer.Play();
+                                            progVals.channel = channel;
+                                            progVals.curComp = a;
+                                            progVals.success = false;
+                                            worker.ReportProgress(0, progVals);
+                                        }
+                                    }
+                                    //i will loop around between botBound and topBound
+                                    i = ++i % topBound;
+                                    if (i == 0)
+                                        i += botBound;
+                                }
+                                catch (Exception ex)
+                                {
+                                    throw ex;
+                                }
+                                //if we aren't running this sync, sleep for 100ms, so that you don't run the while loop millions of times
+                                if (!shouldSync.Checked)
+                                    Thread.Sleep(1000);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -885,19 +916,19 @@ namespace SyncManager
         {
             if (!switchType[3])
             {
-                for (int i = 0; i < highTopBound + 1 - highBottomBound; i++)
+                for (int i = highTopBound; i > highBottomBound-1; i--)
                 {
-                    clientComps[highTopBound - (i + 1)].syncingTypesActive[3] = true;
-                    clientComps[highTopBound - (i + 1)].setHiDownSyncChk(true);
+                    clientComps[i-lowestIP].syncingTypesActive[3] = true;
+                    clientComps[i-lowestIP].setHiDownSyncChk(true);
                 }
                 switchType[3] = true;
             }
             else
             {
-                for (int i = 0; i < highTopBound + 1 - highBottomBound; i++)
+                for (int i = highTopBound; i > highBottomBound-1; i--)
                 {
-                    clientComps[highTopBound - (i + 1)].syncingTypesActive[3] = false;
-                    clientComps[highTopBound - (i + 1)].setHiDownSyncChk(false);
+                    clientComps[i-lowestIP].syncingTypesActive[3] = false;
+                    clientComps[i-lowestIP].setHiDownSyncChk(false);
                 }
                 switchType[3] = false;
             }
@@ -929,19 +960,19 @@ namespace SyncManager
         {
             if (!switchType[5])
             {
-                for (int i = 0; i < lowTopBound + 1 - lowBottomBound; i++)
+                for (int i = lowTopBound; i > lowBottomBound-1; i--)
                 {
-                    clientComps[lowTopBound - (i + 1)].syncingTypesActive[5] = true;
-                    clientComps[lowTopBound - (i + 1)].setLoDownSyncChk(true);
+                    clientComps[i-lowestIP].syncingTypesActive[5] = true;
+                    clientComps[i - lowestIP].setLoDownSyncChk(true);
                 }
                 switchType[5] = true;
             }
             else
             {
-                for (int i = 0; i < lowTopBound + 1 - lowBottomBound; i++)
+                for (int i = lowTopBound; i > lowBottomBound; i--)
                 {
-                    clientComps[lowTopBound - (i + 1)].syncingTypesActive[5] = false;
-                    clientComps[lowTopBound - (i + 1)].setLoDownSyncChk(false);
+                    clientComps[i - lowestIP].syncingTypesActive[5] = false;
+                    clientComps[i - lowestIP].setLoDownSyncChk(false);
                 }
                 switchType[5] = false;
             }
