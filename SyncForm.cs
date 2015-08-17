@@ -171,62 +171,10 @@ namespace SyncManager
                 switchType[i] = false;
             }
             lowestIP = lowBottomBound;
-            SetupForm.Comp[] compInfo = myCompInfo;
+            compInfo = myCompInfo;
+            index2ip = new Dictionary<int, int>();
         }
 
-        //saves the modifiers to the config file (duh)
-        public void saveModsToConfig()
-        {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
-
-            if (type==1)
-            {
-                doc.SelectSingleNode("/configs/modifiers/speakerReady/up/inclusions").InnerText = inclusions[0];
-                doc.SelectSingleNode("/configs/modifiers/speakerReady/down/inclusions").InnerText = inclusions[1];
-                doc.SelectSingleNode("/configs/modifiers/speakerReady/highUp/inclusions").InnerText = inclusions[2];
-                doc.SelectSingleNode("/configs/modifiers/speakerReady/highDown/inclusions").InnerText = inclusions[3];
-                doc.SelectSingleNode("/configs/modifiers/speakerReady/lowUp/inclusions").InnerText = inclusions[4];
-                doc.SelectSingleNode("/configs/modifiers/speakerReady/lowDown/inclusions").InnerText = inclusions[5];
-                doc.SelectSingleNode("/configs/modifiers/speakerReady/up/exclusions").InnerText = exclusions[0];
-                doc.SelectSingleNode("/configs/modifiers/speakerReady/down/exclusions").InnerText = exclusions[1];
-                doc.SelectSingleNode("/configs/modifiers/speakerReady/highUp/exclusions").InnerText = exclusions[2];
-                doc.SelectSingleNode("/configs/modifiers/speakerReady/highDown/exclusions").InnerText = exclusions[3];
-                doc.SelectSingleNode("/configs/modifiers/speakerReady/lowUp/exclusions").InnerText = exclusions[4];
-                doc.SelectSingleNode("/configs/modifiers/speakerReady/lowDown/exclusions").InnerText = exclusions[5];
-            }
-            else if(type==2)
-            {
-                doc.SelectSingleNode("/configs/modifiers/breakout/up/inclusions").InnerText = inclusions[0];
-                doc.SelectSingleNode("/configs/modifiers/breakout/down/inclusions").InnerText = inclusions[1];
-                doc.SelectSingleNode("/configs/modifiers/breakout/highUp/inclusions").InnerText = inclusions[2];
-                doc.SelectSingleNode("/configs/modifiers/breakout/highDown/inclusions").InnerText = inclusions[3];
-                doc.SelectSingleNode("/configs/modifiers/breakout/lowUp/inclusions").InnerText = inclusions[4];
-                doc.SelectSingleNode("/configs/modifiers/breakout/lowDown/inclusions").InnerText = inclusions[5];
-                doc.SelectSingleNode("/configs/modifiers/breakout/up/exclusions").InnerText = exclusions[0];
-                doc.SelectSingleNode("/configs/modifiers/breakout/down/exclusions").InnerText = exclusions[1];
-                doc.SelectSingleNode("/configs/modifiers/breakout/highUp/exclusions").InnerText = exclusions[2];
-                doc.SelectSingleNode("/configs/modifiers/breakout/highDown/exclusions").InnerText = exclusions[3];
-                doc.SelectSingleNode("/configs/modifiers/breakout/lowUp/exclusions").InnerText = exclusions[4];
-                doc.SelectSingleNode("/configs/modifiers/breakout/lowDown/exclusions").InnerText = exclusions[5];
-            }
-            else
-            {
-                doc.SelectSingleNode("/configs/modifiers/zone/up/inclusions").InnerText = inclusions[0];
-                doc.SelectSingleNode("/configs/modifiers/zone/down/inclusions").InnerText = inclusions[1];
-                doc.SelectSingleNode("/configs/modifiers/zone/highUp/inclusions").InnerText = inclusions[2];
-                doc.SelectSingleNode("/configs/modifiers/zone/highDown/inclusions").InnerText = inclusions[3];
-                doc.SelectSingleNode("/configs/modifiers/zone/lowUp/inclusions").InnerText = inclusions[4];
-                doc.SelectSingleNode("/configs/modifiers/zone/lowDown/inclusions").InnerText = inclusions[5];
-                doc.SelectSingleNode("/configs/modifiers/zone/up/exclusions").InnerText = exclusions[0];
-                doc.SelectSingleNode("/configs/modifiers/zone/down/exclusions").InnerText = exclusions[1];
-                doc.SelectSingleNode("/configs/modifiers/zone/highUp/exclusions").InnerText = exclusions[2];
-                doc.SelectSingleNode("/configs/modifiers/zone/highDown/exclusions").InnerText = exclusions[3];
-                doc.SelectSingleNode("/configs/modifiers/zone/lowUp/exclusions").InnerText = exclusions[4];
-                doc.SelectSingleNode("/configs/modifiers/zone/lowDown/exclusions").InnerText = exclusions[5];
-            }
-            doc.Save(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
-        }
 
         //setting up a bunch of things
         private void SyncForm_Load(object sender, EventArgs e)
@@ -244,18 +192,12 @@ namespace SyncManager
             {
                 ClientComputer cc = new ClientComputer(this, lowBottomBound+i);
                 clientComps[i] = cc;
-                if (type == 1)
-                {
-                    cc.setRoom(parentForm.compInfo[i].roomName);
-                    cc.setIP(parentForm.compInfo[i].ip);
-                }
-                else
-                {
-                    cc.setRoom(parentForm.breakoutCompInfo[i].roomName);
-                    cc.setIP(parentForm.breakoutCompInfo[i].ip);
-                }
+                cc.setRoom(compInfo[i].roomName);
+                cc.setIP(compInfo[i].ip);
                 compPanel.Controls.Add(cc);
 
+                index2ip.Add(i, compInfo[i].ip);
+                
                 //hiding low and high checks for high and low computers
                 if (lowBottomBound + i <= lowTopBound)
                 {
@@ -304,6 +246,61 @@ namespace SyncManager
 
             //if you don't focus on the comp panel, the user won't be able to scroll
             compPanel.Focus();
+        }
+
+
+        //saves the modifiers to the config file (duh)
+        public void saveModsToConfig()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
+
+            if (type == 1)
+            {
+                doc.SelectSingleNode("/configs/modifiers/speakerReady/up/inclusions").InnerText = inclusions[0];
+                doc.SelectSingleNode("/configs/modifiers/speakerReady/down/inclusions").InnerText = inclusions[1];
+                doc.SelectSingleNode("/configs/modifiers/speakerReady/highUp/inclusions").InnerText = inclusions[2];
+                doc.SelectSingleNode("/configs/modifiers/speakerReady/highDown/inclusions").InnerText = inclusions[3];
+                doc.SelectSingleNode("/configs/modifiers/speakerReady/lowUp/inclusions").InnerText = inclusions[4];
+                doc.SelectSingleNode("/configs/modifiers/speakerReady/lowDown/inclusions").InnerText = inclusions[5];
+                doc.SelectSingleNode("/configs/modifiers/speakerReady/up/exclusions").InnerText = exclusions[0];
+                doc.SelectSingleNode("/configs/modifiers/speakerReady/down/exclusions").InnerText = exclusions[1];
+                doc.SelectSingleNode("/configs/modifiers/speakerReady/highUp/exclusions").InnerText = exclusions[2];
+                doc.SelectSingleNode("/configs/modifiers/speakerReady/highDown/exclusions").InnerText = exclusions[3];
+                doc.SelectSingleNode("/configs/modifiers/speakerReady/lowUp/exclusions").InnerText = exclusions[4];
+                doc.SelectSingleNode("/configs/modifiers/speakerReady/lowDown/exclusions").InnerText = exclusions[5];
+            }
+            else if (type == 2)
+            {
+                doc.SelectSingleNode("/configs/modifiers/breakout/up/inclusions").InnerText = inclusions[0];
+                doc.SelectSingleNode("/configs/modifiers/breakout/down/inclusions").InnerText = inclusions[1];
+                doc.SelectSingleNode("/configs/modifiers/breakout/highUp/inclusions").InnerText = inclusions[2];
+                doc.SelectSingleNode("/configs/modifiers/breakout/highDown/inclusions").InnerText = inclusions[3];
+                doc.SelectSingleNode("/configs/modifiers/breakout/lowUp/inclusions").InnerText = inclusions[4];
+                doc.SelectSingleNode("/configs/modifiers/breakout/lowDown/inclusions").InnerText = inclusions[5];
+                doc.SelectSingleNode("/configs/modifiers/breakout/up/exclusions").InnerText = exclusions[0];
+                doc.SelectSingleNode("/configs/modifiers/breakout/down/exclusions").InnerText = exclusions[1];
+                doc.SelectSingleNode("/configs/modifiers/breakout/highUp/exclusions").InnerText = exclusions[2];
+                doc.SelectSingleNode("/configs/modifiers/breakout/highDown/exclusions").InnerText = exclusions[3];
+                doc.SelectSingleNode("/configs/modifiers/breakout/lowUp/exclusions").InnerText = exclusions[4];
+                doc.SelectSingleNode("/configs/modifiers/breakout/lowDown/exclusions").InnerText = exclusions[5];
+            }
+            else
+            {
+                doc.SelectSingleNode("/configs/modifiers/zone/up/inclusions").InnerText = inclusions[0];
+                doc.SelectSingleNode("/configs/modifiers/zone/down/inclusions").InnerText = inclusions[1];
+                doc.SelectSingleNode("/configs/modifiers/zone/highUp/inclusions").InnerText = inclusions[2];
+                doc.SelectSingleNode("/configs/modifiers/zone/highDown/inclusions").InnerText = inclusions[3];
+                doc.SelectSingleNode("/configs/modifiers/zone/lowUp/inclusions").InnerText = inclusions[4];
+                doc.SelectSingleNode("/configs/modifiers/zone/lowDown/inclusions").InnerText = inclusions[5];
+                doc.SelectSingleNode("/configs/modifiers/zone/up/exclusions").InnerText = exclusions[0];
+                doc.SelectSingleNode("/configs/modifiers/zone/down/exclusions").InnerText = exclusions[1];
+                doc.SelectSingleNode("/configs/modifiers/zone/highUp/exclusions").InnerText = exclusions[2];
+                doc.SelectSingleNode("/configs/modifiers/zone/highDown/exclusions").InnerText = exclusions[3];
+                doc.SelectSingleNode("/configs/modifiers/zone/lowUp/exclusions").InnerText = exclusions[4];
+                doc.SelectSingleNode("/configs/modifiers/zone/lowDown/exclusions").InnerText = exclusions[5];
+            }
+            doc.Save(@"\\127.0.0.1\cshow\extras\syncManagerConfig.xml");
         }
 
         //resizes all the names so that they match the width of the widest one, 
@@ -524,10 +521,11 @@ namespace SyncManager
                                 {
                                     throw;
                                 }
-                                //if we aren't running this sync, sleep for 100ms, so that you don't run the while loop millions of times
-                                if (!shouldSync.Checked)
-                                    Thread.Sleep(1000);
+                                
                             }
+                            //if we aren't running this sync, sleep for 100ms, so that you don't run the while loop millions of times
+                            if (!shouldSync.Checked)
+                                Thread.Sleep(1000);
                         }
                         catch
                         {
@@ -1031,7 +1029,7 @@ namespace SyncManager
             }
             if(!parentForm.breakoutWindowOpen)
             {
-                parentForm.breakoutSync = new SyncForm(parentForm, compInfo 2);
+                parentForm.breakoutSync = new SyncForm(parentForm, compInfo, 2);
                 parentForm.breakoutWindowOpen = true;
                 parentForm.breakoutSync.Show();
             }
