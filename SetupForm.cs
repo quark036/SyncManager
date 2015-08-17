@@ -358,13 +358,13 @@ namespace SyncManager
         //creates the different syncform windows
         public void launch()
         {
-            speakerReadySync = new SyncForm(this, 1);
+            speakerReadySync = new SyncForm(this, speakerCompInfo, 1);
             speakerReadyWindowOpen = true;
             speakerReadySync.Show();
-            breakoutSync = new SyncForm(this, 2);
+            breakoutSync = new SyncForm(this, breakoutCompInfo, 2);
             breakoutWindowOpen = true;
             breakoutSync.Show();
-            zoneSync = new SyncForm(this, 3);
+            zoneSync = new SyncForm(this, breakoutCompInfo, 3);
             zoneWindowOpen = true;
             zoneSync.Show();
             Hide();

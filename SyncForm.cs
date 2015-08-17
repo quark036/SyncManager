@@ -23,6 +23,7 @@ namespace SyncManager
         //lots of global variables
         private int[] ipBounds; //speaker ready start, end, breakout start, end
         public int numComps;
+        public Dictionary<int, int> index2ip; //so that it is easy to iterate through the computers, the key is the index, the value is the ip to sync to
         public ClientComputer[] clientComps;
         private SetupForm parentForm;
         private bool[] runningSyncs;
@@ -46,9 +47,10 @@ namespace SyncManager
         public string serverIP;
         public string cshowHighLoc;
         public string cshowLowLoc;
+        SetupForm.Comp[] compInfo;
         
         //type: 1=speaker ready, 2=breakout
-        public SyncForm(SetupForm myParent, int myType)
+        public SyncForm(SetupForm myParent, SetupForm.Comp[] myCompInfo, int myType)
         {
             InitializeComponent();
 
@@ -70,7 +72,7 @@ namespace SyncManager
             numCompsActiveByType = new int[6];
             for (int i = 0; i < 6; i++)
                 exclusions[i] = univFilter;
-            if (type == 1)
+            if (type == 1) //speaker ready
             {
                 numComps = Math.Abs(ipBounds[1] - ipBounds[0])+1;
                 lowBottomBound = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/startSRLow").InnerText);
@@ -91,7 +93,7 @@ namespace SyncManager
                 exclusions[4] = doc.SelectSingleNode("/configs/modifiers/speakerReady/lowUp/exclusions").InnerText;
                 exclusions[5] = doc.SelectSingleNode("/configs/modifiers/speakerReady/lowDown/exclusions").InnerText;
             }
-            else if(type==2)
+            else if(type==2) //breakout
             {
                 numComps = Math.Abs(ipBounds[3] - ipBounds[2])+1;
                 lowBottomBound = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/startBOLow").InnerText);
@@ -112,7 +114,7 @@ namespace SyncManager
                 exclusions[4] = doc.SelectSingleNode("/configs/modifiers/breakout/lowUp/exclusions").InnerText;
                 exclusions[5] = doc.SelectSingleNode("/configs/modifiers/breakout/lowDown/exclusions").InnerText;
             }
-            else
+            else //zone
             {
                 numComps = Math.Abs(ipBounds[3] - ipBounds[2]) + 1;
                 lowBottomBound = Convert.ToInt16(doc.SelectSingleNode("/configs/divisions/startBOLow").InnerText);
@@ -169,6 +171,7 @@ namespace SyncManager
                 switchType[i] = false;
             }
             lowestIP = lowBottomBound;
+            SetupForm.Comp[] compInfo = myCompInfo;
         }
 
         //saves the modifiers to the config file (duh)
@@ -1022,19 +1025,19 @@ namespace SyncManager
         {
             if(!parentForm.speakerReadyWindowOpen)
             {
-                parentForm.speakerReadySync = new SyncForm(parentForm, 1);
+                parentForm.speakerReadySync = new SyncForm(parentForm,compInfo,1);
                 parentForm.speakerReadyWindowOpen = true;
                 parentForm.speakerReadySync.Show();
             }
             if(!parentForm.breakoutWindowOpen)
             {
-                parentForm.breakoutSync = new SyncForm(parentForm, 2);
+                parentForm.breakoutSync = new SyncForm(parentForm, compInfo 2);
                 parentForm.breakoutWindowOpen = true;
                 parentForm.breakoutSync.Show();
             }
             if(!parentForm.zoneWindowOpen)
             {
-                parentForm.zoneSync = new SyncForm(parentForm, 3);
+                parentForm.zoneSync = new SyncForm(parentForm, compInfo, 3);
                 parentForm.zoneWindowOpen = true;
                 parentForm.zoneSync.Show();
             }
