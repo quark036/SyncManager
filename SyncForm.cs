@@ -1044,6 +1044,12 @@ namespace SyncManager
         //stuff to do with resizing and the open windows button
         private void SyncForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            upSyncWorker.Dispose();
+            downSyncWorker.Dispose();
+            hiUpSyncWorker.Dispose();
+            hiDownSyncWorker.Dispose();
+            lowUpSyncWorker.Dispose();
+            lowDownSyncWorker.Dispose();
             if (type == 1)
                 parentForm.speakerReadyWindowOpen = false;
             else if (type == 2)
