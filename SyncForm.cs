@@ -523,7 +523,7 @@ namespace SyncManager
                                 }
                                 
                             }
-                            //if we aren't running this sync, sleep for 100ms, so that you don't run the while loop millions of times
+                            //if we aren't running this sync, sleep for 1s, so that you don't run the while loop millions of times
                             if (!shouldSync.Checked)
                                 Thread.Sleep(1000);
                         }
