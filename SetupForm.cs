@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -21,12 +22,16 @@ namespace SyncManager
         public bool mustResize;
         public bool isClassC;
         public string serverIP;
+        public Dictionary<int, int> dictSR;
+        public Dictionary<int, int> dictBO;
 
         public SetupForm()
         {
             InitializeComponent();
             firstTime = false;
             mustResize = false;
+            dictBO = new Dictionary<int, int>();
+            dictSR = new Dictionary<int, int>();
         }
 
         //if the config file doesn't exist, this will set up the xml nodes for it
@@ -318,9 +323,15 @@ namespace SyncManager
                         breakoutCompInfo = new Comp[compInfo.Length - i];
                         speakerCompInfo = new Comp[i];
                         for (int j = i; j < compInfo.Length; j++)
+                        {
+                            dictBO.Add(j - i, compInfo[j].ip);
                             breakoutCompInfo[j - i] = compInfo[j];
+                        }
                         for (int j = 0; j < i; j++)
+                        {
+                            dictSR.Add(j, compInfo[j].ip);
                             speakerCompInfo[j] = compInfo[j];
+                        }
                     }
                     else
                     {
@@ -338,10 +349,15 @@ namespace SyncManager
                         breakoutCompInfo = new Comp[split];
                         speakerCompInfo = new Comp[compInfo.Length - split];
                         for (int j = split; j < compInfo.Length; j++)
+                        {
+                            dictSR.Add(j - split, compInfo[j].ip);
                             speakerCompInfo[j - split] = compInfo[j];
+                        }
                         for (int j = 0; j < split; j++)
+                        {
+                            dictBO.Add(j, compInfo[j].ip);
                             breakoutCompInfo[j] = compInfo[j];
-
+                        }
                     }
                 }
                 //then it saves some info to the config, if it is first time
@@ -358,24 +374,16 @@ namespace SyncManager
         //creates the different syncform windows
         public void launch()
         {
-            speakerReadySync = new SyncForm(this, speakerCompInfo, 1);
+            speakerReadySync = new SyncForm(this, dictSR, speakerCompInfo, 1);
             speakerReadyWindowOpen = true;
             speakerReadySync.Show();
-            breakoutSync = new SyncForm(this, breakoutCompInfo, 2);
+            breakoutSync = new SyncForm(this, dictBO, breakoutCompInfo, 2);
             breakoutWindowOpen = true;
             breakoutSync.Show();
-            zoneSync = new SyncForm(this, breakoutCompInfo, 3);
+            zoneSync = new SyncForm(this, dictBO, breakoutCompInfo, 3);
             zoneWindowOpen = true;
             zoneSync.Show();
             Hide();
-        }
-
-        //I'm ashamed of this function
-        //what was I thinking
-        //don't look at me
-        public void quit()
-        {
-            Close();
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)

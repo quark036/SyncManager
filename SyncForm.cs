@@ -47,10 +47,11 @@ namespace SyncManager
         public string serverIP;
         public string cshowHighLoc;
         public string cshowLowLoc;
-        SetupForm.Comp[] compInfo;
+        public SetupForm.Comp[] compInfo;
+
         
         //type: 1=speaker ready, 2=breakout
-        public SyncForm(SetupForm myParent, SetupForm.Comp[] myCompInfo, int myType)
+        public SyncForm(SetupForm myParent, Dictionary<int,int> compDict, SetupForm.Comp[] myCompInfo, int myType)
         {
             InitializeComponent();
 
@@ -172,7 +173,7 @@ namespace SyncManager
             }
             lowestIP = lowBottomBound;
             compInfo = myCompInfo;
-            index2ip = new Dictionary<int, int>();
+            index2ip = compDict;
         }
 
 
@@ -195,8 +196,6 @@ namespace SyncManager
                 cc.setRoom(compInfo[i].roomName);
                 cc.setIP(compInfo[i].ip);
                 compPanel.Controls.Add(cc);
-
-                index2ip.Add(i, compInfo[i].ip);
                 
                 //hiding low and high checks for high and low computers
                 if (lowBottomBound + i <= lowTopBound)
@@ -1023,19 +1022,19 @@ namespace SyncManager
         {
             if(!parentForm.speakerReadyWindowOpen)
             {
-                parentForm.speakerReadySync = new SyncForm(parentForm,compInfo,1);
+                parentForm.speakerReadySync = new SyncForm(parentForm, parentForm.dictSR, parentForm.speakerCompInfo,1);
                 parentForm.speakerReadyWindowOpen = true;
                 parentForm.speakerReadySync.Show();
             }
             if(!parentForm.breakoutWindowOpen)
             {
-                parentForm.breakoutSync = new SyncForm(parentForm, compInfo, 2);
+                parentForm.breakoutSync = new SyncForm(parentForm, parentForm.dictBO, parentForm.breakoutCompInfo, 2);
                 parentForm.breakoutWindowOpen = true;
                 parentForm.breakoutSync.Show();
             }
             if(!parentForm.zoneWindowOpen)
             {
-                parentForm.zoneSync = new SyncForm(parentForm, compInfo, 3);
+                parentForm.zoneSync = new SyncForm(parentForm, parentForm.dictBO, parentForm.breakoutCompInfo, 2);
                 parentForm.zoneWindowOpen = true;
                 parentForm.zoneSync.Show();
             }
