@@ -297,42 +297,49 @@ namespace SyncManager
             // upSyncWorker
             // 
             this.upSyncWorker.WorkerReportsProgress = true;
+            this.upSyncWorker.WorkerSupportsCancellation = true;
             this.upSyncWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.syncWorker_DoWork);
             this.upSyncWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.syncWorker_ProgressChanged);
             // 
             // downSyncWorker
             // 
             this.downSyncWorker.WorkerReportsProgress = true;
+            this.downSyncWorker.WorkerSupportsCancellation = true;
             this.downSyncWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.syncWorker_DoWork);
             this.downSyncWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.syncWorker_ProgressChanged);
             // 
             // hiUpSyncWorker
             // 
             this.hiUpSyncWorker.WorkerReportsProgress = true;
+            this.hiUpSyncWorker.WorkerSupportsCancellation = true;
             this.hiUpSyncWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.syncWorker_DoWork);
             this.hiUpSyncWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.syncWorker_ProgressChanged);
             // 
             // hiDownSyncWorker
             // 
             this.hiDownSyncWorker.WorkerReportsProgress = true;
+            this.hiDownSyncWorker.WorkerSupportsCancellation = true;
             this.hiDownSyncWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.syncWorker_DoWork);
             this.hiDownSyncWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.syncWorker_ProgressChanged);
             // 
             // lowUpSyncWorker
             // 
             this.lowUpSyncWorker.WorkerReportsProgress = true;
+            this.lowUpSyncWorker.WorkerSupportsCancellation = true;
             this.lowUpSyncWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.syncWorker_DoWork);
             this.lowUpSyncWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.syncWorker_ProgressChanged);
             // 
             // lowDownSyncWorker
             // 
             this.lowDownSyncWorker.WorkerReportsProgress = true;
+            this.lowDownSyncWorker.WorkerSupportsCancellation = true;
             this.lowDownSyncWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.syncWorker_DoWork);
             this.lowDownSyncWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.syncWorker_ProgressChanged);
             // 
             // connectionWorker
             // 
             this.connectionWorker.WorkerReportsProgress = true;
+            this.connectionWorker.WorkerSupportsCancellation = true;
             this.connectionWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.connectionWorker_DoWork);
             this.connectionWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.connectionWorker_ProgressChanged);
             // 
@@ -511,6 +518,7 @@ namespace SyncManager
             // connectionWorker2
             // 
             this.connectionWorker2.WorkerReportsProgress = true;
+            this.connectionWorker2.WorkerSupportsCancellation = true;
             this.connectionWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.connectionWorker2_DoWork);
             this.connectionWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.connectionWorker_ProgressChanged);
             // 

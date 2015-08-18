@@ -514,7 +514,12 @@ namespace SyncManager
                                     //i will loop around between botBound and topBound
                                     i = ++i % topBound;
                                     if (i == 0)
+                                    {
                                         i += botBound;
+                                        Thread.Sleep(1000);
+                                    }
+                                    if (worker.CancellationPending)
+                                        break;
                                 }
                                 catch
                                 {
@@ -525,6 +530,8 @@ namespace SyncManager
                             //if we aren't running this sync, sleep for 1s, so that you don't run the while loop millions of times
                             if (!shouldSync.Checked)
                                 Thread.Sleep(1000);
+                            if (worker.CancellationPending)
+                                break;
                         }
                         catch
                         {
@@ -590,6 +597,8 @@ namespace SyncManager
                 ConnectionProgress conProg = new ConnectionProgress();
                 while (true)
                 {
+                    if (worker.CancellationPending)
+                        break;
                     curIP = clientComps[i].ip;
                     conProg.success = checkCon(baseIP + octet3 + curIP);
                     conProg.compNumber = i;
@@ -623,6 +632,8 @@ namespace SyncManager
                 ConnectionProgress conProg = new ConnectionProgress();
                 while (true)
                 {
+                    if (worker.CancellationPending)
+                        break;
                     a = numComps - 1 - i;
                     curIP = clientComps[a].ip;
                     conProg.success = checkCon(baseIP + octet3 + curIP);
@@ -908,19 +919,19 @@ namespace SyncManager
         {
             if (!switchType[2])
             {
-                for (int i = highBottomBound - 1; i < highTopBound; i++)
+                for (int i = highBottomBound; i <= highTopBound; i++)
                 {
-                    clientComps[i].syncingTypesActive[2] = true;
-                    clientComps[i].setHiUpSyncChk(true);
+                    clientComps[i-lowestIP].syncingTypesActive[2] = true;
+                    clientComps[i-lowestIP].setHiUpSyncChk(true);
                 }
                 switchType[2] = true;
             }
             else
             {
-                for (int i = highBottomBound - 1; i < highTopBound; i++)
+                for (int i = highBottomBound; i <= highTopBound; i++)
                 {
-                    clientComps[i].syncingTypesActive[2] = false;
-                    clientComps[i].setHiUpSyncChk(false);
+                    clientComps[i-lowestIP].syncingTypesActive[2] = false;
+                    clientComps[i-lowestIP].setHiUpSyncChk(false);
                 }
                 switchType[2] = false;
             }
@@ -954,8 +965,8 @@ namespace SyncManager
             {
                 for (int i = lowBottomBound; i < lowTopBound + 1; i++)
                 {
-                    clientComps[i - lowBottomBound].syncingTypesActive[4] = true;
-                    clientComps[i - lowBottomBound].setLoUpSyncChk(true);
+                    clientComps[i - lowestIP].syncingTypesActive[4] = true;
+                    clientComps[i - lowestIP].setLoUpSyncChk(true);
                 }
                 switchType[4] = true;
             }
@@ -963,8 +974,8 @@ namespace SyncManager
             {
                 for (int i = lowBottomBound; i < lowTopBound + 1; i++)
                 {
-                    clientComps[i - lowBottomBound].syncingTypesActive[4] = false;
-                    clientComps[i - lowBottomBound].setLoUpSyncChk(false);
+                    clientComps[i - lowestIP].syncingTypesActive[4] = false;
+                    clientComps[i - lowestIP].setLoUpSyncChk(false);
                 }
                 switchType[4] = false;
             }
@@ -1044,12 +1055,22 @@ namespace SyncManager
         //stuff to do with resizing and the open windows button
         private void SyncForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            upSyncWorker.CancelAsync();
+            downSyncWorker.CancelAsync();
+            hiUpSyncWorker.CancelAsync();
+            hiDownSyncWorker.CancelAsync();
+            lowUpSyncWorker.CancelAsync();
+            lowDownSyncWorker.CancelAsync();
+            connectionWorker.CancelAsync();
+            connectionWorker2.CancelAsync();
             upSyncWorker.Dispose();
             downSyncWorker.Dispose();
             hiUpSyncWorker.Dispose();
             hiDownSyncWorker.Dispose();
             lowUpSyncWorker.Dispose();
             lowDownSyncWorker.Dispose();
+            connectionWorker.Dispose();
+            connectionWorker2.Dispose();
             if (type == 1)
                 parentForm.speakerReadyWindowOpen = false;
             else if (type == 2)
