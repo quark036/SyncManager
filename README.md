@@ -31,3 +31,6 @@ That's all for now.
 
 You should fork the repo so I can see who you are!
 Feel free to contact me with any questions
+
+UPDATE 2:
+Haha nevermind that was just me accessing it from different computers hahahaha.
